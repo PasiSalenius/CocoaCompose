@@ -2,6 +2,8 @@
 
 Collection of Cocoa controls that look just right, offer modern Swift APIs, and nicely compose together.
 
+[![Mastodon](https://img.shields.io/badge/Mastodon-@pasi-blue.svg?style=flat)](https://infosec.exchange/@pasi)
+
 ## Components
 
 All components are set to dynamic type `NSFont.TextStyle.body` by default.

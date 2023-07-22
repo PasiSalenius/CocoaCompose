@@ -26,9 +26,9 @@ import CocoaCompose
 ## Components
 
 CocoaCompose includes these components
+- [Label](https://github.com/PasiSalenius/CocoaCompose#label)
 - [Button](https://github.com/PasiSalenius/CocoaCompose#button)
 - [Checkbox](https://github.com/PasiSalenius/CocoaCompose#checkbox)
-- [Label](https://github.com/PasiSalenius/CocoaCompose#label)
 - [PopUp](https://github.com/PasiSalenius/CocoaCompose#popup)
 - [Radio](https://github.com/PasiSalenius/CocoaCompose#radio)
 - [TextField](https://github.com/PasiSalenius/CocoaCompose#textfield)
@@ -39,6 +39,15 @@ The following two components help build preference window content
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
 
 All components are set to dynamic type `NSFont.TextStyle.body` by default.
+
+### Label
+
+`Label` uses `NSTextField` with background and border drawing disabled.
+
+```swift
+let label = Label(string: "Hello")
+label.stringValue = "Hello world!"
+```
 
 ### Button
 
@@ -72,15 +81,6 @@ checkbox.set(on: false)
 ```
 
 <img width="200" alt="Checkbox" src="Assets/checkbox.png"/>
-
-### Label
-
-`Label` uses `NSTextField` with background and border drawing disabled.
-
-```swift
-let label = Label(string: "Hello")
-label.stringValue = "Hello world!"
-```
 
 ### PopUp
 

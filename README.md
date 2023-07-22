@@ -7,7 +7,7 @@ Collection of Cocoa controls that look just right, offer modern Swift APIs, and 
 [![Build and Test](https://github.com/PasiSalenius/CocoaCompose/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/PasiSalenius/CocoaCompose/actions/workflows/build_and_test.yml)
 [![Mastodon](https://img.shields.io/badge/Mastodon-@pasi-blue.svg?style=flat)](https://infosec.exchange/@pasi)
 
-CocoaCompose was built to make it easier develop [Proxygen](https://freshbits.fi/apps/proxygen/) Mac app, a HTTP proxy tool for testing apps and debugging remote API endpoints.
+CocoaCompose was built to make it easier to develop [Proxygen](https://freshbits.fi/apps/proxygen/) Mac app, a HTTP proxy tool for testing apps and debugging remote API endpoints.
 
 <a href="https://apps.apple.com/us/app/proxygen/id1602229284" target="_blank"><img width="80" alt="Proxygen app icon" src="Assets/proxygen-app-icon.png"/></a>
 
@@ -42,7 +42,7 @@ All components are set to dynamic type `NSFont.TextStyle.body` by default.
 
 ### Label
 
-`Label` uses `NSTextField` with background and border drawing disabled.
+`Label` is an `NSTextField` with background and border drawing disabled.
 
 ```swift
 let label = Label(string: "Hello")
@@ -51,7 +51,7 @@ label.stringValue = "Hello world!"
 
 ### Button
 
-Basic `NSButton` with `bezelStyle` set to `.rounded`. It can be configured with a title and an optional image with its symbol configuration.
+Basic `NSButton` with `bezelStyle` set to `.rounded`. It can be configured with a title and an optional image with a symbol configuration.
 
 ```swift
 let image = NSImage(systemSymbolName: "checkmark.seal.fill", accessibilityDescription: nil)
@@ -66,7 +66,7 @@ let button = Button(title: "Click Me", image: image, symbolConfiguration: config
 
 ### Checkbox
 
-`Checkbox` is an `NSButton` with `buttonType` set to `.switch`. It takes a title and simple boolean for checked status. 
+`Checkbox` is an `NSButton` with `buttonType` set to `.switch`. It takes a title and simple boolean for checked state. 
 
 ```swift
 let checkbox = Checkbox(title: "Select something", on: true) { enabled in
@@ -84,7 +84,7 @@ checkbox.set(on: false)
 
 ### PopUp
 
-`PopUp` combines a `NSPopUpButton` and an optional trailing text label into one easy to use control. Set it up using an array of `String` values and a currently selected index. For no selection use `selectedIndex` value -1. 
+`PopUp` combines a `NSPopUpButton` and an optional trailing text label into one control. Set it up using an array of `String` values and a currently selected index. For no selection use `selectedIndex` value -1. 
 
 ```swift
 let popup = PopUp(items: ["10", "11", "12"], selectedIndex: 2, text: "points") { item in
@@ -110,9 +110,9 @@ popup.set(items: ["One", "Two", "Three"], selectedIndex: -1)
 
 ### Radio
 
-`Radio` is a vertical stack of `NSButton` controls with `buttonType` set to `.radio`. Initialise the component with an optional `selectedIndex` parameter, where -1 indicates no selection.
+`Radio` is a vertical stack of `NSButton` controls with `buttonType` set to `.radio`. Initialise this component with an optional `selectedIndex` parameter, where -1 indicates no selection.
 
-You can append a horizontal stack of views after the radio item, to combine this option with other controls, such as a `TextField`. These trailing views are automatically enabled only for the currently selected item and disabled for other items.
+You can append a horizontal stack of views after the radio item, to combine this option with other controls, such as a `TextField`. These trailing views are automatically enabled for the currently selected item and disabled for other items.
 
 ```swift
 let radio = Radio(items: [

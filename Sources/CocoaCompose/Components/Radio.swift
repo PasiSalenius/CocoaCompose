@@ -9,6 +9,11 @@ public class Radio: NSStackView {
     public struct Item {
         public var title: String
         public var views: [NSView] = []
+        
+        public init(title: String, views: [NSView]) {
+            self.title = title
+            self.views = views
+        }
     }
 
     public init(items: [Item] = [], selectedIndex: Int = -1, onChange: ((Int) -> Void)? = nil) {

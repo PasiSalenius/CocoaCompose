@@ -65,7 +65,7 @@ label.stringValue = "Hello world!"
 `PopUp` combines a `NSPopUpButton` and an optional trailing text label into one easy to use control. Set it up using an array of `String` values and a currently selected index. For no selection use `selectedIndex` value -1. 
 
 ```swift
-let popup = PopUp(items: ["10", "11", "12"], selectedIndex: 2, text: "points") { index in
+let popup = PopUp(items: ["10", "11", "12"], selectedIndex: 2, text: "points") { item in
     // do something here ...
 }
 ```

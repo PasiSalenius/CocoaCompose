@@ -1,7 +1,7 @@
 import Cocoa
 
 public class Label: NSTextField {
-    public init(_ string: String = "") {
+    public init(string: String = "") {
         super.init(frame: .zero)
 
         stringValue = string

@@ -46,7 +46,7 @@ checkbox.set(on: false)
 `Label` uses `NSTextField` with background and border drawing disabled.
 
 ```swift
-let label = Label("Hello")
+let label = Label(string: "Hello")
 label.stringValue = "Hello world!"
 ```
 

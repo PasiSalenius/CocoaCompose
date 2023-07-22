@@ -14,7 +14,7 @@ Basic `NSButton` with `bezelStyle` set to `.rounded`. It can be configured with 
 let image = NSImage(systemSymbolName: "checkmark.seal.fill", accessibilityDescription: nil)
 let configuration = NSImage.SymbolConfiguration(paletteColors: [.white, .systemGreen])
 
-let button = Button(title: "Click Me".localized, image: image, symbolConfiguration: configuration) {
+let button = Button(title: "Click Me", image: image, symbolConfiguration: configuration) {
     // do something here ...
 }
 ```

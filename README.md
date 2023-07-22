@@ -23,7 +23,7 @@ let button = Button(title: "Click Me", image: image, symbolConfiguration: config
 
 ### Checkbox
 
-Checkbox is an `NSButton` with `buttonType` set to `.switch`. It takes a title and simple boolean for checked status. 
+`Checkbox` is an `NSButton` with `buttonType` set to `.switch`. It takes a title and simple boolean for checked status. 
 
 ```swift
 let checkbox = Checkbox(title: "Select something", on: true) { enabled in
@@ -41,7 +41,7 @@ checkbox.set(on: false)
 
 ### Label
 
-Label uses `NSTextField` with background and border drawing disabled.
+`Label` uses `NSTextField` with background and border drawing disabled.
 
 ```swift
 let label = Label("Hello")
@@ -50,7 +50,7 @@ label.stringValue = "Hello world!"
 
 ### PopUp
 
-PopUp combines a `NSPopUpButton` and an optional trailing text label into one easy to use control. Set it up using an array of `String` values and a currently selected index. For no selection use `selectedIndex` value -1. 
+`PopUp` combines a `NSPopUpButton` and an optional trailing text label into one easy to use control. Set it up using an array of `String` values and a currently selected index. For no selection use `selectedIndex` value -1. 
 
 ```swift
 let popup = PopUp(items: ["10", "11", "12"], selectedIndex: 2, text: "points") { index in
@@ -76,9 +76,9 @@ popup.set(items: ["One", "Two", "Three"], selectedIndex: -1)
 
 ### Radio
 
-Radio is a vertical stack of NSButton controls with `buttonType` set to `.radio`. Initialise the component with an optional selectedIndex parameter, where -1 indicates no selection.
+`Radio` is a vertical stack of `NSButton` controls with `buttonType` set to `.radio`. Initialise the component with an optional `selectedIndex` parameter, where -1 indicates no selection.
 
-You can append a horizontal stack of views after the radio item, to combine this option with other controls, such as a text field. These trailing views are automatically enabled only for the currently selected radio item and disabled for other items.
+You can append a horizontal stack of views after the `Radio`, to combine this option with other controls, such as a `TextField`. These trailing views are automatically enabled only for the currently selected item and disabled for other items.
 
 ```swift
 let radio = Radio(items: [
@@ -104,9 +104,7 @@ radio.set(selectedIndex: 2)
 
 ### TextField
 
-TextField is a NSTextField with an optional trailing Label. .
-
-You can append a horizontal stack of views after the radio item, to combine this option with other controls, such as a text field. These trailing views are automatically enabled only for the currently selected radio item and disabled for other items.
+`TextField` is an `NSTextField` with an optional trailing `Label`.
 
 ```swift
 let textField = TextField(value: "30", text: "seconds") { text in
@@ -121,6 +119,16 @@ textField.set(value: "50")
 ```
 
 <img width="180" alt="TextField" src="Assets/textfield.png"/>
+
+### Separator
+
+`Separator` can be configured to horizontal or vertical orientation. Its has partly transparent gray color and has 1 point width. 
+
+Use separators between sections of options in a preferences window.
+
+```swift
+let separator = Separator(orientation: .horizontal)
+```
 
 ## Composing components together
 

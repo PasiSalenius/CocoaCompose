@@ -182,7 +182,10 @@ PreferenceList(views: [
 The views in the section can be places horizontally with `orientation: .horizontal`. 
 
 ```swift
-PreferenceSection(title: "Options:", footer: "This text appears below a section.", orientation: .vertical, views: [
+PreferenceSection(title: "Options:",
+                  footer: "This text appears below a section.",
+                  orientation: .vertical,
+                  views: [
     ...
 ])
 ```

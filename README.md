@@ -2,6 +2,8 @@
 
 Collection of Cocoa controls that look just right, offer modern Swift APIs, and nicely compose together.
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPasiSalenius%2FCocoaCompose%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/PasiSalenius/CocoaCompose)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPasiSalenius%2FCocoaCompose%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/PasiSalenius/CocoaCompose)
 [![Mastodon](https://img.shields.io/badge/Mastodon-@pasi-blue.svg?style=flat)](https://infosec.exchange/@pasi)
 
 ## Usage
@@ -17,6 +19,19 @@ import CocoaCompose
 ## Components
 
 All components are set to dynamic type `NSFont.TextStyle.body` by default.
+
+CocoaCompose includes these components
+- [Button](https://github.com/PasiSalenius/CocoaCompose#button)
+- [Checkbox](https://github.com/PasiSalenius/CocoaCompose#checkbox)
+- [Label](https://github.com/PasiSalenius/CocoaCompose#label)
+- [PopUp](https://github.com/PasiSalenius/CocoaCompose#popup)
+- [Radio](https://github.com/PasiSalenius/CocoaCompose#radio)
+- [TextField](https://github.com/PasiSalenius/CocoaCompose#textfield)
+- [Separator](https://github.com/PasiSalenius/CocoaCompose#separator)
+
+The following two components help build preference window content
+- [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
+- [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
 
 ### Button
 

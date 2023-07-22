@@ -1,9 +1,11 @@
 import Cocoa
 
 public class Label: NSTextField {
-    public init() {
+    public init(_ string: String = "") {
         super.init(frame: .zero)
 
+        stringValue = string
+        font = .preferredFont(forTextStyle: .body)
         textColor = .labelColor
         usesSingleLineMode = true
         alignment = .left

@@ -37,7 +37,7 @@ Configure its checked status using `set(on: Bool)` method.
 checkbox.set(on: false)
 ```
 
-<img width="150" alt="Checkbox" src="Assets/checkbox.png"/>
+<img width="200" alt="Checkbox" src="Assets/checkbox.png"/>
 
 ### Label
 
@@ -100,7 +100,7 @@ Configure its selected item.
 radio.set(selectedIndex: 2)
 ```
 
-<img width="150" alt="Radio" src="Assets/radio.png"/>
+<img width="250" alt="Radio" src="Assets/radio.png"/>
 
 ### TextField
 
@@ -120,7 +120,7 @@ Configure its value using the following method.
 textField.set(value: "50")
 ```
 
-<img width="150" alt="TextField" src="Assets/textfield.png"/>
+<img width="180" alt="TextField" src="Assets/textfield.png"/>
 
 ## Composing components together
 
@@ -150,7 +150,9 @@ PreferenceSection(title: "Options:", footer: "This text appears below a section.
 ])
 ```
 
-### Example initialisation of a preferences window using `PreferenceList` containing multiple `PreferenceSection` each with their own components.
+### Example
+
+The following example initialises a preferences window using `PreferenceList` containing multiple `PreferenceSection` that each have their own components.
 
 <img width="450" alt="Preferences window" src="Assets/preferences.png"/> 
 

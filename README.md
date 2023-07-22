@@ -150,7 +150,7 @@ PreferenceList(views: [
 
 ### PreferenceSection
 
-`PreferenceSection` takes in a list of sections and takes care of appropriate spacing between them.
+`PreferenceSection` takes in a list of components, spaces them from each other, and can show an optional footer text below all of the components in that section.
 
 The views in the section can be places horizontally with `orientation: .horizontal`. 
 

@@ -4,6 +4,16 @@ Collection of Cocoa controls that look just right, offer modern Swift APIs, and 
 
 [![Mastodon](https://img.shields.io/badge/Mastodon-@pasi-blue.svg?style=flat)](https://infosec.exchange/@pasi)
 
+## Usage
+
+Add CocoaCompose in Xcode under Project > Package Dependencies.
+
+Then import it as shown below:
+
+```swift
+import CocoaCompose
+```
+
 ## Components
 
 All components are set to dynamic type `NSFont.TextStyle.body` by default.

@@ -9,7 +9,7 @@ Collection of Cocoa controls that look just right, offer modern Swift APIs, and 
 
 CocoaCompose was built to make it easier develop [Proxygen](https://freshbits.fi/apps/proxygen/) Mac app, a HTTP proxy tool for testing apps and debugging remote API endpoints.
 
-<a href="https://apps.apple.com/us/app/proxygen/id1602229284" target="_blank"><img width="100" alt="Proxygen app icon" src="Assets/proxygen-app-icon.png"/></a>
+<a href="https://apps.apple.com/us/app/proxygen/id1602229284" target="_blank"><img width="80" alt="Proxygen app icon" src="Assets/proxygen-app-icon.png"/></a>
 
 <a href="https://apps.apple.com/us/app/proxygen/id1602229284" target="_blank"><img width="100" alt="Download on the App Store" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"/></a>
 

@@ -7,8 +7,8 @@ public class Radio: NSStackView {
     public var onChange: ((Int) -> Void)?
 
     public struct Item {
-        var title: String
-        var views: [NSView] = []
+        public var title: String
+        public var views: [NSView] = []
     }
 
     public init(items: [Item] = [], selectedIndex: Int = -1, onChange: ((Int) -> Void)? = nil) {

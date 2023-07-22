@@ -154,7 +154,7 @@ PreferenceSection(title: "Options:", footer: "This text appears below a section.
 
 The following example initialises a preferences window using `PreferenceList` containing multiple `PreferenceSection` that each have their own components.
 
-<img width="450" alt="Preferences window" src="Assets/preferences.png"/> 
+<img width="550" alt="Preferences window" src="Assets/preferences.png"/> 
 
 ```swift
 override func loadView() {

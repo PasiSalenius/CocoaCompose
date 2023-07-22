@@ -6,7 +6,7 @@ public class Checkbox: NSStackView {
     
     public var onChange: ((Bool) -> Void)?
     
-    init(title: String = "", on: Bool = false, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
+    public init(title: String = "", on: Bool = false, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
         self.trailingViews = views
         self.onChange = onChange
         

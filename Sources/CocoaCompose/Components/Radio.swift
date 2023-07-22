@@ -8,9 +8,9 @@ public class Radio: NSStackView {
 
     public struct Item {
         public var title: String
-        public var views: [NSView] = []
+        public var views: [NSView]
         
-        public init(title: String, views: [NSView]) {
+        public init(title: String, views: [NSView] = []) {
             self.title = title
             self.views = views
         }

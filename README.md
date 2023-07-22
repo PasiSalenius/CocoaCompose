@@ -11,7 +11,7 @@ CocoaCompose was built to make it easier develop [Proxygen](https://freshbits.fi
 
 <a href="https://apps.apple.com/us/app/proxygen/id1602229284" target="_blank"><img width="80" alt="Proxygen app icon" src="Assets/proxygen-app-icon.png"/></a>
 
-<a href="https://apps.apple.com/us/app/proxygen/id1602229284" target="_blank"><img width="100" alt="Download on the App Store" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"/></a>
+<a href="https://apps.apple.com/us/app/proxygen/id1602229284" target="_blank"><img width="150" alt="Download on the App Store" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"/></a>
 
 ## Usage
 

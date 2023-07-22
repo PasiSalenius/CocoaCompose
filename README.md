@@ -78,7 +78,7 @@ popup.set(items: ["One", "Two", "Three"], selectedIndex: -1)
 
 `Radio` is a vertical stack of `NSButton` controls with `buttonType` set to `.radio`. Initialise the component with an optional `selectedIndex` parameter, where -1 indicates no selection.
 
-You can append a horizontal stack of views after the `Radio`, to combine this option with other controls, such as a `TextField`. These trailing views are automatically enabled only for the currently selected item and disabled for other items.
+You can append a horizontal stack of views after the radio item, to combine this option with other controls, such as a `TextField`. These trailing views are automatically enabled only for the currently selected item and disabled for other items.
 
 ```swift
 let radio = Radio(items: [

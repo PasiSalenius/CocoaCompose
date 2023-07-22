@@ -19,8 +19,6 @@ import CocoaCompose
 
 ## Components
 
-All components are set to dynamic type `NSFont.TextStyle.body` by default.
-
 CocoaCompose includes these components
 - [Button](https://github.com/PasiSalenius/CocoaCompose#button)
 - [Checkbox](https://github.com/PasiSalenius/CocoaCompose#checkbox)
@@ -33,6 +31,8 @@ CocoaCompose includes these components
 The following two components help build preference window content
 - [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
+
+All components are set to dynamic type `NSFont.TextStyle.body` by default.
 
 ### Button
 

@@ -6,7 +6,7 @@ public class TextField: NSStackView, NSTextFieldDelegate {
 
     public var onChange: ((String) -> Void)?
 
-    public init(value: String = "", text: String? = nil, width: CGFloat? = nil, onChange: ((String) -> Void)? = nil) {
+    public init(value: String = "", placeholder: String? = nil, text: String? = nil, width: CGFloat? = nil, onChange: ((String) -> Void)? = nil) {
         self.onChange = onChange
 
         super.init(frame: .zero)
@@ -15,6 +15,7 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         spacing = 7
         
         textField.stringValue = value
+        textField.placeholderString = placeholder
         textField.font = .preferredFont(forTextStyle: .body)
         textField.textColor = .labelColor
         textField.isEditable = true

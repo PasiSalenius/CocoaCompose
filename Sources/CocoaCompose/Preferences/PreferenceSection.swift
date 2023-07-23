@@ -1,16 +1,11 @@
 import Cocoa
 
 public class PreferenceSection: NSStackView {
-    public enum Orientation {
-        case horizontal
-        case vertical
-    }
-    
     private var titleLabel: Label?
     
     var leadAnchor: NSLayoutDimension? { titleLabel?.widthAnchor }
 
-    public init(title: String? = nil, titleAlignment: NSLayoutConstraint.Attribute = .firstBaseline, footer: String? = nil, orientation: Orientation = .vertical, views: [NSView]) {
+    public init(title: String? = nil, titleAlignment: NSLayoutConstraint.Attribute = .firstBaseline, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, views: [NSView]) {
         super.init(frame: .zero)
 
         self.orientation = .horizontal
@@ -21,7 +16,7 @@ public class PreferenceSection: NSStackView {
         self.layer?.masksToBounds = false
                                                                 
         let itemStack = NSStackView(views: views)
-        itemStack.orientation = orientation == .vertical ? .vertical : .horizontal
+        itemStack.orientation = orientation
         itemStack.alignment = orientation == .vertical ? .leading : .centerY
         itemStack.spacing = orientation == .vertical ? 7 : 10
 

@@ -9,10 +9,12 @@ public class Radio: NSStackView {
     public struct Item {
         public var title: String
         public var views: [NSView]
+        public var orientation: NSUserInterfaceLayoutOrientation
         
-        public init(title: String, views: [NSView] = []) {
+        public init(title: String, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
             self.title = title
             self.views = views
+            self.orientation = orientation
         }
     }
 
@@ -40,9 +42,9 @@ public class Radio: NSStackView {
             buttons.append(button)
             
             let stackView = NSStackView(views: [button] + item.views)
-            stackView.orientation = .horizontal
-            stackView.alignment = .centerY
-            stackView.spacing = 8
+            stackView.orientation = item.orientation
+            stackView.alignment = orientation == .vertical ? .leading : .centerY
+            stackView.spacing = orientation == .vertical ? 7 : 10
             
             addArrangedSubview(stackView)
         }

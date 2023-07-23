@@ -23,8 +23,6 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         
         textField.delegate = self
         
-        textField.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        
         addArrangedSubview(textField)
         
         label.stringValue = text ?? ""

@@ -6,7 +6,7 @@ public class TextField: NSStackView, NSTextFieldDelegate {
 
     public var onChange: ((String) -> Void)?
 
-    public init(value: String = "", text: String? = nil, onChange: ((String) -> Void)? = nil) {
+    public init(value: String = "", text: String? = nil, width: CGFloat? = nil, onChange: ((String) -> Void)? = nil) {
         self.onChange = onChange
 
         super.init(frame: .zero)
@@ -22,6 +22,12 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         textField.maximumNumberOfLines = 1
         
         textField.delegate = self
+        
+        if let width {
+            let constraint = textField.widthAnchor.constraint(equalToConstant: width)
+            constraint.priority = .defaultHigh
+            constraint.isActive = true
+        }
         
         addArrangedSubview(textField)
         

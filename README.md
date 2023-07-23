@@ -38,7 +38,7 @@ The following two components help build preference window content
 - [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
 
-All components are set to dynamic type `NSFont.TextStyle.body` by default.
+All of the components are configured to look right in a Mac app out of the box, and come with easy to use initialisers, and take a closure for value changes. All components are set to dynamic type `NSFont.TextStyle.body` by default.
 
 ### Label
 
@@ -84,7 +84,7 @@ checkbox.set(on: false)
 
 ### PopUp
 
-`PopUp` combines a `NSPopUpButton` and an optional trailing text label into one control. Set it up using an array of `String` values and a currently selected index. For no selection use `selectedIndex` value -1. 
+`PopUp` combines a `NSPopUpButton` and an optional trailing text label into one control. Set it up using an array of strings and a currently selected index. For no selection use `selectedIndex` value -1. 
 
 ```swift
 let popup = PopUp(items: ["10", "11", "12"], selectedIndex: 2, text: "points") { item in
@@ -166,9 +166,9 @@ let separator = Separator(orientation: .horizontal)
 
 ## Composing components together
 
-All of the components are configured to look right in a Mac app out of the box, and come with easy to use initialisers, and take a closure for value changes. They can be composed together using compact code, that closely matches the hierarchy of the visual end result.
+Components can be composed together using compact code, that closely matches the hierarchy of the visual end result.
 
-We use two more components to initialise the content for this preferences window.
+We use two more components to initialise the content for a Mac preference window.
 
 ### PreferenceList
 

@@ -10,11 +10,11 @@ public class PreferenceSection: NSStackView {
     
     var leadAnchor: NSLayoutDimension? { titleLabel?.widthAnchor }
 
-    public init(title: String? = nil, footer: String? = nil, orientation: Orientation = .vertical, views: [NSView]) {
+    public init(title: String? = nil, titleAlignment: NSLayoutConstraint.Attribute = .firstBaseline, footer: String? = nil, orientation: Orientation = .vertical, views: [NSView]) {
         super.init(frame: .zero)
 
         self.orientation = .horizontal
-        self.alignment = .firstBaseline
+        self.alignment = titleAlignment
         self.spacing = 8
 
         self.wantsLayer = true

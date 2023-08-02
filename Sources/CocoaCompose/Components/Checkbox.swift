@@ -6,7 +6,7 @@ public class Checkbox: NSStackView {
     
     public var onChange: ((Bool) -> Void)?
     
-    public init(title: String = "", on: Bool = false, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
+    public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, on: Bool = false, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
         self.associatedViews = views
         self.onChange = onChange
         
@@ -17,10 +17,15 @@ public class Checkbox: NSStackView {
         
         button.setButtonType(.switch)
         button.font = .preferredFont(forTextStyle: .body)
-        button.title = title
         button.target = self
         button.action = #selector(buttonAction)
-        
+
+        if let title = attributedTitle {
+            button.attributedTitle = title
+        } else {
+            button.title = title ?? ""
+        }
+
         addArrangedSubview(button)
         
         views.forEach { addArrangedSubview($0) }

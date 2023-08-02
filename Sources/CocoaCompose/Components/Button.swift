@@ -3,14 +3,19 @@ import Cocoa
 public class Button: NSButton {
     public var onClick: (() -> Void)?
     
-    public init(title: String = "", image: NSImage? = nil, symbolConfiguration: NSImage.SymbolConfiguration? = nil, onClick: (() -> Void)? = nil) {
+    public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, image: NSImage? = nil, symbolConfiguration: NSImage.SymbolConfiguration? = nil, onClick: (() -> Void)? = nil) {
         self.onClick = onClick
 
         super.init(frame: .zero)
 
+        if let title = attributedTitle {
+            self.attributedTitle = title
+        } else {
+            self.title = title ?? ""
+        }
+
         self.bezelStyle = .rounded
         self.font = .preferredFont(forTextStyle: .body)
-        self.title = title
         self.image = image
         self.symbolConfiguration = symbolConfiguration
         self.imagePosition = .imageLeading

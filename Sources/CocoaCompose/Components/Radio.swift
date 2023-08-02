@@ -9,13 +9,15 @@ public class Radio: NSStackView {
     public var onChange: ((Int, Int) -> Void)?
 
     public struct Item {
-        public var title: String
+        public var title: String?
+        public var attributedString: NSAttributedString?
         public var footer: String?
         public var views: [NSView]
         public var orientation: NSUserInterfaceLayoutOrientation
         
-        public init(title: String, footer: String? = nil, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
+        public init(title: String? = nil, attributedString: NSAttributedString? = nil, footer: String? = nil, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
             self.title = title
+            self.attributedString = attributedString
             self.footer = footer
             self.views = views
             self.orientation = orientation
@@ -44,11 +46,16 @@ public class Radio: NSStackView {
             let button = NSButton()
             button.font = .preferredFont(forTextStyle: .body)
             button.setButtonType(.radio)
-            button.title = item.title
             button.target = self
             button.action = #selector(buttonAction)
             button.tag = index
-            
+
+            if let string = item.attributedString {
+                button.attributedTitle = string
+            } else {
+                button.title = item.title ?? ""
+            }
+
             buttons.append(button)
             
             let stackView = NSStackView(views: [button] + item.views)

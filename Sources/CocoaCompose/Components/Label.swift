@@ -1,10 +1,15 @@
 import Cocoa
 
 public class Label: NSTextField {
-    public init(string: String = "") {
+    public init(string: String? = nil, attributedString: NSAttributedString? = nil) {
         super.init(frame: .zero)
+        
+        if let string = attributedString {
+            attributedStringValue = string
+        } else {
+            stringValue = string ?? ""
+        }
 
-        stringValue = string
         font = .preferredFont(forTextStyle: .body)
         textColor = .labelColor
         usesSingleLineMode = true

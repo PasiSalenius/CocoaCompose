@@ -10,14 +10,14 @@ public class Radio: NSStackView {
 
     public struct Item {
         public var title: String?
-        public var attributedString: NSAttributedString?
+        public var attributedTitle: NSAttributedString?
         public var footer: String?
         public var views: [NSView]
         public var orientation: NSUserInterfaceLayoutOrientation
         
-        public init(title: String? = nil, attributedString: NSAttributedString? = nil, footer: String? = nil, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
+        public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, footer: String? = nil, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
             self.title = title
-            self.attributedString = attributedString
+            self.attributedTitle = attributedTitle
             self.footer = footer
             self.views = views
             self.orientation = orientation
@@ -50,8 +50,8 @@ public class Radio: NSStackView {
             button.action = #selector(buttonAction)
             button.tag = index
 
-            if let string = item.attributedString {
-                button.attributedTitle = string
+            if let title = item.attributedTitle {
+                button.attributedTitle = title
             } else {
                 button.title = item.title ?? ""
             }

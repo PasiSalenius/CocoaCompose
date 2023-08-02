@@ -196,6 +196,19 @@ PreferenceList(views: [
 ])
 ``` 
 
+### PreferenceGroup
+
+`PreferenceGroup` takes in a list of items that each have a title and horizontal stack of views.
+
+It is useful for creating a list of options that all have their own titles, such as `PopUp` or `TextField` components.  
+
+```swift
+PreferenceGroup(items: [
+    .init(title: "First:", views: [...]),
+    .init(title: "Second:", views: [...]),
+])
+``` 
+
 ### PreferenceSection
 
 `PreferenceSection` takes a title, a list of components, and shows an optional footer text below all of the components in that section. The section title is shown to the left from the section components, right aligned. The title text should end with a colon.

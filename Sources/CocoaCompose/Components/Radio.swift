@@ -6,7 +6,7 @@ public class Radio: NSStackView {
 
     public private(set) var selectedIndex: Int
 
-    public var onChange: ((Int) -> Void)?
+    public var onChange: ((Int, Int) -> Void)?
 
     public struct Item {
         public var title: String
@@ -22,7 +22,7 @@ public class Radio: NSStackView {
         }
     }
 
-    public init(items: [Item] = [], selectedIndex: Int = -1, onChange: ((Int) -> Void)? = nil) {
+    public init(items: [Item] = [], selectedIndex: Int = -1, onChange: ((Int, Int) -> Void)? = nil) {
         self.items = items
         self.selectedIndex = selectedIndex
         self.onChange = onChange
@@ -113,8 +113,9 @@ public class Radio: NSStackView {
 
         items[sender.tag].views.forEach { $0.enableSubviews(true) }
 
+        let previousIndex = selectedIndex
         selectedIndex = sender.tag
 
-        onChange?(sender.tag)
+        onChange?(selectedIndex, previousIndex)
     }
 }

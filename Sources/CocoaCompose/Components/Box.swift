@@ -2,21 +2,9 @@ import Cocoa
 
 public class Box: NSView {
     private let contentView = NSView()
-    private let titleLabel = Label()
 
-    public init(title: String = "", orientation: NSUserInterfaceLayoutOrientation = .vertical, views: [NSView]) {
+    public init(title: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, views: [NSView]) {
         super.init(frame: .zero)
-        
-        titleLabel.font = .preferredFont(forTextStyle: .subheadline)
-        titleLabel.textColor = .secondaryLabelColor
-        titleLabel.stringValue = title
-        
-        let spacer = NSView()
-        spacer.widthAnchor.constraint(equalToConstant: 5).isActive = true
-        
-        let titleStack = NSStackView(views: [spacer, titleLabel])
-        titleStack.orientation = .horizontal
-        titleStack.spacing = 0
         
         contentView.wantsLayer = true
         
@@ -25,12 +13,27 @@ public class Box: NSView {
         contentView.layer?.backgroundColor = NSColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.1).cgColor
         contentView.layer?.cornerRadius = 5
 
-        let stackView = NSStackView(views: [titleStack, contentView])
+        let stackView = NSStackView()
         stackView.orientation = .vertical
         stackView.alignment = .leading
         stackView.spacing = 5
+        
+        if let title {
+            let label = Label()
+            label.font = .preferredFont(forTextStyle: .subheadline)
+            label.textColor = .secondaryLabelColor
+            label.stringValue = title
+            
+            let spacer = NSView()
+            spacer.widthAnchor.constraint(equalToConstant: 5).isActive = true
+            
+            let titleStack = NSStackView(views: [spacer, label])
+            titleStack.orientation = .horizontal
+            titleStack.spacing = 0
 
-        stackView.addArrangedSubview(titleStack)
+            stackView.addArrangedSubview(titleStack)
+        }
+
         stackView.addArrangedSubview(contentView)
 
         addSubview(stackView)

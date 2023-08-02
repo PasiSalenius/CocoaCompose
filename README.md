@@ -98,10 +98,10 @@ checkbox.set(on: false)
 
 ### PopUp
 
-`PopUp` combines a `NSPopUpButton` and an optional trailing text label into one control. Set it up using an array of strings and a currently selected index. For no selection use `selectedIndex` value -1. 
+`PopUp` combines a `NSPopUpButton` and an optional trailing text label into one control. Set it up using an array of items, that have a title and an optional `NSImage`, and a currently selected index. For no selection use `selectedIndex` value -1. 
 
 ```swift
-let popup = PopUp(items: ["10", "11", "12"], selectedIndex: 2, text: "points") { item in
+let popup = PopUp(items: [PopUp.Item(title: "Orange", image: image)] }, selectedIndex: 0, text: "flag") { item in
     // do something here ...
 }
 ```
@@ -117,7 +117,7 @@ popup.onChange = { item in
 Configure its items and selected item.
 
 ```swift
-popup.set(items: ["One", "Two", "Three"], selectedIndex: -1)
+popup.set(items: ["One", "Two", "Three"].map { .init(title: $0) }, selectedIndex: -1)
 ```
 
 <img width="150" alt="PopUp" src="Assets/popup.png"/>

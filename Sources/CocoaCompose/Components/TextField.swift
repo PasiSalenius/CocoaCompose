@@ -5,7 +5,7 @@ public class TextField: NSStackView, NSTextFieldDelegate {
     private let label = Label()
 
     public var onChange: ((String) -> Void)?
-
+    
     public init(value: String = "", placeholder: String? = nil, text: String? = nil, width: CGFloat? = nil, onChange: ((String) -> Void)? = nil) {
         self.onChange = onChange
 
@@ -54,7 +54,7 @@ public class TextField: NSStackView, NSTextFieldDelegate {
     
     // MARK: - Text field delegate
     
-    public func controlTextDidEndEditing(_ object: Notification) {
+    public func controlTextDidChange(_ object: Notification) {
         guard let textField = object.object as? NSTextField else { return }
         
         onChange?(textField.stringValue)

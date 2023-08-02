@@ -4,6 +4,7 @@ public class PreferenceList: NSStackView {
     public init(views: [NSView]) {
         super.init(frame: .zero)
         
+        distribution = .fill
         orientation = .vertical
         alignment = .leading
         spacing = 15
@@ -29,6 +30,8 @@ public class PreferenceList: NSStackView {
     private func leadAnchor(view: NSView) -> NSLayoutDimension? {
         if let preferenceSection = view as? PreferenceSection {
             return preferenceSection.leadAnchor
+        } else if let preferenceGroup = view as? PreferenceGroup {
+            return preferenceGroup.leadAnchor
         }
         
         return nil

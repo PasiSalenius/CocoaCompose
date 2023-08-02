@@ -2,12 +2,12 @@ import Cocoa
 
 public class Checkbox: NSStackView {
     private let button = NSButton()
-    private let trailingViews: [NSView]
+    private let associatedViews: [NSView]
     
     public var onChange: ((Bool) -> Void)?
     
     public init(title: String = "", on: Bool = false, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
-        self.trailingViews = views
+        self.associatedViews = views
         self.onChange = onChange
         
         super.init(frame: .zero)
@@ -34,13 +34,13 @@ public class Checkbox: NSStackView {
     
     public func set(on: Bool) {
         button.state = on ? .on : .off
-        trailingViews.forEach { $0.enableSubviews(on) }
+        associatedViews.forEach { $0.enableSubviews(on) }
     }
     
     // MARK: - Actions
     
     @objc func buttonAction(_ sender: NSButton) {
-        trailingViews.forEach { $0.enableSubviews(sender.state == .on) }
+        associatedViews.forEach { $0.enableSubviews(sender.state == .on) }
         onChange?(sender.state == .on)
     }
 }

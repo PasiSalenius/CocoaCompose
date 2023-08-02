@@ -4,9 +4,19 @@ public class PopUp: NSStackView {
     private let button = NSPopUpButton()
     private let label = Label()
 
-    public var onChange: ((String) -> Void)?
+    public var onChange: ((Int, String) -> Void)?
     
-    public init(items: [String] = [], selectedIndex: Int = -1, text: String? = nil, onChange: ((String) -> Void)? = nil) {
+    public struct Item {
+        var title: String
+        var image: NSImage?
+        
+        public init(title: String, image: NSImage? = nil) {
+            self.title = title
+            self.image = image
+        }
+    }
+    
+    public init(items: [Item] = [], selectedIndex: Int = -1, text: String? = nil, onChange: ((Int, String) -> Void)? = nil) {
         self.onChange = onChange
         
         super.init(frame: .zero)
@@ -18,7 +28,10 @@ public class PopUp: NSStackView {
         button.target = self
         button.action = #selector(buttonAction)
         
-        items.forEach { button.addItem(withTitle: "\($0)") }
+        items.forEach {
+            button.addItem(withTitle: "\($0.title)")
+            button.lastItem?.image = $0.image
+        }
         
         button.selectItem(at: selectedIndex)
 
@@ -36,12 +49,18 @@ public class PopUp: NSStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var selectedItem: String? { button.titleOfSelectedItem }
+    public var selectedIndex: Int { button.indexOfSelectedItem }
+
+    public var selectedTitle: String? { button.titleOfSelectedItem }
     
-    public func set(items: [String], selectedIndex: Int = -1) {
+    public func set(items: [Item], selectedIndex: Int = -1) {
         button.removeAllItems()
         
-        items.forEach { button.addItem(withTitle: "\($0)") }
+        items.forEach {
+            button.addItem(withTitle: "\($0.title)")
+            button.lastItem?.image = $0.image
+        }
+
         button.selectItem(at: selectedIndex)
     }
     
@@ -52,6 +71,6 @@ public class PopUp: NSStackView {
     // MARK: - Actions
     
     @objc func buttonAction(_ sender: NSMenuItem) {
-        onChange?(sender.title)
+        onChange?(button.indexOfSelectedItem, button.titleOfSelectedItem ?? "")
     }
 }

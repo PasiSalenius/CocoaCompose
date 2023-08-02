@@ -4,15 +4,19 @@ public class Radio: NSStackView {
     private let items: [Item]
     private var buttons: [NSButton] = []
 
+    public private(set) var selectedIndex: Int
+
     public var onChange: ((Int) -> Void)?
 
     public struct Item {
         public var title: String
+        public var footer: String?
         public var views: [NSView]
         public var orientation: NSUserInterfaceLayoutOrientation
         
-        public init(title: String, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
+        public init(title: String, footer: String? = nil, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
             self.title = title
+            self.footer = footer
             self.views = views
             self.orientation = orientation
         }
@@ -20,13 +24,19 @@ public class Radio: NSStackView {
 
     public init(items: [Item] = [], selectedIndex: Int = -1, onChange: ((Int) -> Void)? = nil) {
         self.items = items
+        self.selectedIndex = selectedIndex
         self.onChange = onChange
 
         super.init(frame: .zero)
         
+        self.distribution = .fill
         self.orientation = .vertical
         self.alignment = .leading
         self.spacing = 7
+        
+        let width = self.widthAnchor.constraint(equalToConstant: 10_000)
+        width.priority = .defaultLow
+        width.isActive = true
         
         for index in 0 ..< items.count {
             let item = items[index]
@@ -42,11 +52,28 @@ public class Radio: NSStackView {
             buttons.append(button)
             
             let stackView = NSStackView(views: [button] + item.views)
+            stackView.distribution = .fill
             stackView.orientation = item.orientation
-            stackView.alignment = item.orientation == .vertical ? .leading : .centerY
+            stackView.alignment = item.orientation == .vertical ? .leading : .height
             stackView.spacing = item.orientation == .vertical ? 7 : 10
             
             addArrangedSubview(stackView)
+            
+            let width = stackView.widthAnchor.constraint(equalToConstant: 10_000)
+            width.priority = .defaultLow
+            width.isActive = true
+
+            if let footer = item.footer {
+                let footerLabel = Label()
+                footerLabel.stringValue = footer
+                footerLabel.font = .preferredFont(forTextStyle: .subheadline)
+                footerLabel.textColor = .secondaryLabelColor
+                footerLabel.usesSingleLineMode = false
+
+                footerLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                
+                addArrangedSubview(footerLabel)
+            }
         }
         
         set(selectedIndex: selectedIndex)
@@ -57,12 +84,25 @@ public class Radio: NSStackView {
     }
     
     public func set(selectedIndex: Int) {
+        self.selectedIndex = selectedIndex
+        
         for index in 0 ..< items.count {
             buttons[index].state = selectedIndex == index ? .on : .off
             items[index].views.forEach { $0.enableSubviews(selectedIndex == index) }
         }
     }
-    
+
+    public func set(enabled: Bool) {
+        for index in 0 ..< items.count {
+            buttons[index].isEnabled = enabled
+            items[index].views.forEach { $0.enableSubviews(enabled) }
+        }
+        
+        if enabled {
+            set(selectedIndex: selectedIndex)
+        }
+    }
+
     // MARK: - Actions
     
     @objc func buttonAction(_ sender: NSButton) {
@@ -72,6 +112,8 @@ public class Radio: NSStackView {
         }
 
         items[sender.tag].views.forEach { $0.enableSubviews(true) }
+
+        selectedIndex = sender.tag
 
         onChange?(sender.tag)
     }

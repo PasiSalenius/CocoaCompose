@@ -26,6 +26,7 @@ import CocoaCompose
 ## Components
 
 CocoaCompose includes these components
+- [Box](https://github.com/PasiSalenius/CocoaCompose#box)
 - [Label](https://github.com/PasiSalenius/CocoaCompose#label)
 - [Button](https://github.com/PasiSalenius/CocoaCompose#button)
 - [Checkbox](https://github.com/PasiSalenius/CocoaCompose#checkbox)
@@ -36,9 +37,22 @@ CocoaCompose includes these components
 
 The following two components help build preference window content
 - [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
+- [PreferenceGroup](https://github.com/PasiSalenius/CocoaCompose#preferencegroup)
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
 
 All of the components are configured to look right in a Mac app out of the box, and come with easy to use initialisers, and take a closure for value changes. All components are set to dynamic type `NSFont.TextStyle.body` by default.
+
+### Box
+
+`Box` combines a title label and a gray colored wrapper view.
+
+```swift
+let box = Box(title: "Title", orientation: .vertical, views: [
+    ...
+])
+```
+
+<img width="150" alt="Box" src="Assets/box.png"/>
 
 ### Label
 
@@ -217,17 +231,30 @@ override func loadView() {
             Radio(items: [
                 .init(title: "One"),
                 .init(title: "Two", views: [
-                    PopUp(items: ["12", "13"], selectedIndex: 0, text: "points") { item in
+                    PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, text: "points") { index, title in
                         
                     }
                 ]),
                 .init(title: "Three", views: [
-                    TextField(value: "15.0", text: "milliseconds") { text in
+                    TextField(value: "15.0", text: "milliseconds", width: 50) { text in
                 
                     }
-                ])], selectedIndex: 0) { index in
+                ])], selectedIndex: 0) { index, previousIndex in
                 
                 },
+        ]),
+        Separator(),
+        PreferenceGroup(items: [
+            .init(title: "First:", views: [
+                PopUp(items: ["One", "Two"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
+                    
+                }
+            ]),
+            .init(title: "Second:", views: [
+                PopUp(items: ["Foobar", "Plop"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
+                    
+                }
+            ]),
         ]),
         Separator(),
         PreferenceSection(title: "Test:", footer: "This here demonstrates some footer text that is shown below a section of items.", views: [
@@ -243,7 +270,7 @@ override func loadView() {
         ]),
         Separator(),
         PreferenceSection(title: "Longer text:", views: [
-            PopUp(items: ["12", "13"], selectedIndex: 0, text: "ticks") { item in
+            PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, text: "ticks") { index, title in
                 
             },
         ]),
@@ -256,19 +283,21 @@ override func loadView() {
             },
         ]),
         PreferenceSection(title: "Value:", views: [
-            TextField(value: "15.0") { text in
+            TextField(value: "15.0", width: 50) { text in
                 
             },
         ]),
         Separator(),
         PreferenceSection(title: "Title here:", views: [
-            Checkbox(title: "Selected time", on: true, views: [
-                TextField(value: "200", text: "seconds") { text in
-                
-                }
-            ], onChange: { enabled in
-                
-            }),
+            Box(views: [
+                Checkbox(title: "Selected time", on: true, views: [
+                    TextField(value: "200", text: "seconds", width: 50) { text in
+                    
+                    }
+                ], onChange: { enabled in
+                    
+                }),
+            ])
         ]),
     ])
     

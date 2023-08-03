@@ -175,7 +175,7 @@ textField.set(value: "50")
 Use separators between sections of options in a preferences window.
 
 ```swift
-let separator = Separator(orientation: .horizontal)
+let separator = Separator()
 ```
 
 ## Composing components together

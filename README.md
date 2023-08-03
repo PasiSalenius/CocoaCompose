@@ -56,7 +56,7 @@ let box = Box(title: "Title", orientation: .vertical, views: [
 
 ### Label
 
-`Label` is an `NSTextField` with background and border drawing disabled.
+`Label` is an `NSTextField` with background and border drawing disabled. It also takes an `NSAttributedString` as value.
 
 ```swift
 let label = Label(string: "Hello")
@@ -83,15 +83,15 @@ let button = Button(title: "Click Me", image: image, symbolConfiguration: config
 `Checkbox` is an `NSButton` with `buttonType` set to `.switch`. It takes a title and simple boolean for checked state. 
 
 ```swift
-let checkbox = Checkbox(title: "Select something", on: true) { enabled in
+let checkbox = Checkbox(title: "Select something", isOn: true) { enabled in
     // do something here ...
 }
 ```
 
-Configure its checked status using `set(on: Bool)` method.
+Access its checked status using `isOn` property.
 
 ```swift
-checkbox.set(on: false)
+let checked = checkbox.isOn
 ```
 
 <img width="200" alt="Checkbox" src="Assets/checkbox.png"/>
@@ -101,7 +101,7 @@ checkbox.set(on: false)
 `PopUp` combines a `NSPopUpButton` and an optional trailing text label into one control. Set it up using an array of items, that have a title and an optional `NSImage`, and a currently selected index. For no selection use `selectedIndex` value -1. 
 
 ```swift
-let popup = PopUp(items: [PopUp.Item(title: "Orange", image: image)] }, selectedIndex: 0, text: "flag") { item in
+let popup = PopUp(items: [PopUp.Item(title: "Orange", image: image)] }, selectedIndex: 0, trailingText: "flag") { item in
     // do something here ...
 }
 ```
@@ -117,7 +117,8 @@ popup.onChange = { item in
 Configure its items and selected item.
 
 ```swift
-popup.set(items: ["One", "Two", "Three"].map { .init(title: $0) }, selectedIndex: -1)
+popup.items = ["One", "Two", "Three"].map { .init(title: $0) }
+popup.selectedIndex = 1
 ```
 
 <img width="150" alt="PopUp" src="Assets/popup.png"/>
@@ -132,7 +133,7 @@ You can append a horizontal stack of views after the radio item, to combine this
 let radio = Radio(items: [
     Radio.Item(title: "First"),
     Radio.Item(title: "Second", views: [
-        TextField(value: "30", text: "seconds") { text in
+        TextField(value: "30", trailingText: "seconds") { text in
             // do something here ...
         },
     ])
@@ -145,7 +146,7 @@ let radio = Radio(items: [
 Configure its selected item.
 
 ```swift
-radio.set(selectedIndex: 2)
+radio.selectedIndex = 2
 ```
 
 <img width="250" alt="Radio" src="Assets/radio.png"/>
@@ -155,15 +156,16 @@ radio.set(selectedIndex: 2)
 `TextField` is an `NSTextField` with an optional trailing `Label`.
 
 ```swift
-let textField = TextField(value: "30", text: "seconds") { text in
+let textField = TextField(value: "30", trailingText: "seconds") { text in
     // do something here ...
 }
 ```
 
-Configure its value using the following method.
+Configure its value or placeholder string.
 
 ```swift
-textField.set(value: "50")
+textField.stringValue = "50"
+textField.placeholder = "Enter name"
 ```
 
 <img width="180" alt="TextField" src="Assets/textfield.png"/>
@@ -244,12 +246,12 @@ override func loadView() {
             Radio(items: [
                 .init(title: "One"),
                 .init(title: "Two", views: [
-                    PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, text: "points") { index, title in
+                    PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, trailingText: "points") { index, title in
                         
                     }
                 ]),
                 .init(title: "Three", views: [
-                    TextField(value: "15.0", text: "milliseconds", width: 50) { text in
+                    TextField(value: "15.0", trailingText: "milliseconds", width: 50) { text in
                 
                     }
                 ])], selectedIndex: 0) { index, previousIndex in
@@ -271,19 +273,19 @@ override func loadView() {
         ]),
         Separator(),
         PreferenceSection(title: "Test:", footer: "This here demonstrates some footer text that is shown below a section of items.", views: [
-            Checkbox(title: "Click me", on: true) { enabled in
+            Checkbox(title: "Click me", isOn: true) { enabled in
                 
             },
-            Checkbox(title: "And me", on: true) { enabled in
+            Checkbox(title: "And me", isOn: true) { enabled in
                 
             },
-            Checkbox(title: "Me too", on: true) { enabled in
+            Checkbox(title: "Me too", isOn: true) { enabled in
                 
             },
         ]),
         Separator(),
         PreferenceSection(title: "Longer text:", views: [
-            PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, text: "ticks") { index, title in
+            PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, trailingText: "ticks") { index, title in
                 
             },
         ]),
@@ -303,8 +305,8 @@ override func loadView() {
         Separator(),
         PreferenceSection(title: "Title here:", views: [
             Box(views: [
-                Checkbox(title: "Selected time", on: true, views: [
-                    TextField(value: "200", text: "seconds", width: 50) { text in
+                Checkbox(title: "Selected time", isOn: true, views: [
+                    TextField(value: "200", trailingText: "seconds", width: 50) { text in
                     
                     }
                 ], onChange: { enabled in

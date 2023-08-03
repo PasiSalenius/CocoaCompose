@@ -9,7 +9,7 @@ public class TextView: NSView, NSTextViewDelegate {
     public init(text: String = "", onChange: ((String) -> Void)? = nil) {
         let scrollView = NSScrollView()
         scrollView.drawsBackground = true
-        scrollView.borderType = .noBorder
+        scrollView.borderType = .lineBorder
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalRuler = false
         scrollView.autoresizingMask = [.width, .height]
@@ -37,7 +37,7 @@ public class TextView: NSView, NSTextViewDelegate {
         textView.drawsBackground = true
         textView.font = font
         textView.isRichText = false
-        textView.isEditable = false
+        textView.isEditable = true
         textView.isHorizontallyResizable = false
         textView.isVerticallyResizable = true
         textView.maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
@@ -98,7 +98,7 @@ public class TextView: NSView, NSTextViewDelegate {
         didSet { textView.isEditable = isEditable }
     }
 
-    public var font: NSFont? = .monospacedSystemFont(ofSize: 13, weight: .regular) {
+    public var font: NSFont? = .monospacedSystemFont(ofSize: 11, weight: .regular) {
         didSet { textView.font = font }
     }
 

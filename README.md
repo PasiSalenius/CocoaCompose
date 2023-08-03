@@ -33,6 +33,7 @@ CocoaCompose includes these components
 - [PopUp](https://github.com/PasiSalenius/CocoaCompose#popup)
 - [Radio](https://github.com/PasiSalenius/CocoaCompose#radio)
 - [TextField](https://github.com/PasiSalenius/CocoaCompose#textfield)
+- [TextView](https://github.com/PasiSalenius/CocoaCompose#textview)
 - [Separator](https://github.com/PasiSalenius/CocoaCompose#separator)
 
 The following two components help build preference window content
@@ -169,6 +170,26 @@ textField.placeholder = "Enter name"
 ```
 
 <img width="180" alt="TextField" src="Assets/textfield.png"/>
+
+### TextView
+
+`TextView` is an `NSScrollView` with an `NSTextView` as a document view. It is set up with data detectors and spelling corrections disabled.
+
+```swift
+let textView = TextView(text: "Example text") { text in
+    // do something here ...
+}
+```
+
+Configure its text and font and control whether editing is allowed.
+
+```swift
+textField.text = "Another text"
+textField.font = .monospacedSystemFont(ofSize: 12, weight: .regular)
+textField.isEditable = false
+```
+
+<img width="180" alt="TextField" src="Assets/textview.png"/>
 
 ### Separator
 

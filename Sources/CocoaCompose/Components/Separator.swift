@@ -1,18 +1,10 @@
 import Cocoa
 
-public class Separator: NSView {
-    public init(orientation: NSUserInterfaceLayoutOrientation = .horizontal, color: NSColor = .gray.withAlphaComponent(0.3)) {
+public class Separator: NSBox {
+    public init() {
         super.init(frame: .zero)
         
-        wantsLayer = true
-        layer?.backgroundColor = color.cgColor
-        
-        switch orientation {
-        case .vertical:
-            widthAnchor.constraint(equalToConstant: 1).isActive = true
-        default:
-            heightAnchor.constraint(equalToConstant: 1).isActive = true
-        }
+        boxType = .separator
     }
     
     required init?(coder: NSCoder) {

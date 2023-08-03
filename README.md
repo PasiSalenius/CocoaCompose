@@ -170,7 +170,7 @@ textField.set(value: "50")
 
 ### Separator
 
-`Separator` can be configured to horizontal or vertical orientation. Its has partly transparent gray color and has 1 point width. 
+`Separator` is an `NSBox` with its `boxType` set to `.separator`. 
 
 Use separators between sections of options in a preferences window.
 

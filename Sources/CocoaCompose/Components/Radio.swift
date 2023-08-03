@@ -3,8 +3,8 @@ import Cocoa
 public class Radio: NSStackView {
     private let items: [Item]
     private var buttons: [NSButton] = []
-
-    public private(set) var selectedIndex: Int
+    
+    private var currentIndex: Int = -1
 
     public var onChange: ((Int, Int) -> Void)?
 
@@ -26,7 +26,7 @@ public class Radio: NSStackView {
 
     public init(items: [Item] = [], selectedIndex: Int = -1, onChange: ((Int, Int) -> Void)? = nil) {
         self.items = items
-        self.selectedIndex = selectedIndex
+        self.currentIndex = selectedIndex
         self.onChange = onChange
 
         super.init(frame: .zero)
@@ -83,33 +83,38 @@ public class Radio: NSStackView {
             }
         }
         
-        set(selectedIndex: selectedIndex)
+        update(selectedIndex: selectedIndex)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func set(selectedIndex: Int) {
-        self.selectedIndex = selectedIndex
-        
-        for index in 0 ..< items.count {
-            buttons[index].state = selectedIndex == index ? .on : .off
-            items[index].views.forEach { $0.enableSubviews(selectedIndex == index) }
-        }
+    public var selectedIndex: Int {
+        get { currentIndex }
+        set { update(selectedIndex: newValue) }
     }
-
-    public func set(enabled: Bool) {
+    
+    public func setEnabled(_ enabled: Bool) {
         for index in 0 ..< items.count {
             buttons[index].isEnabled = enabled
             items[index].views.forEach { $0.enableSubviews(enabled) }
         }
         
         if enabled {
-            set(selectedIndex: selectedIndex)
+            update(selectedIndex: currentIndex)
         }
     }
 
+    private func update(selectedIndex: Int) {
+        currentIndex = selectedIndex
+        
+        for index in 0 ..< items.count {
+            buttons[index].state = selectedIndex == index ? .on : .off
+            items[index].views.forEach { $0.enableSubviews(selectedIndex == index) }
+        }
+    }
+    
     // MARK: - Actions
     
     @objc func buttonAction(_ sender: NSButton) {

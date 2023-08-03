@@ -6,7 +6,7 @@ public class TextField: NSStackView, NSTextFieldDelegate {
 
     public var onChange: ((String) -> Void)?
     
-    public init(value: String? = nil, attributedValue: NSAttributedString? = nil, placeholder: String? = nil, text: String? = nil, width: CGFloat? = nil, onChange: ((String) -> Void)? = nil) {
+    public init(value: String? = nil, attributedValue: NSAttributedString? = nil, placeholder: String? = nil, trailingText: String? = nil, width: CGFloat? = nil, onChange: ((String) -> Void)? = nil) {
         self.onChange = onChange
 
         super.init(frame: .zero)
@@ -37,10 +37,10 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         
         addArrangedSubview(textField)
         
-        label.stringValue = text ?? ""
+        label.stringValue = trailingText ?? ""
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .labelColor
-        label.isHidden = text == nil
+        label.isHidden = trailingText == nil
         
         addArrangedSubview(label)
     }
@@ -49,16 +49,32 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func set(value: String) {
-        textField.stringValue = value
+    public var stringValue: String {
+        get { textField.stringValue }
+        set { textField.stringValue = newValue }
     }
 
-    public func set(attributedValue: NSAttributedString) {
-        textField.attributedStringValue = attributedValue
+    public var attributedValue: NSAttributedString {
+        get { textField.attributedStringValue }
+        set { textField.attributedStringValue = newValue }
+    }
+    
+    public var trailingText: String? {
+        get { label.stringValue }
+        set {
+            label.stringValue = newValue ?? ""
+            label.isHidden = newValue == nil
+        }
     }
 
-    public func set(font: NSFont) {
-        textField.font = font
+    public var placeholder: String? {
+        get { textField.placeholderString }
+        set { textField.placeholderString = newValue }
+    }
+
+    public var font: NSFont? {
+        get { textField.font }
+        set { textField.font = newValue }
     }
     
     // MARK: - Text field delegate

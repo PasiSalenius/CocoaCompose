@@ -3,6 +3,10 @@ import Cocoa
 public class PopUp: NSStackView {
     private let button = NSPopUpButton()
     private let label = Label()
+    
+    public var items: [Item] {
+        didSet { update(items: items) }
+    }
 
     public var onChange: ((Int, String) -> Void)?
     
@@ -16,7 +20,8 @@ public class PopUp: NSStackView {
         }
     }
     
-    public init(items: [Item] = [], selectedIndex: Int = -1, text: String? = nil, onChange: ((Int, String) -> Void)? = nil) {
+    public init(items: [Item] = [], selectedIndex: Int = -1, trailingText: String? = nil, onChange: ((Int, String) -> Void)? = nil) {
+        self.items = items
         self.onChange = onChange
         
         super.init(frame: .zero)
@@ -37,10 +42,10 @@ public class PopUp: NSStackView {
 
         addArrangedSubview(button)
 
-        label.stringValue = text ?? ""
+        label.stringValue = trailingText ?? ""
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .labelColor
-        label.isHidden = text == nil
+        label.isHidden = trailingText == nil
 
         addArrangedSubview(label)
     }
@@ -49,25 +54,32 @@ public class PopUp: NSStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var selectedIndex: Int { button.indexOfSelectedItem }
+    public var selectedIndex: Int {
+        get { button.indexOfSelectedItem }
+        set { button.selectItem(at: newValue) }
+    }
 
     public var selectedTitle: String? { button.titleOfSelectedItem }
     
-    public func set(items: [Item], selectedIndex: Int = -1) {
+    public var trailingText: String? {
+        get { label.stringValue }
+        set {
+            label.stringValue = newValue ?? ""
+            label.isHidden = newValue == nil
+        }
+    }
+
+    private func update(items: [Item]) {
         button.removeAllItems()
         
         items.forEach {
             button.addItem(withTitle: "\($0.title)")
             button.lastItem?.image = $0.image
         }
+        
+        self.selectedIndex = -1
+    }
 
-        button.selectItem(at: selectedIndex)
-    }
-    
-    public func set(selectedIndex: Int) {
-        button.selectItem(at: selectedIndex)
-    }
-    
     // MARK: - Actions
     
     @objc func buttonAction(_ sender: NSMenuItem) {

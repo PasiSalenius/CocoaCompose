@@ -6,7 +6,7 @@ public class Checkbox: NSStackView {
     
     public var onChange: ((Bool) -> Void)?
     
-    public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, on: Bool = false, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
+    public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, isOn: Bool = false, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
         self.associatedViews = views
         self.onChange = onChange
         
@@ -30,18 +30,38 @@ public class Checkbox: NSStackView {
         
         views.forEach { addArrangedSubview($0) }
         
-        set(on: on)
+        self.isOn = isOn
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func set(on: Bool) {
-        button.state = on ? .on : .off
-        associatedViews.forEach { $0.enableSubviews(on) }
+    public var isOn: Bool {
+        get {
+            button.state == .on
+        }
+        set {
+            button.state = newValue ? .on : .off
+            associatedViews.forEach { $0.enableSubviews(newValue) }
+        }
     }
     
+    public var title: String {
+        get { button.title }
+        set { button.title = newValue }
+    }
+
+    public var attributedTitle: NSAttributedString {
+        get { button.attributedTitle }
+        set { button.attributedTitle = newValue }
+    }
+    
+    public var font: NSFont? {
+        get { button.font }
+        set { button.font = newValue }
+    }
+
     // MARK: - Actions
     
     @objc func buttonAction(_ sender: NSButton) {

@@ -48,19 +48,22 @@ public class Tabs: NSStackView {
         width.priority = .defaultLow
         width.isActive = true
 
-        set(selectedIndex: 0)
+        selectedIndex = 0
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func set(selectedIndex index: Int) {
-        segmentedControl.selectedSegment = index
-        updateContent(index: index)
+    public var selectedIndex: Int {
+        get { segmentedControl.indexOfSelectedItem }
+        set {
+            segmentedControl.selectedSegment = newValue
+            showItem(at: newValue)
+        }
     }
     
-    private func updateContent(index: Int) {
+    private func showItem(at index: Int) {
         contentView.subviews.forEach { $0.removeFromSuperview() }
         
         let item = items[index]
@@ -88,7 +91,7 @@ public class Tabs: NSStackView {
         let index = sender.indexOfSelectedItem
         guard index > -1 else { return }
         
-        updateContent(index: index)
+        showItem(at: index)
         onChange?(index)
     }
     

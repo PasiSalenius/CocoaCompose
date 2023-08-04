@@ -5,7 +5,7 @@ public class Tabs: NSStackView {
     private let contentView = NSView()
     
     private let items: [Item]
-
+    
     public var onChange: ((Int) -> Void)?
     
     public struct Item {
@@ -22,7 +22,7 @@ public class Tabs: NSStackView {
         }
     }
 
-    public init(items: [Item], onChange: ((Int) -> Void)? = nil) {
+    public init(selectedIndex: Int = -1, items: [Item], onChange: ((Int) -> Void)? = nil) {
         self.items = items
         self.onChange = onChange
         
@@ -48,7 +48,7 @@ public class Tabs: NSStackView {
         width.priority = .defaultLow
         width.isActive = true
 
-        selectedIndex = 0
+        self.selectedIndex = selectedIndex
     }
     
     required init?(coder: NSCoder) {
@@ -65,7 +65,9 @@ public class Tabs: NSStackView {
     
     private func showItem(at index: Int) {
         contentView.subviews.forEach { $0.removeFromSuperview() }
-        
+
+        guard index > -1, items.count > index else { return }
+
         let item = items[index]
         
         let stackView = NSStackView(views: item.views)

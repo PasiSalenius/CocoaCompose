@@ -218,7 +218,7 @@ Access its selected index using the following property.
 tabs.selectedIndex = 2
 ```
 
-<img width="180" alt="TextField" src="Assets/tabs.png"/>
+<img width="240" alt="TextField" src="Assets/tabs.png"/>
 
 ### Separator
 

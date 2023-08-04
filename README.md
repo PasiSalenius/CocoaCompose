@@ -198,13 +198,13 @@ textField.isEditable = false
 
 ```swift
 let tabs = Tabs(selectedIndex: 0, items: [
-    .init(title: "URI".localized, views: [
+    .init(title: "URI", views: [
         ...
     ]),
-    .init(title: "Headers".localized, views: [
+    .init(title: "Headers", views: [
         ...
     ]),
-    .init(title: "Body".localized, views: [
+    .init(title: "Body", views: [
         ...
     ])
 ]) { index in
@@ -218,7 +218,7 @@ Access its selected index using the following property.
 tabs.selectedIndex = 2
 ```
 
-<img width="240" alt="TextField" src="Assets/tabs.png"/>
+<img width="250" alt="TextField" src="Assets/tabs.png"/>
 
 ### Separator
 

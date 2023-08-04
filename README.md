@@ -34,6 +34,7 @@ CocoaCompose includes these components
 - [Radio](https://github.com/PasiSalenius/CocoaCompose#radio)
 - [TextField](https://github.com/PasiSalenius/CocoaCompose#textfield)
 - [TextView](https://github.com/PasiSalenius/CocoaCompose#textview)
+- [Tabs](https://github.com/PasiSalenius/CocoaCompose#tabs)
 - [Separator](https://github.com/PasiSalenius/CocoaCompose#separator)
 
 The following two components help build preference window content
@@ -190,6 +191,34 @@ textField.isEditable = false
 ```
 
 <img width="180" alt="TextField" src="Assets/textview.png"/>
+
+### Tabs
+
+`Tabs` combines an `NSSegmentedControl` with a list of `Tabs.Item`. It automatically displays the item at the selected index.
+
+```swift
+let tabs = Tabs(selectedIndex: 0, items: [
+    .init(title: "URI".localized, views: [
+        ...
+    ]),
+    .init(title: "Headers".localized, views: [
+        ...
+    ]),
+    .init(title: "Body".localized, views: [
+        ...
+    ])
+]) { index in
+    ...
+}
+```
+
+Access its selected index using the following property.
+
+```swift
+tabs.selectedIndex = 2
+```
+
+<img width="180" alt="TextField" src="Assets/tabs.png"/>
 
 ### Separator
 

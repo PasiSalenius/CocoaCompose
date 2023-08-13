@@ -9,8 +9,8 @@ public class Box: NSView {
         contentView.wantsLayer = true
         
         contentView.layer?.borderWidth = 1
-        contentView.layer?.borderColor = NSColor.separatorColor.cgColor
-        contentView.layer?.backgroundColor = NSColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.1).cgColor
+        contentView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.15).cgColor
+        contentView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.05).cgColor
         contentView.layer?.cornerRadius = 5
 
         let stackView = NSStackView()
@@ -68,7 +68,7 @@ public class Box: NSView {
     public override func layout() {
         super.layout()
         
-        contentView.layer?.borderColor = NSColor.separatorColor.cgColor
-        contentView.layer?.backgroundColor = NSColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.1).cgColor
+        contentView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.15).cgColor
+        contentView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.05).cgColor
     }
 }

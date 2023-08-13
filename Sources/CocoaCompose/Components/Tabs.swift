@@ -1,6 +1,6 @@
 import Cocoa
 
-public class Tabs: NSStackView {
+public class Tabs: NSView {
     private let segmentedControl: NSSegmentedControl
     private let contentView = NSView()
     
@@ -28,22 +28,43 @@ public class Tabs: NSStackView {
         
         let segmentedControl = NSSegmentedControl(labels: items.map { $0.title }, trackingMode: .selectOne, target: nil, action: nil)
         segmentedControl.segmentDistribution = .fillEqually
-        
+
+        segmentedControl.wantsLayer = true
+
+        segmentedControl.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
+        segmentedControl.layer?.cornerRadius = 8
+        segmentedControl.layer?.masksToBounds = true
+
         self.segmentedControl = segmentedControl
 
         super.init(frame: .zero)
         
+        contentView.wantsLayer = true
+        
+        contentView.layer?.borderWidth = 1
+        contentView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.15).cgColor
+        contentView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.05).cgColor
+        contentView.layer?.cornerRadius = 5
+
+        addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        addConstraints([
+            leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+
         segmentedControl.target = self
         segmentedControl.action = #selector(segmentedControlAction)
         
-        addArrangedSubview(segmentedControl)
-        addArrangedSubview(contentView)
-        
-        orientation = .vertical
-        distribution = .fill
-        alignment = .centerX
-        spacing = 20
-        
+        addSubview(segmentedControl)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        addConstraints([
+            contentView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
+            topAnchor.constraint(equalTo: segmentedControl.topAnchor),
+            centerXAnchor.constraint(equalTo: segmentedControl.centerXAnchor),
+        ])
+
         let width = contentView.widthAnchor.constraint(equalToConstant: 10_000)
         width.priority = .defaultLow
         width.isActive = true
@@ -53,6 +74,15 @@ public class Tabs: NSStackView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func layout() {
+        super.layout()
+        
+        segmentedControl.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
+        
+        contentView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.15).cgColor
+        contentView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.05).cgColor
     }
     
     public var selectedIndex: Int {
@@ -77,13 +107,12 @@ public class Tabs: NSStackView {
         stackView.spacing = item.orientation == .vertical ? 7 : 10
         
         contentView.addSubview(stackView)
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
         ])
     }
     

@@ -91,7 +91,7 @@ let picker = CalendarPicker(date: .now) { date in
 }
 ```
 
-<img width="150" alt="CalendarPicker" src="Assets/calendarpicker.png"/>
+<img width="200" alt="CalendarPicker" src="Assets/calendarpicker.png"/>
 
 ### Checkbox
 
@@ -134,7 +134,7 @@ let colorWell = ColorWell(color: .blue) { color in
 }
 ```
 
-<img width="150" alt="ColorWell" src="Assets/colorwell.png"/>
+<img width="80" alt="ColorWell" src="Assets/colorwell.png"/>
 
 ### DatePicker
 
@@ -176,7 +176,7 @@ Update selected font.
 picker.selectedFont = .preferredFont(forTextStyle: .body)
 ```
 
-<img width="150" alt="FontPicker" src="Assets/fontpicker.png"/>
+<img width="200" alt="FontPicker" src="Assets/fontpicker.png"/>
 
 ### Image
 
@@ -207,7 +207,7 @@ let level = Level(value: 0.3, minValue: 0, maxValue: 1) { value in
 }
 ```
 
-<img width="150" alt="Level" src="Assets/level.png"/>
+<img width="200" alt="Level" src="Assets/level.png"/>
 
 ### PopUp
 
@@ -441,7 +441,7 @@ PreferenceSection(
 
 The following example initialises a preferences window using `PreferenceList` containing multiple `PreferenceSection` that each have their own components.
 
-<img width="550" alt="Preferences window" src="Assets/example.png"/> 
+<img width="600" alt="Preferences window" src="Assets/example.png"/> 
 
 ```swift
 override func loadView() {

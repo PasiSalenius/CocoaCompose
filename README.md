@@ -27,19 +27,29 @@ import CocoaCompose
 
 CocoaCompose includes these components
 - [Box](https://github.com/PasiSalenius/CocoaCompose#box)
-- [Label](https://github.com/PasiSalenius/CocoaCompose#label)
 - [Button](https://github.com/PasiSalenius/CocoaCompose#button)
+- [CalendarPicker](https://github.com/PasiSalenius/CocoaCompose#calendarpicker)
 - [Checkbox](https://github.com/PasiSalenius/CocoaCompose#checkbox)
+- [ClockPicker](https://github.com/PasiSalenius/CocoaCompose#clockpicker)
+- [ColorWell](https://github.com/PasiSalenius/CocoaCompose#colorwell)
+- [DatePicker](https://github.com/PasiSalenius/CocoaCompose#datepicker)
+- [FontPicker](https://github.com/PasiSalenius/CocoaCompose#fontpicker)
+- [Image](https://github.com/PasiSalenius/CocoaCompose#image)
+- [Label](https://github.com/PasiSalenius/CocoaCompose#label)
+- [Level](https://github.com/PasiSalenius/CocoaCompose#level)
 - [PopUp](https://github.com/PasiSalenius/CocoaCompose#popup)
 - [Radio](https://github.com/PasiSalenius/CocoaCompose#radio)
+- [Separator](https://github.com/PasiSalenius/CocoaCompose#separator)
+- [Slider](https://github.com/PasiSalenius/CocoaCompose#slider)
+- [Switch](https://github.com/PasiSalenius/CocoaCompose#switch)
+- [Tabs](https://github.com/PasiSalenius/CocoaCompose#tabs)
 - [TextField](https://github.com/PasiSalenius/CocoaCompose#textfield)
 - [TextView](https://github.com/PasiSalenius/CocoaCompose#textview)
-- [Tabs](https://github.com/PasiSalenius/CocoaCompose#tabs)
-- [Separator](https://github.com/PasiSalenius/CocoaCompose#separator)
+- [TimePicker](https://github.com/PasiSalenius/CocoaCompose#timepicker)
 
 The following two components help build preference window content
-- [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
 - [PreferenceGroup](https://github.com/PasiSalenius/CocoaCompose#preferencegroup)
+- [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
 
 All of the components are configured to look right in a Mac app out of the box, and come with easy to use initialisers, and take a closure for value changes. All components are set to dynamic type `NSFont.TextStyle.body` by default.
@@ -56,15 +66,6 @@ let box = Box(title: "Title", orientation: .vertical, views: [
 
 <img width="150" alt="Box" src="Assets/box.png"/>
 
-### Label
-
-`Label` is an `NSTextField` with background and border drawing disabled. It also takes an `NSAttributedString` as value.
-
-```swift
-let label = Label(string: "Hello")
-label.stringValue = "Hello world!"
-```
-
 ### Button
 
 Basic `NSButton` with `bezelStyle` set to `.rounded`. It can be configured with a title and an optional image with a symbol configuration.
@@ -79,6 +80,18 @@ let button = Button(title: "Click Me", image: image, symbolConfiguration: config
 ```
 
 <img width="150" alt="Button" src="Assets/button.png"/>
+
+### CalendarPicker
+
+`CalendarPicker` is an `NSDatePicker` with `datePickerStyle` set to `.clockAndCalendar` and `datePickerElements` configured to either `.yearMonthDay`. Configure it with a `date`, `minDate` and `maxDate`.
+
+```swift
+let picker = CalendarPicker(date: .now) { date in
+
+}
+```
+
+<img width="150" alt="CalendarPicker" src="Assets/calendarpicker.png"/>
 
 ### Checkbox
 
@@ -97,6 +110,104 @@ let checked = checkbox.isOn
 ```
 
 <img width="200" alt="Checkbox" src="Assets/checkbox.png"/>
+
+### ClockPicker
+
+`ClockPicker` is an `NSDatePicker` with `datePickerStyle` set to `.clockAndCalendar` and `datePickerElements` configured to either `.hourMinuteSecond` or `.hourMinute`. Configure it with a `date`, `minDate` and `maxDate`.
+
+```swift
+let picker = ClockPicker(date: .now) { date in
+}
+
+picker.showSeconds = true
+```
+
+<img width="150" alt="ClockPicker" src="Assets/clockpicker.png"/>
+
+### ColorWell
+
+`NSColorWell` with `colorWellStyle` set to `.default`, `.minimal` or `.expanded`. Configure it with a `color` value. Note that the additional style options are only available in macOS 13.0 and later.
+
+```swift
+let colorWell = ColorWell(color: .blue) { color in
+
+}
+```
+
+<img width="150" alt="ColorWell" src="Assets/colorwell.png"/>
+
+### DatePicker
+
+`DatePicker` is an `NSDatePicker` with `datePickerStyle` set to `.textFieldAndStepper` or `.textField` and `datePickerElements` configured to either `.yearMonthDay` or `.yearMonth`. Configure it with a `date`, `minDate` and `maxDate`.
+
+```swift
+let picker = DatePicker(date: .now) { date in
+
+}
+```
+
+Show stepper for the picker.
+
+```swift
+picker.showStepper = true
+```
+
+Show days for the picker.
+
+```swift
+picker.showDays = true
+```
+
+<img width="150" alt="DatePicker" src="Assets/datepicker.png"/>
+
+### FontPicker
+
+`FontPicker` is an `NSButton` that uses `NSFontPanel` and `NSFontManager` to show the font selection panel. Configure it with a `font` and optional title. If button title is not set, the current font display name will be shown using the currently selected font.
+
+```swift
+let picker = FontPicker(font: myFont) { font in
+
+}
+```
+
+Update selected font.
+
+```swift
+picker.selectedFont = .preferredFont(forTextStyle: .body)
+```
+
+<img width="150" alt="FontPicker" src="Assets/fontpicker.png"/>
+
+### Image
+
+`Image` is an `NSImageView` with an optional `onClick` handler and `CGSize`.
+
+```swift
+let view = Image(image: myImage)
+let view = Image(named: "App Icon")
+let view = Image(systemSymbolName: "tortoise")
+```
+
+### Label
+
+`Label` is an `NSTextField` with background and border drawing disabled. It also takes an `NSAttributedString` as value.
+
+```swift
+let label = Label(string: "Hello")
+label.stringValue = "Hello world!"
+```
+
+### Level
+
+`Level` is an `NSLevelIndicator` with `levelIndicatorStyle` set to `.continuousCapacity`. Initialise it with a `value`, `minValue` and `maxValue`.
+
+```swift
+let level = Level(value: 0.3, minValue: 0, maxValue: 1) { value in
+
+}
+```
+
+<img width="150" alt="Level" src="Assets/level.png"/>
 
 ### PopUp
 
@@ -153,6 +264,68 @@ radio.selectedIndex = 2
 
 <img width="250" alt="Radio" src="Assets/radio.png"/>
 
+### Separator
+
+`Separator` is an `NSBox` with its `boxType` set to `.separator`. 
+
+Use separators between sections of options in a preferences window.
+
+```swift
+let separator = Separator()
+```
+
+### Slider
+
+`Slider` is an `NSSlider` with `sliderType` set to `.linear`. Initialise it with a `value`, `minValue` and `maxValue`.
+
+```swift
+let slider = Slider(value: 0.3, minValue: 0, maxValue: 1) { value in
+
+}
+```
+
+<img width="150" alt="Slider" src="Assets/slider.png"/>
+
+### Switch
+
+`Switch` is an `NSSwitch`. Set it up using `isOn` value.
+
+```swift
+let switch = Switch(isOn: true) { isOn in
+
+}
+```
+
+<img width="80" alt="Switch" src="Assets/switch.png"/>
+
+### Tabs
+
+`Tabs` combines an `NSSegmentedControl` with a list of `Tabs.Item`. It automatically displays the item at the selected index.
+
+```swift
+let tabs = Tabs(selectedIndex: 0, items: [
+    .init(title: "URI", views: [
+        ...
+    ]),
+    .init(title: "Headers", views: [
+        ...
+    ]),
+    .init(title: "Body", views: [
+        ...
+    ])
+]) { index in
+    ...
+}
+```
+
+Access its selected index using the following property.
+
+```swift
+tabs.selectedIndex = 2
+```
+
+<img width="250" alt="Tabs" src="Assets/tabs.png"/>
+
 ### TextField
 
 `TextField` is an `NSTextField` with an optional trailing `Label`.
@@ -190,63 +363,37 @@ textField.font = .monospacedSystemFont(ofSize: 12, weight: .regular)
 textField.isEditable = false
 ```
 
-<img width="180" alt="TextField" src="Assets/textview.png"/>
+<img width="180" alt="TextView" src="Assets/textview.png"/>
 
-### Tabs
+### TimePicker
 
-`Tabs` combines an `NSSegmentedControl` with a list of `Tabs.Item`. It automatically displays the item at the selected index.
+`TimePicker` is an `NSDatePicker` with `datePickerStyle` set to `.textFieldAndStepper` or `.textField` and `datePickerElements` configured to either `.hourMinuteSecond` or `.hourMinute`. Configure it with a `date`, `minDate` and `maxDate`.
 
 ```swift
-let tabs = Tabs(selectedIndex: 0, items: [
-    .init(title: "URI", views: [
-        ...
-    ]),
-    .init(title: "Headers", views: [
-        ...
-    ]),
-    .init(title: "Body", views: [
-        ...
-    ])
-]) { index in
-    ...
+let picker = TimePicker(date: .now) { date in
+
 }
 ```
 
-Access its selected index using the following property.
+Show stepper for the picker.
 
 ```swift
-tabs.selectedIndex = 2
+picker.showStepper = true
 ```
 
-<img width="250" alt="TextField" src="Assets/tabs.png"/>
-
-### Separator
-
-`Separator` is an `NSBox` with its `boxType` set to `.separator`. 
-
-Use separators between sections of options in a preferences window.
+Show seconds for the picker.
 
 ```swift
-let separator = Separator()
+picker.showSeconds = true
 ```
+
+<img width="150" alt="TimePicker" src="Assets/timepicker.png"/>
 
 ## Composing components together
 
 Components can be composed together using compact code, that closely matches the hierarchy of the visual end result.
 
 We use two more components to initialise the content for a Mac preference window.
-
-### PreferenceList
-
-`PreferenceList` takes in a list of sections and takes care of appropriate spacing between them.
-
-Basically the only special sauce in `PreferenceList` is that it looks for leading titles labels in its views, and constrains them all to same width. This results in the familiar clean look of a Mac app preferences window (before the horror of Settings in Ventura).  
-
-```swift
-PreferenceList(views: [
-    ...
-])
-``` 
 
 ### PreferenceGroup
 
@@ -258,6 +405,18 @@ It is useful for creating a list of options that all have their own titles, such
 PreferenceGroup(items: [
     .init(title: "First:", views: [...]),
     .init(title: "Second:", views: [...]),
+])
+``` 
+
+### PreferenceList
+
+`PreferenceList` takes in a list of sections and takes care of appropriate spacing between them.
+
+Basically the only special sauce in `PreferenceList` is that it looks for leading titles labels in its views, and constrains them all to same width. This results in the familiar clean look of a Mac app preferences window (before the horror of Settings in Ventura).  
+
+```swift
+PreferenceList(views: [
+    ...
 ])
 ``` 
 
@@ -282,7 +441,7 @@ PreferenceSection(
 
 The following example initialises a preferences window using `PreferenceList` containing multiple `PreferenceSection` that each have their own components.
 
-<img width="550" alt="Preferences window" src="Assets/preferences.png"/> 
+<img width="550" alt="Preferences window" src="Assets/example.png"/> 
 
 ```swift
 override func loadView() {
@@ -291,80 +450,83 @@ override func loadView() {
 
     title = "Test"
     
-    let list = PreferenceList(views: [
-        PreferenceSection(title: "Choose any one:", views: [
-            Radio(items: [
-                .init(title: "One"),
-                .init(title: "Two", views: [
-                    PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, trailingText: "points") { index, title in
+        let list = PreferenceList(views: [
+            PreferenceSection(title: "Enable:", views: [
+                Switch(isOn: true) { isOn in
+
+                },
+            ]),
+            PreferenceSection(title: "Choose any one:", views: [
+                Radio(items: [
+                    .init(title: "One"),
+                    .init(title: "Two", views: [
+                        PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, trailingText: "points") { index, title in
+                            
+                        }
+                    ]),
+                    .init(title: "Three", views: [
+                        TextField(value: "15.0", trailingText: "milliseconds", width: 50) { text in
+                    
+                        }
+                    ])], selectedIndex: 0) { index, previousIndex in
+                    
+                    },
+            ]),
+            Separator(),
+            PreferenceGroup(items: [
+                .init(title: "First:", views: [
+                    PopUp(items: ["One", "Two"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
                         
                     }
                 ]),
-                .init(title: "Three", views: [
-                    TextField(value: "15.0", trailingText: "milliseconds", width: 50) { text in
-                
+                .init(title: "Second:", views: [
+                    PopUp(items: ["Foobar", "Plop"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
+                        
                     }
-                ])], selectedIndex: 0) { index, previousIndex in
-                
+                ]),
+            ]),
+            Separator(),
+            PreferenceSection(title: "Test:", footer: "This here demonstrates some footer text that is shown below a section of items.", views: [
+                Checkbox(title: "Click me", isOn: true) { enabled in
+                    
                 },
-        ]),
-        Separator(),
-        PreferenceGroup(items: [
-            .init(title: "First:", views: [
-                PopUp(items: ["One", "Two"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
+                Checkbox(title: "Me too", isOn: true) { enabled in
                     
-                }
+                },
             ]),
-            .init(title: "Second:", views: [
-                PopUp(items: ["Foobar", "Plop"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
-                    
-                }
+            Separator(),
+            PreferenceSection(title: "Start date:", orientation: .horizontal, alignment: .centerY, spacing: 20, views: [
+                CalendarPicker() { date in
+
+                },
+                ClockPicker() { date in
+
+                },
             ]),
-        ]),
-        Separator(),
-        PreferenceSection(title: "Test:", footer: "This here demonstrates some footer text that is shown below a section of items.", views: [
-            Checkbox(title: "Click me", isOn: true) { enabled in
-                
-            },
-            Checkbox(title: "And me", isOn: true) { enabled in
-                
-            },
-            Checkbox(title: "Me too", isOn: true) { enabled in
-                
-            },
-        ]),
-        Separator(),
-        PreferenceSection(title: "Longer text:", views: [
-            PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, trailingText: "ticks") { index, title in
-                
-            },
-        ]),
-        PreferenceSection(title: "Short:", orientation: .horizontal, views: [
-            Button(title: "Important Click") {
-                
-            },
-            Button(title: "Critical Click") {
-                
-            },
-        ]),
-        PreferenceSection(title: "Value:", views: [
-            TextField(value: "15.0", width: 50) { text in
-                
-            },
-        ]),
-        Separator(),
-        PreferenceSection(title: "Title here:", views: [
-            Box(views: [
-                Checkbox(title: "Selected time", isOn: true, views: [
-                    TextField(value: "200", trailingText: "seconds", width: 50) { text in
+            Separator(),
+            PreferenceSection(title: "Maximum level:", views: [
+                Box(views: [
+                    Level(value: 0.3) { value in
+
+                    },
+                    Slider() { value in
+                        print("value changed to \(value)")
+                    },
+                ])
+            ]),
+            Separator(),
+            PreferenceSection(title: "Body text:", views: [
+                FontPicker() { font in
                     
-                    }
-                ], onChange: { enabled in
+                },
+                ColorWell(color: .blue, style: .default) { color in
                     
-                }),
-            ])
-        ]),
-    ])
+                },
+                Image(named: "AppIcon Mac", size: CGSize(width: 50, height: 50)) {
+                    
+                },
+            ]),
+        ])
     
     view.addSubview(list)
     list.translatesAutoresizingMaskIntoConstraints = false

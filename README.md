@@ -176,7 +176,7 @@ Update selected font.
 picker.selectedFont = .preferredFont(forTextStyle: .body)
 ```
 
-<img width="200" alt="FontPicker" src="Assets/fontpicker.png"/>
+<img width="250" alt="FontPicker" src="Assets/fontpicker.png"/>
 
 ### Image
 

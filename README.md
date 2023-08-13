@@ -83,11 +83,13 @@ let button = Button(title: "Click Me", image: image, symbolConfiguration: config
 
 ### CalendarPicker
 
-`CalendarPicker` is an `NSDatePicker` with `datePickerStyle` set to `.clockAndCalendar` and `datePickerElements` configured to either `.yearMonthDay`. Configure it with a `date`, `minDate` and `maxDate`.
+`CalendarPicker` is an `NSDatePicker` with `datePickerStyle` set to `.clockAndCalendar` and `datePickerElements` configured to either `.yearMonthDay`.
+
+Configure it with a `date`, `minDate` and `maxDate`.
 
 ```swift
 let picker = CalendarPicker(date: .now) { date in
-
+    // do something here ...
 }
 ```
 
@@ -113,10 +115,11 @@ let checked = checkbox.isOn
 
 ### ClockPicker
 
-`ClockPicker` is an `NSDatePicker` with `datePickerStyle` set to `.clockAndCalendar` and `datePickerElements` configured to either `.hourMinuteSecond` or `.hourMinute`. Configure it with a `date`, `minDate` and `maxDate`.
+`ClockPicker` is an `NSDatePicker` with `datePickerStyle` set to `.clockAndCalendar` and `datePickerElements` configured to either `.hourMinuteSecond` or `.hourMinute`. Initialise it with a `date`, `minDate` and `maxDate`.
 
 ```swift
 let picker = ClockPicker(date: .now) { date in
+    // do something here ...
 }
 
 picker.showSeconds = true
@@ -130,7 +133,7 @@ picker.showSeconds = true
 
 ```swift
 let colorWell = ColorWell(color: .blue) { color in
-
+    // do something here ...
 }
 ```
 
@@ -138,11 +141,11 @@ let colorWell = ColorWell(color: .blue) { color in
 
 ### DatePicker
 
-`DatePicker` is an `NSDatePicker` with `datePickerStyle` set to `.textFieldAndStepper` or `.textField` and `datePickerElements` configured to either `.yearMonthDay` or `.yearMonth`. Configure it with a `date`, `minDate` and `maxDate`.
+`DatePicker` is an `NSDatePicker` with `datePickerStyle` set to `.textFieldAndStepper` or `.textField` and `datePickerElements` configured to either `.yearMonthDay` or `.yearMonth`. Initialise it with a `date`, `minDate` and `maxDate`.
 
 ```swift
 let picker = DatePicker(date: .now) { date in
-
+    // do something here ...
 }
 ```
 
@@ -162,11 +165,13 @@ picker.showDays = true
 
 ### FontPicker
 
-`FontPicker` is an `NSButton` that uses `NSFontPanel` and `NSFontManager` to show the font selection panel. Configure it with a `font` and optional title. If button title is not set, the current font display name will be shown using the currently selected font.
+`FontPicker` is an `NSButton` that uses `NSFontPanel` and `NSFontManager` to show the font selection panel. Initialise it with a `font` and optional title.
+
+If button title is not set, the current font display name will be shown using the currently selected font.
 
 ```swift
 let picker = FontPicker(font: myFont) { font in
-
+    // do something here ...
 }
 ```
 
@@ -203,7 +208,7 @@ label.stringValue = "Hello world!"
 
 ```swift
 let level = Level(value: 0.3, minValue: 0, maxValue: 1) { value in
-
+    // do something here ...
 }
 ```
 
@@ -280,7 +285,7 @@ let separator = Separator()
 
 ```swift
 let slider = Slider(value: 0.3, minValue: 0, maxValue: 1) { value in
-
+    // do something here ...
 }
 ```
 
@@ -292,7 +297,7 @@ let slider = Slider(value: 0.3, minValue: 0, maxValue: 1) { value in
 
 ```swift
 let switch = Switch(isOn: true) { isOn in
-
+    // do something here ...
 }
 ```
 
@@ -367,11 +372,11 @@ textField.isEditable = false
 
 ### TimePicker
 
-`TimePicker` is an `NSDatePicker` with `datePickerStyle` set to `.textFieldAndStepper` or `.textField` and `datePickerElements` configured to either `.hourMinuteSecond` or `.hourMinute`. Configure it with a `date`, `minDate` and `maxDate`.
+`TimePicker` is an `NSDatePicker` with `datePickerStyle` set to `.textFieldAndStepper` or `.textField` and `datePickerElements` configured to either `.hourMinuteSecond` or `.hourMinute`. Initialise it with a `date`, `minDate` and `maxDate`.
 
 ```swift
 let picker = TimePicker(date: .now) { date in
-
+    // do something here ...
 }
 ```
 

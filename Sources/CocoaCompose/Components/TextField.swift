@@ -27,6 +27,8 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         textField.isBordered = true
         textField.maximumNumberOfLines = 1
         
+        textField.cell?.truncatesLastVisibleLine = true
+        
         textField.delegate = self
         
         if let width {

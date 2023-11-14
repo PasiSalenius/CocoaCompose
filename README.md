@@ -256,7 +256,7 @@ let radio = Radio(items: [
         },
     ])
     
-], selectedIndex: 0) { index in
+], selectedIndex: 0) { index, previousIndex in
     // do something here ...
 }
 ```

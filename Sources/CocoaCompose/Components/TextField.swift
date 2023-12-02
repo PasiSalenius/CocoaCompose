@@ -4,12 +4,14 @@ public class TextField: NSStackView, NSTextFieldDelegate {
     private let textField = NSTextField()
     private let label = Label()
 
-    public var shouldEnd: ((String) -> Bool)?
     public var onChange: ((String) -> Void)?
-    
-    public init(value: String? = nil, attributedValue: NSAttributedString? = nil, placeholder: String? = nil, trailingText: String? = nil, width: CGFloat? = nil, shouldEnd: ((String) -> Bool)? = nil, onChange: ((String) -> Void)? = nil) {
-        self.shouldEnd = shouldEnd
+    public var shouldEnd: ((String) -> Bool)?
+    public var onEndEditing: ((String) -> Void)?
+
+    public init(value: String? = nil, attributedValue: NSAttributedString? = nil, placeholder: String? = nil, trailingText: String? = nil, width: CGFloat? = nil, shouldEnd: ((String) -> Bool)? = nil, onChange: ((String) -> Void)? = nil, onEndEditing: ((String) -> Void)? = nil) {
         self.onChange = onChange
+        self.shouldEnd = shouldEnd
+        self.onEndEditing = onEndEditing
 
         super.init(frame: .zero)
         orientation = .horizontal
@@ -91,5 +93,11 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         guard let textField = object.object as? NSTextField else { return }
         
         onChange?(textField.stringValue)
+    }
+    
+    public func controlTextDidEndEditing(_ object: Notification) {
+        guard let textField = object.object as? NSTextField else { return }
+        
+        onEndEditing?(textField.stringValue)
     }
 }

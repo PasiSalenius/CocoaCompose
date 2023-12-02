@@ -4,9 +4,11 @@ public class TextField: NSStackView, NSTextFieldDelegate {
     private let textField = NSTextField()
     private let label = Label()
 
+    public var shouldEnd: ((String) -> Bool)?
     public var onChange: ((String) -> Void)?
     
-    public init(value: String? = nil, attributedValue: NSAttributedString? = nil, placeholder: String? = nil, trailingText: String? = nil, width: CGFloat? = nil, onChange: ((String) -> Void)? = nil) {
+    public init(value: String? = nil, attributedValue: NSAttributedString? = nil, placeholder: String? = nil, trailingText: String? = nil, width: CGFloat? = nil, shouldEnd: ((String) -> Bool)? = nil, onChange: ((String) -> Void)? = nil) {
+        self.shouldEnd = shouldEnd
         self.onChange = onChange
 
         super.init(frame: .zero)
@@ -80,6 +82,10 @@ public class TextField: NSStackView, NSTextFieldDelegate {
     }
     
     // MARK: - Text field delegate
+    
+    public func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        return shouldEnd?(fieldEditor.string) ?? true
+    }
     
     public func controlTextDidChange(_ object: Notification) {
         guard let textField = object.object as? NSTextField else { return }

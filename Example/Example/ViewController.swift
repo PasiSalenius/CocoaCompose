@@ -16,7 +16,7 @@ class ViewController: NSViewController {
         
         title = "Test"
         
-        let list = PreferenceList(views: [
+        let list1 = PreferenceList(views: [
             PreferenceSection(title: "Enable:", views: [
                 Switch(isOn: true) { isOn in
                     
@@ -60,7 +60,9 @@ class ViewController: NSViewController {
                     
                 },
             ]),
-            Separator(),
+        ])
+        
+        let list2 = PreferenceList(views: [
             PreferenceSection(title: "Start date:", orientation: .horizontal, alignment: .centerY, spacing: 20, views: [
                 CalendarPicker() { date in
                     
@@ -69,7 +71,9 @@ class ViewController: NSViewController {
                     
                 },
             ]),
-            Separator(),
+        ])
+
+        let list3 = PreferenceList(views: [
             PreferenceSection(title: "Maximum level:", views: [
                 Box(views: [
                     Level(value: 0.3) { value in
@@ -93,13 +97,29 @@ class ViewController: NSViewController {
                 },
             ]),
         ])
+
+        let list = PreferenceList(views: [
+            Tabs(selectedIndex: 0, items: [
+                .init(title: "General", views: [
+                    list1,
+                ]),
+                .init(title: "Calendar", views: [
+                    list2,
+                ]),
+                .init(title: "Other", views: [
+                    list3,
+                ])
+            ]) { index in
+                
+            },
+        ])
         
         view.addSubview(list)
         list.translatesAutoresizingMaskIntoConstraints = false
         view.addConstraints([
-            list.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            list.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            list.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            list.topAnchor.constraint(equalTo: view.topAnchor, constant: 14),
+            list.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            list.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             list.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20)
         ])
         

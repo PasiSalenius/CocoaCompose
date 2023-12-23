@@ -11,7 +11,7 @@ public class PreferenceSection: NSStackView {
         self.distribution = .fill
         self.orientation = .horizontal
         self.alignment = .top
-        self.spacing = 8
+        self.spacing = 7
         
         if let view = views.first {
             switch view {
@@ -29,7 +29,7 @@ public class PreferenceSection: NSStackView {
         itemStack.distribution = .fill
         itemStack.orientation = orientation
         itemStack.alignment = alignment ?? (orientation == .vertical ? .leading : .top)
-        itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 10)
+        itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 7)
         
         let stackView = NSStackView(views: [itemStack])
         stackView.distribution = .fill

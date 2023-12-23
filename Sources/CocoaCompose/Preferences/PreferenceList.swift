@@ -7,7 +7,7 @@ public class PreferenceList: NSStackView {
         distribution = .fill
         orientation = .vertical
         alignment = .leading
-        spacing = 15
+        spacing = 14
         
         views.forEach { addArrangedSubview($0) }
         

@@ -49,15 +49,15 @@ public class Box: NSView {
         itemStack.distribution = .fill
         itemStack.orientation = orientation
         itemStack.alignment = orientation == .vertical ? .leading : .top
-        itemStack.spacing = orientation == .vertical ? 7 : 10
+        itemStack.spacing = orientation == .vertical ? 7 : 7
         
         contentView.addSubview(itemStack)
         itemStack.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
-            itemStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            itemStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            itemStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            itemStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            itemStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            itemStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            itemStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            itemStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
         ])
     }
     

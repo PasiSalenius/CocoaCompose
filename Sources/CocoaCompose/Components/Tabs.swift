@@ -31,7 +31,6 @@ public class Tabs: NSView {
 
         segmentedControl.wantsLayer = true
 
-        segmentedControl.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
         segmentedControl.layer?.cornerRadius = 8
         segmentedControl.layer?.masksToBounds = true
 
@@ -42,8 +41,6 @@ public class Tabs: NSView {
         contentView.wantsLayer = true
         
         contentView.layer?.borderWidth = 1
-        contentView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.15).cgColor
-        contentView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.05).cgColor
         contentView.layer?.cornerRadius = 5
 
         addSubview(contentView)

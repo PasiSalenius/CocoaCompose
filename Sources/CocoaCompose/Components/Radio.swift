@@ -61,8 +61,8 @@ public class Radio: NSStackView {
             let stackView = NSStackView(views: [button] + item.views)
             stackView.distribution = .fill
             stackView.orientation = item.orientation
-            stackView.alignment = item.orientation == .vertical ? .leading : .height
-            stackView.spacing = item.orientation == .vertical ? 7 : 10
+            stackView.alignment = item.orientation == .vertical ? .leading : .firstBaseline
+            stackView.spacing = item.orientation == .vertical ? 7 : 7
             
             addArrangedSubview(stackView)
             

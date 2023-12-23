@@ -49,7 +49,7 @@ public class Box: NSView {
         itemStack.distribution = .fill
         itemStack.orientation = orientation
         itemStack.alignment = orientation == .vertical ? .leading : .top
-        itemStack.spacing = orientation == .vertical ? 7 : 7
+        itemStack.spacing = orientation == .vertical ? 7 : 10
         
         contentView.addSubview(itemStack)
         itemStack.translatesAutoresizingMaskIntoConstraints = false

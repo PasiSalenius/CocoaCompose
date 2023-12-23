@@ -62,7 +62,7 @@ public class Radio: NSStackView {
             stackView.distribution = .fill
             stackView.orientation = item.orientation
             stackView.alignment = item.orientation == .vertical ? .leading : .firstBaseline
-            stackView.spacing = item.orientation == .vertical ? 7 : 7
+            stackView.spacing = item.orientation == .vertical ? 7 : 10
             
             addArrangedSubview(stackView)
             

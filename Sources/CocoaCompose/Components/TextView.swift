@@ -6,7 +6,7 @@ public class TextView: NSView, NSTextViewDelegate {
 
     public var onChange: ((String) -> Void)?
     
-    public init(text: String = "", onChange: ((String) -> Void)? = nil) {
+    public init(text: String = "", isFieldEditor: Bool = false, onChange: ((String) -> Void)? = nil) {
         let scrollView = NSScrollView()
         scrollView.drawsBackground = true
         scrollView.borderType = .lineBorder
@@ -63,6 +63,8 @@ public class TextView: NSView, NSTextViewDelegate {
         textView.allowsUndo = true
         textView.usesFindPanel = true
         textView.isIncrementalSearchingEnabled = true
+        
+        textView.isFieldEditor = isFieldEditor
         
         self.textView = textView
         

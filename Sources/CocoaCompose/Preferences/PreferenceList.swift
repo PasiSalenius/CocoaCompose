@@ -1,10 +1,10 @@
 import Cocoa
 
 public class PreferenceList: NSStackView {
-    public init(views: [NSView], distribution: NSStackView.Distribution = .fill) {
+    public init(views: [NSView]) {
         super.init(frame: .zero)
         
-        self.distribution = distribution
+        distribution = .fill
         orientation = .vertical
         alignment = .leading
         spacing = 14

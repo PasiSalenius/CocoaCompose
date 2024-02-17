@@ -5,7 +5,7 @@ public class PreferenceSection: NSStackView {
     
     var leadAnchor: NSLayoutDimension? { titleLabel?.widthAnchor }
 
-    public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, alignment: NSLayoutConstraint.Attribute? = nil, spacing: Double? = nil, views: [NSView]) {
+    public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, distribution: NSStackView.Distribution = .fill, alignment: NSLayoutConstraint.Attribute? = nil, spacing: Double? = nil, views: [NSView]) {
         super.init(frame: .zero)
 
         self.distribution = .fill
@@ -26,8 +26,8 @@ public class PreferenceSection: NSStackView {
         self.layer?.masksToBounds = false
 
         let itemStack = NSStackView(views: views)
-        itemStack.distribution = .fill
         itemStack.orientation = orientation
+        itemStack.distribution = distribution
         itemStack.alignment = alignment ?? (orientation == .vertical ? .leading : .top)
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 10)
         

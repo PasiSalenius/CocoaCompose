@@ -15,7 +15,7 @@ public class PreferenceSection: NSStackView {
         
         if let view = views.first {
             switch view {
-            case is TextField, is Button, is PopUp:
+            case is Button, is Checkbox, is DatePicker, is FontPicker, is PopUp, is TextField, is TimePicker:
                 self.alignment = .firstBaseline
             default:
                 break

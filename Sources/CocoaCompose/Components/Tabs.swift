@@ -11,14 +11,14 @@ public class Tabs: NSView {
     public struct Item {
         public var title: String
         public var footer: String?
-        public var views: [NSView]
         public var orientation: NSUserInterfaceLayoutOrientation
+        public var views: [NSView]
         
-        public init(title: String, footer: String? = nil, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .vertical) {
+        public init(title: String, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, views: [NSView] = []) {
             self.title = title
             self.footer = footer
-            self.views = views
             self.orientation = orientation
+            self.views = views
         }
     }
 

@@ -6,15 +6,15 @@ public class Checkbox: NSStackView {
     
     public var onChange: ((Bool) -> Void)?
     
-    public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, isOn: Bool = false, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
+    public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, isOn: Bool = false, orientation: NSUserInterfaceLayoutOrientation = .horizontal, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
         self.associatedViews = views
         self.onChange = onChange
         
         super.init(frame: .zero)
-        self.orientation = .horizontal
+        self.orientation = orientation
         self.alignment = .firstBaseline
-        self.spacing = 5
-        
+        self.spacing = orientation == .vertical ? 7 : 5
+
         button.setButtonType(.switch)
         button.font = .preferredFont(forTextStyle: .body)
         button.target = self

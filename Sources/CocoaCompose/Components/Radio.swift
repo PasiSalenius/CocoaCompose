@@ -12,15 +12,15 @@ public class Radio: NSStackView {
         public var title: String?
         public var attributedTitle: NSAttributedString?
         public var footer: String?
-        public var views: [NSView]
         public var orientation: NSUserInterfaceLayoutOrientation
+        public var views: [NSView]
         
-        public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, footer: String? = nil, views: [NSView] = [], orientation: NSUserInterfaceLayoutOrientation = .horizontal) {
+        public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .horizontal, views: [NSView] = []) {
             self.title = title
             self.attributedTitle = attributedTitle
             self.footer = footer
-            self.views = views
             self.orientation = orientation
+            self.views = views
         }
     }
 

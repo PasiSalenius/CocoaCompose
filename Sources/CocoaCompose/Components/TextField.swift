@@ -55,6 +55,11 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public var isEnabled: Bool {
+        get { textField.isEnabled }
+        set { textField.isEnabled = newValue }
+    }
+    
     public var stringValue: String {
         get { textField.stringValue }
         set { textField.stringValue = newValue }

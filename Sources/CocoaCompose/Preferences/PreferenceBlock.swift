@@ -1,27 +1,14 @@
 import Cocoa
 
-public class PreferenceSection: NSStackView {
-    private var titleLabel: Label?
-    
-    var leadAnchor: NSLayoutDimension? { titleLabel?.widthAnchor }
-
+public class PreferenceBlock: NSStackView {
     public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, distribution: NSStackView.Distribution = .fill, alignment: NSLayoutConstraint.Attribute? = nil, spacing: Double? = nil, views: [NSView]) {
         super.init(frame: .zero)
 
         self.distribution = .fill
-        self.orientation = .horizontal
-        self.alignment = .top
+        self.orientation = .vertical
+        self.alignment = .width
         self.spacing = 7
         
-        if let view = views.first {
-            switch view {
-            case is Button, is Checkbox, is DatePicker, is FontPicker, is PopUp, is TextField, is TimePicker:
-                self.alignment = .firstBaseline
-            default:
-                break
-            }
-        }
-
         self.wantsLayer = true
         self.layer?.masksToBounds = false
 

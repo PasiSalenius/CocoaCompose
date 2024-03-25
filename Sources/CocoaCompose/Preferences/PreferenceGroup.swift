@@ -32,7 +32,7 @@ public class PreferenceGroup: NSStackView {
             rowStack.distribution = .fill
             rowStack.orientation = .horizontal
             rowStack.alignment = .firstBaseline
-            rowStack.spacing = 10
+            rowStack.spacing = 12
             
             let stackView = NSStackView(views: [label, rowStack])
             stackView.distribution = .fill

@@ -6,7 +6,7 @@ public class PreferenceBlock: NSStackView {
 
         self.distribution = .fill
         self.orientation = .vertical
-        self.alignment = .width
+        self.alignment = .leading
         self.spacing = 7
         
         self.wantsLayer = true
@@ -36,8 +36,6 @@ public class PreferenceBlock: NSStackView {
             titleLabel.alignment = .right
 
             addArrangedSubview(titleLabel)
-            
-            self.titleLabel = titleLabel
         }
 
         if let footer {

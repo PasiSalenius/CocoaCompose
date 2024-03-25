@@ -6,29 +6,45 @@ public class Checkbox: NSStackView {
     
     public var onChange: ((Bool) -> Void)?
     
+    private let checkboxWidth: CGFloat = 21
+    
     public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, isOn: Bool = false, orientation: NSUserInterfaceLayoutOrientation = .horizontal, views: [NSView] = [], onChange: ((Bool) -> Void)? = nil) {
         self.associatedViews = views
         self.onChange = onChange
         
         super.init(frame: .zero)
         self.orientation = orientation
-        self.alignment = .firstBaseline
+        self.alignment = orientation == .vertical ? .leading : .firstBaseline
         self.spacing = orientation == .vertical ? 7 : 5
-
+        
         button.setButtonType(.switch)
         button.font = .preferredFont(forTextStyle: .body)
         button.target = self
         button.action = #selector(buttonAction)
-
+        
         if let title = attributedTitle {
             button.attributedTitle = title
         } else {
             button.title = title ?? ""
         }
-
+        
         addArrangedSubview(button)
         
-        views.forEach { addArrangedSubview($0) }
+        if orientation == .horizontal {
+            views.forEach { addArrangedSubview($0) }
+            
+        } else {
+            views.forEach { view in
+                let spacer = NSView()
+                spacer.addConstraint(spacer.widthAnchor.constraint(equalToConstant: checkboxWidth))
+                
+                let stackView = NSStackView(views: [spacer, view])
+                stackView.orientation = .horizontal
+                stackView.spacing = 0
+                
+                addArrangedSubview(stackView)
+            }
+        }
         
         self.isOn = isOn
     }

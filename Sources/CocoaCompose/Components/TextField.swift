@@ -28,7 +28,9 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         textField.font = .preferredFont(forTextStyle: .body)
         textField.textColor = .labelColor
         textField.isEditable = true
-        textField.isBordered = true
+        textField.isBordered = false
+        textField.isBezeled = true
+        textField.bezelStyle = .squareBezel
         textField.maximumNumberOfLines = 1
         
         textField.cell?.truncatesLastVisibleLine = true

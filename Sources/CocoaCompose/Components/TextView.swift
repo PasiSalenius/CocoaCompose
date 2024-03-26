@@ -9,7 +9,7 @@ public class TextView: NSView, NSTextViewDelegate {
     public init(text: String = "", isFieldEditor: Bool = false, onChange: ((String) -> Void)? = nil) {
         let scrollView = NSScrollView()
         scrollView.drawsBackground = true
-        scrollView.borderType = .lineBorder
+        scrollView.borderType = .bezelBorder
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalRuler = false
         scrollView.autoresizingMask = [.width, .height]
@@ -104,7 +104,7 @@ public class TextView: NSView, NSTextViewDelegate {
         didSet { textView.font = font }
     }
 
-    public var borderType: NSBorderType = .noBorder {
+    public var borderType: NSBorderType = .bezelBorder {
         didSet { scrollView.borderType = borderType }
     }
 

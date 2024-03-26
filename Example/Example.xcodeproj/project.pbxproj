@@ -11,7 +11,6 @@
 		433D297E2B370FDC004F01F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433D297D2B370FDC004F01F1 /* ViewController.swift */; };
 		433D29802B370FDD004F01F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 433D297F2B370FDD004F01F1 /* Assets.xcassets */; };
 		433D29832B370FDD004F01F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433D29812B370FDD004F01F1 /* Main.storyboard */; };
-		433D298E2B371063004F01F1 /* CocoaCompose in Frameworks */ = {isa = PBXBuildFile; productRef = 433D298D2B371063004F01F1 /* CocoaCompose */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +20,7 @@
 		433D297F2B370FDD004F01F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		433D29822B370FDD004F01F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		433D29842B370FDD004F01F1 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
-		433D298A2B370FEA004F01F1 /* CocoaCompose */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CocoaCompose; path = ../..; sourceTree = "<group>"; };
+		436197AF2BB18DBA006F4AFA /* CocoaCompose */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CocoaCompose; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,7 +28,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				433D298E2B371063004F01F1 /* CocoaCompose in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +67,7 @@
 		433D298B2B371002004F01F1 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				433D298A2B370FEA004F01F1 /* CocoaCompose */,
+				436197AF2BB18DBA006F4AFA /* CocoaCompose */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -98,7 +96,6 @@
 			);
 			name = Example;
 			packageProductDependencies = (
-				433D298D2B371063004F01F1 /* CocoaCompose */,
 			);
 			productName = Example;
 			productReference = 433D29782B370FDC004F01F1 /* Example.app */;
@@ -367,13 +364,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		433D298D2B371063004F01F1 /* CocoaCompose */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CocoaCompose;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 433D29702B370FDB004F01F1 /* Project object */;
 }

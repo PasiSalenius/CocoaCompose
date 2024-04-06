@@ -53,6 +53,16 @@ public class Checkbox: NSStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public var isEnabled: Bool {
+        get {
+            button.isEnabled
+        }
+        set {
+            button.isEnabled = newValue
+            associatedViews.forEach { $0.enableSubviews(newValue) }
+        }
+    }
+
     public var isOn: Bool {
         get {
             button.state == .on

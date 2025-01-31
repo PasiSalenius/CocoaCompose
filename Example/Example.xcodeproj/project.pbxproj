@@ -11,6 +11,7 @@
 		433D297E2B370FDC004F01F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433D297D2B370FDC004F01F1 /* ViewController.swift */; };
 		433D29802B370FDD004F01F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 433D297F2B370FDD004F01F1 /* Assets.xcassets */; };
 		433D29832B370FDD004F01F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433D29812B370FDD004F01F1 /* Main.storyboard */; };
+		43C8B2562D4D65F6001E2B0C /* CocoaCompose in Frameworks */ = {isa = PBXBuildFile; productRef = 43C8B2552D4D65F6001E2B0C /* CocoaCompose */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43C8B2562D4D65F6001E2B0C /* CocoaCompose in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +98,7 @@
 			);
 			name = Example;
 			packageProductDependencies = (
+				43C8B2552D4D65F6001E2B0C /* CocoaCompose */,
 			);
 			productName = Example;
 			productReference = 433D29782B370FDC004F01F1 /* Example.app */;
@@ -297,6 +300,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6ZSJ45TPYC;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -324,6 +328,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6ZSJ45TPYC;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -364,6 +369,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		43C8B2552D4D65F6001E2B0C /* CocoaCompose */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CocoaCompose;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 433D29702B370FDB004F01F1 /* Project object */;
 }

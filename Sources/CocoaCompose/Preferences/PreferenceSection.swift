@@ -1,6 +1,6 @@
 import Cocoa
 
-public class PreferenceSection: NSStackView {
+public class PreferenceSection: FullWidthStackView {
     private var titleLabel: Label?
     
     var leadAnchor: NSLayoutDimension? { titleLabel?.widthAnchor }
@@ -25,22 +25,18 @@ public class PreferenceSection: NSStackView {
         self.wantsLayer = true
         self.layer?.masksToBounds = false
 
-        let itemStack = NSStackView(views: views)
+        let itemStack = FullWidthStackView(views: views)
         itemStack.orientation = orientation
         itemStack.distribution = distribution
         itemStack.alignment = alignment ?? (orientation == .vertical ? .leading : .top)
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)
         
-        let stackView = NSStackView(views: [itemStack])
+        let stackView = FullWidthStackView(views: [itemStack])
         stackView.distribution = .fill
         stackView.orientation = .vertical
         stackView.alignment = .leading
         stackView.spacing = 7
         
-        let width = stackView.widthAnchor.constraint(equalToConstant: 10_000)
-        width.priority = .defaultLow
-        width.isActive = true
-
         if let title {
             let titleLabel = Label()
             titleLabel.stringValue = title

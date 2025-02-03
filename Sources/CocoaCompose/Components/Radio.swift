@@ -1,6 +1,6 @@
 import Cocoa
 
-public class Radio: NSStackView {
+public class Radio: FullWidthStackView {
     private let items: [Item]
     private var buttons: [NSButton] = []
     
@@ -36,10 +36,6 @@ public class Radio: NSStackView {
         self.alignment = .leading
         self.spacing = 7
         
-        let width = self.widthAnchor.constraint(equalToConstant: 10_000)
-        width.priority = .defaultLow
-        width.isActive = true
-        
         for index in 0 ..< items.count {
             let item = items[index]
             
@@ -66,10 +62,6 @@ public class Radio: NSStackView {
             
             addArrangedSubview(stackView)
             
-            let width = stackView.widthAnchor.constraint(equalToConstant: 10_000)
-            width.priority = .defaultLow
-            width.isActive = true
-
             if let footer = item.footer {
                 let footerLabel = Label()
                 footerLabel.stringValue = footer

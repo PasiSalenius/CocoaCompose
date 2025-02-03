@@ -1,17 +1,43 @@
 import Cocoa
 
-public class PreferenceList: NSStackView {
-    public init(views: [NSView]) {
+public class PreferenceList: NSView {
+    public enum Style {
+        case center
+        case fullWidth
+    }
+    
+    public init(style: Style, views: [NSView]) {
         super.init(frame: .zero)
         
-        distribution = .fill
-        orientation = .vertical
-        alignment = .leading
-        spacing = 14
-        
-        views.forEach { addArrangedSubview($0) }
+        let stackView = FullWidthStackView(views: views)
+        stackView.distribution = .fill
+        stackView.orientation = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 14
         
         alignLeadAnchors(views: views)
+
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        switch style {
+        case .center:
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: topAnchor),
+                stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+                stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+                stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            ])
+
+        case .fullWidth:
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: topAnchor),
+                stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            ])
+        }
     }
     
     required init?(coder: NSCoder) {

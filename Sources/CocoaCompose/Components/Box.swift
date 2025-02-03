@@ -13,7 +13,7 @@ public class Box: NSView {
         contentView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.05).cgColor
         contentView.layer?.cornerRadius = 5
 
-        let stackView = NSStackView()
+        let stackView = FullWidthStackView()
         stackView.orientation = .vertical
         stackView.alignment = .leading
         stackView.spacing = 5
@@ -34,17 +34,6 @@ public class Box: NSView {
             stackView.addArrangedSubview(titleStack)
         }
 
-        stackView.addArrangedSubview(contentView)
-
-        addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        addConstraints([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
-        
         let itemStack = NSStackView(views: views)
         itemStack.distribution = .fill
         itemStack.orientation = orientation
@@ -58,6 +47,17 @@ public class Box: NSView {
             itemStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             itemStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             itemStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+        ])
+        
+        stackView.addArrangedSubview(contentView)
+
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addConstraints([
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
     

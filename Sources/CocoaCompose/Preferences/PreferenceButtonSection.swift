@@ -20,10 +20,6 @@ public class PreferenceButtonSection: NSStackView {
         stackView.alignment = .firstBaseline
         stackView.spacing = 12
         
-        let width = stackView.widthAnchor.constraint(equalToConstant: 10_000)
-        width.priority = .defaultLow
-        width.isActive = true
-        
         let spacer = NSView()
         spacer.addConstraint(spacer.heightAnchor.constraint(equalToConstant: 10))
         

@@ -66,10 +66,6 @@ public class PreferenceGroup: NSStackView {
 
         stackViews.forEach { addArrangedSubview($0) }
         
-        let width = widthAnchor.constraint(equalToConstant: 10_000)
-        width.priority = .defaultLow
-        width.isActive = true
-
         alignLeadAnchors()
     }
     

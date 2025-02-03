@@ -1,6 +1,6 @@
 import Cocoa
 
-public class PreferenceBlock: NSStackView {
+public class PreferenceBlock: FullWidthStackView {
     public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, distribution: NSStackView.Distribution = .fill, alignment: NSLayoutConstraint.Attribute? = nil, spacing: Double? = nil, views: [NSView]) {
         super.init(frame: .zero)
 
@@ -12,28 +12,24 @@ public class PreferenceBlock: NSStackView {
         self.wantsLayer = true
         self.layer?.masksToBounds = false
 
-        let itemStack = NSStackView(views: views)
+        let itemStack = FullWidthStackView(views: views)
         itemStack.orientation = orientation
         itemStack.distribution = distribution
         itemStack.alignment = alignment ?? (orientation == .vertical ? .leading : .top)
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)
         
-        let stackView = NSStackView(views: [itemStack])
+        let stackView = FullWidthStackView(views: [itemStack])
         stackView.distribution = .fill
         stackView.orientation = .vertical
         stackView.alignment = .leading
         stackView.spacing = 7
         
-        let width = stackView.widthAnchor.constraint(equalToConstant: 10_000)
-        width.priority = .defaultLow
-        width.isActive = true
-
         if let title {
             let titleLabel = Label()
             titleLabel.stringValue = title
             titleLabel.font = .preferredFont(forTextStyle: .body)
             titleLabel.textColor = .labelColor
-            titleLabel.alignment = .right
+            titleLabel.alignment = .left
 
             addArrangedSubview(titleLabel)
         }

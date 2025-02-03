@@ -39,10 +39,10 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         
         if let width {
             let constraint = textField.widthAnchor.constraint(equalToConstant: width)
-            constraint.priority = .defaultHigh
+            constraint.priority = .defaultLow
             constraint.isActive = true
         }
-        
+       
         addArrangedSubview(textField)
         
         label.stringValue = trailingText ?? ""

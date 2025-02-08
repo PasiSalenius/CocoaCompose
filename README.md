@@ -452,7 +452,7 @@ Alternatively use a `PreferenceBlock` to place a left aligned title above the co
 The views in the section can be places horizontally with `orientation: .horizontal`. 
 
 ```swift
-PreferenceSection(
+PreferenceBlock(
     title: "Options:",
     footer: "This text appears below a section.",
     orientation: .vertical,

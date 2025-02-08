@@ -30,6 +30,7 @@ public class PreferenceBlock: FullWidthStackView {
             label.font = .preferredFont(forTextStyle: .body)
             label.textColor = .labelColor
             label.alignment = .left
+            
             label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
 
             addArrangedSubview(label)

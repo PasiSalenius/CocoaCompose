@@ -10,13 +10,15 @@ public class OptionSection: NSStackView {
         self.spacing = 7
         
         if let title {
-            let titleLabel = Label()
-            titleLabel.stringValue = title
-            titleLabel.font = .preferredFont(forTextStyle: .body)
-            titleLabel.textColor = .labelColor
-            titleLabel.alignment = .right
+            let label = Label()
+            label.stringValue = title
+            label.font = .preferredFont(forTextStyle: .body)
+            label.textColor = .labelColor
+            label.alignment = .right
+            
+            label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
 
-            addArrangedSubview(titleLabel)
+            addArrangedSubview(label)
         }
 
         self.wantsLayer = true
@@ -40,15 +42,16 @@ public class OptionSection: NSStackView {
         }
 
         if let footer {
-            let footerLabel = Label()
-            footerLabel.stringValue = footer
-            footerLabel.font = .preferredFont(forTextStyle: .subheadline)
-            footerLabel.textColor = .secondaryLabelColor
-            footerLabel.usesSingleLineMode = false
-
-            footerLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            let label = Label()
+            label.stringValue = footer
+            label.font = .preferredFont(forTextStyle: .subheadline)
+            label.textColor = .secondaryLabelColor
+            label.usesSingleLineMode = false
             
-            addArrangedSubview(footerLabel)
+            label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
+            label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            
+            addArrangedSubview(label)
         }
     }
     

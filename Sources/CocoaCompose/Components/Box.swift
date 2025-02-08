@@ -24,6 +24,8 @@ public class Box: NSView {
             label.textColor = .secondaryLabelColor
             label.stringValue = title
             
+            label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
+
             let spacer = NSView()
             spacer.widthAnchor.constraint(equalToConstant: 5).isActive = true
             

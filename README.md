@@ -50,8 +50,8 @@ CocoaCompose includes these components
 The following two components help build preference window content
 - [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
-- [PreferenceGroup](https://github.com/PasiSalenius/CocoaCompose#preferencegroup)
 - [PreferenceBlock](https://github.com/PasiSalenius/CocoaCompose#preferenceblock)
+- [PreferenceGroup](https://github.com/PasiSalenius/CocoaCompose#preferencegroup)
 
 All of the components are configured to look right in a Mac app out of the box, and come with easy to use initialisers, and take a closure for value changes. All components are set to dynamic type `NSFont.TextStyle.body` by default.
 
@@ -419,12 +419,29 @@ PreferenceList(views: [
 
 `PreferenceSection` takes a title, a list of components, and shows an optional footer text below all of the components in that section. The section title is shown to the left from the section components, right aligned. The title text should end with a colon.
 
-The views in the section can be places horizontally with `orientation: .horizontal`. 
+The views in the section can be placed horizontally with `orientation: .horizontal`. 
 
 ```swift
 PreferenceSection(
     title: "Options:",
-    footer: "This text appears below a section.",
+    footer: "This text appears below the section.",
+    orientation: .vertical,
+    views: [
+        ...
+    ]
+)
+```
+
+### PreferenceBlock
+
+As an alternative to `PreferenceSection`, if you need a left aligned title above the components, use a `PreferenceBlock` with optional footer text below. Also here the title text should end with a colon. This layout fits with option windows whose contents fill the window horizontally.
+
+The views in the section can be placed horizontally with `orientation: .horizontal`. 
+
+```swift
+PreferenceBlock(
+    title: "Options:",
+    footer: "This text appears below the block.",
     orientation: .vertical,
     views: [
         ...
@@ -444,23 +461,6 @@ PreferenceGroup(items: [
     .init(title: "Second:", views: [...]),
 ])
 ``` 
-
-### PreferenceBlock
-
-Alternatively use a `PreferenceBlock` to place a left aligned title above the components, with optional footer text below. Here the title text should also end with a colon.
-
-The views in the section can be places horizontally with `orientation: .horizontal`. 
-
-```swift
-PreferenceBlock(
-    title: "Options:",
-    footer: "This text appears below a section.",
-    orientation: .vertical,
-    views: [
-        ...
-    ]
-)
-```
 
 ### Example
 

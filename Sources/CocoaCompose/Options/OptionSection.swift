@@ -14,7 +14,7 @@ public class OptionSection: NSStackView {
             label.stringValue = title
             label.font = .preferredFont(forTextStyle: .body)
             label.textColor = .labelColor
-            label.alignment = .right
+            label.alignment = .left
             
             label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
 

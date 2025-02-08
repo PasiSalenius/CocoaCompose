@@ -25,25 +25,27 @@ public class PreferenceBlock: FullWidthStackView {
         stackView.spacing = 7
         
         if let title {
-            let titleLabel = Label()
-            titleLabel.stringValue = title
-            titleLabel.font = .preferredFont(forTextStyle: .body)
-            titleLabel.textColor = .labelColor
-            titleLabel.alignment = .left
+            let label = Label()
+            label.stringValue = title
+            label.font = .preferredFont(forTextStyle: .body)
+            label.textColor = .labelColor
+            label.alignment = .left
+            label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
 
-            addArrangedSubview(titleLabel)
+            addArrangedSubview(label)
         }
 
         if let footer {
-            let footerLabel = Label()
-            footerLabel.stringValue = footer
-            footerLabel.font = .preferredFont(forTextStyle: .subheadline)
-            footerLabel.textColor = .secondaryLabelColor
-            footerLabel.usesSingleLineMode = false
+            let label = Label()
+            label.stringValue = footer
+            label.font = .preferredFont(forTextStyle: .subheadline)
+            label.textColor = .secondaryLabelColor
+            label.usesSingleLineMode = false
 
-            footerLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
+            label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             
-            stackView.addArrangedSubview(footerLabel)
+            stackView.addArrangedSubview(label)
         }
         
         addArrangedSubview(stackView)

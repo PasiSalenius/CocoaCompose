@@ -48,9 +48,10 @@ CocoaCompose includes these components
 - [TimePicker](https://github.com/PasiSalenius/CocoaCompose#timepicker)
 
 The following two components help build preference window content
-- [PreferenceGroup](https://github.com/PasiSalenius/CocoaCompose#preferencegroup)
 - [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
+- [PreferenceGroup](https://github.com/PasiSalenius/CocoaCompose#preferencegroup)
+- [PreferenceBlock](https://github.com/PasiSalenius/CocoaCompose#preferenceblock)
 
 All of the components are configured to look right in a Mac app out of the box, and come with easy to use initialisers, and take a closure for value changes. All components are set to dynamic type `NSFont.TextStyle.body` by default.
 
@@ -333,7 +334,7 @@ tabs.selectedIndex = 2
 
 ### TextField
 
-`TextField` is an `NSTextField` with an optional trailing `Label`.
+`TextField` is an `NSTextField` with an optional trailing `Label`. You should configure it with a `width` that fits your use case nicely.
 
 ```swift
 let textField = TextField(value: "30", trailingText: "seconds") { text in
@@ -400,6 +401,37 @@ Components can be composed together using compact code, that closely matches the
 
 We use two more components to initialise the content for a Mac preference window.
 
+### PreferenceList
+
+`PreferenceList` takes in a list of sections and takes care of appropriate spacing between them.
+
+Basically the only special sauce in `PreferenceList` is that it looks for leading titles labels in its views, and constrains them all to same width. This results in the familiar clean look of a Mac app preferences window (before the horror of Settings in Ventura).
+
+It horizontally centers its contents if it's less wide than the containing view, as preference window contents are typically centered. 
+
+```swift
+PreferenceList(views: [
+    ...
+])
+``` 
+
+### PreferenceSection
+
+`PreferenceSection` takes a title, a list of components, and shows an optional footer text below all of the components in that section. The section title is shown to the left from the section components, right aligned. The title text should end with a colon.
+
+The views in the section can be places horizontally with `orientation: .horizontal`. 
+
+```swift
+PreferenceSection(
+    title: "Options:",
+    footer: "This text appears below a section.",
+    orientation: .vertical,
+    views: [
+        ...
+    ]
+)
+```
+
 ### PreferenceGroup
 
 `PreferenceGroup` takes in a list of items that each have a title and horizontal stack of views.
@@ -413,21 +445,9 @@ PreferenceGroup(items: [
 ])
 ``` 
 
-### PreferenceList
+### PreferenceBlock
 
-`PreferenceList` takes in a list of sections and takes care of appropriate spacing between them.
-
-Basically the only special sauce in `PreferenceList` is that it looks for leading titles labels in its views, and constrains them all to same width. This results in the familiar clean look of a Mac app preferences window (before the horror of Settings in Ventura).  
-
-```swift
-PreferenceList(views: [
-    ...
-])
-``` 
-
-### PreferenceSection
-
-`PreferenceSection` takes a title, a list of components, and shows an optional footer text below all of the components in that section. The section title is shown to the left from the section components, right aligned. The title text should end with a colon.
+Alternatively use a `PreferenceBlock` to place a left aligned title above the components, with optional footer text below. Here the title text should also end with a colon.
 
 The views in the section can be places horizontally with `orientation: .horizontal`. 
 

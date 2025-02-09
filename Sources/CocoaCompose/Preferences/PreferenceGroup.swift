@@ -1,7 +1,7 @@
 import Cocoa
 
 public class PreferenceGroup: NSStackView {
-    private var leadingViews: [NSView]
+    private var leadingViews: [NSView] = []
     
     var leadAnchor: NSLayoutDimension? { leadingViews.first?.widthAnchor }
 
@@ -16,9 +16,16 @@ public class PreferenceGroup: NSStackView {
     }
 
     public init(footer: String? = nil, items: [Item]) {
-        var leadingViews: [NSView] = []
-        var stackViews: [NSStackView] = []
+        super.init(frame: .zero)
+
+        self.distribution = .fill
+        self.orientation = .vertical
+        self.alignment = .leading
+        self.spacing = 7
         
+        self.wantsLayer = true
+        self.layer?.masksToBounds = false
+
         for item in items {
             let stackView = NSStackView()
             stackView.distribution = .fill
@@ -52,7 +59,7 @@ public class PreferenceGroup: NSStackView {
             
             stackView.addArrangedSubview(rowStack)
 
-            stackViews.append(stackView)
+            addArrangedSubview(stackView)
             
             if let view = item.views.first {
                 switch view {
@@ -65,20 +72,6 @@ public class PreferenceGroup: NSStackView {
                 }
             }
         }
-        
-        self.leadingViews = leadingViews
-        
-        super.init(frame: .zero)
-
-        self.distribution = .fill
-        self.orientation = .vertical
-        self.alignment = .leading
-        self.spacing = 7
-        
-        self.wantsLayer = true
-        self.layer?.masksToBounds = false
-
-        addArrangedSubviews(stackViews)
         
         if let footer {
             let label = Label()

@@ -15,7 +15,7 @@ public class PreferenceGroup: NSStackView {
         }
     }
 
-    public init(items: [Item]) {
+    public init(footer: String? = nil, items: [Item]) {
         var labels: [Label] = []
         var stackViews: [NSStackView] = []
         
@@ -67,6 +67,19 @@ public class PreferenceGroup: NSStackView {
         self.layer?.masksToBounds = false
 
         addArrangedSubviews(stackViews)
+        
+        if let footer {
+            let label = Label()
+            label.stringValue = footer
+            label.font = .preferredFont(forTextStyle: .subheadline)
+            label.textColor = .secondaryLabelColor
+            label.usesSingleLineMode = false
+
+            label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
+            label.setContentCompressionResistancePriority(.init(rawValue: 1), for: .horizontal)
+            
+            addArrangedSubview(label)
+        }
         
         alignLeadAnchors()
     }

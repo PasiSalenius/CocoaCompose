@@ -24,8 +24,6 @@ public class PreferenceList: NSView {
         stackView.alignment = .leading
         stackView.spacing = style.spacing
         
-        alignLeadAnchors(views: views)
-
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -47,6 +45,8 @@ public class PreferenceList: NSView {
                 stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             ])
         }
+        
+        alignLeadAnchors(views: views)
     }
     
     required init?(coder: NSCoder) {

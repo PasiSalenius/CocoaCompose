@@ -61,7 +61,7 @@ public class PreferenceSection: FullWidthStackView {
             label.usesSingleLineMode = false
 
             label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
-            label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            label.setContentCompressionResistancePriority(.init(rawValue: 1), for: .horizontal)
             
             stackView.addArrangedSubview(label)
         }

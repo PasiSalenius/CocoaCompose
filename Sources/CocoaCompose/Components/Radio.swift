@@ -69,7 +69,7 @@ public class Radio: FullWidthStackView {
                 footerLabel.textColor = .secondaryLabelColor
                 footerLabel.usesSingleLineMode = false
 
-                footerLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                footerLabel.setContentCompressionResistancePriority(.init(rawValue: 1), for: .horizontal)
                 
                 addArrangedSubview(footerLabel)
             }

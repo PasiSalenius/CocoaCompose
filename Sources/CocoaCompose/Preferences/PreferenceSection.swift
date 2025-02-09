@@ -46,7 +46,7 @@ public class PreferenceSection: FullWidthStackView {
             label.textColor = .labelColor
             label.alignment = .right
 
-            label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
+            label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
             addArrangedSubview(label)
             

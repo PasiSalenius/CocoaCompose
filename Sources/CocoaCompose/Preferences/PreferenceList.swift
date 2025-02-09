@@ -4,6 +4,15 @@ public class PreferenceList: NSView {
     public enum Style {
         case center
         case fullWidth
+        
+        var spacing: CGFloat {
+            switch self {
+            case .center:
+                return 14
+            case .fullWidth:
+                return 20
+            }
+        }
     }
     
     public init(style: Style, views: [NSView]) {
@@ -13,7 +22,7 @@ public class PreferenceList: NSView {
         stackView.distribution = .fill
         stackView.orientation = .vertical
         stackView.alignment = .leading
-        stackView.spacing = 14
+        stackView.spacing = style.spacing
         
         alignLeadAnchors(views: views)
 

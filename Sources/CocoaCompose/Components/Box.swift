@@ -76,7 +76,12 @@ public class Box: NSView {
     }
     
     public var views: [NSView] {
-        get { itemStack.arrangedSubviews }
-        set { itemStack.addArrangedSubviews(newValue) }
+        get {
+            itemStack.arrangedSubviews
+        }
+        set {
+            itemStack.removeAllArrangedSubviews()
+            itemStack.addArrangedSubviews(newValue)
+        }
     }
 }

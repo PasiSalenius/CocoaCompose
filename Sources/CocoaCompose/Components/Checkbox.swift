@@ -31,7 +31,7 @@ public class Checkbox: NSStackView {
         addArrangedSubview(button)
         
         if orientation == .horizontal {
-            views.forEach { addArrangedSubview($0) }
+            addArrangedSubviews(views)
             
         } else {
             views.forEach { view in

@@ -2,6 +2,7 @@ import Cocoa
 
 public class Box: NSView {
     private let contentView = NSView()
+    private let itemStack = NSStackView()
 
     public init(title: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, views: [NSView]) {
         super.init(frame: .zero)
@@ -36,7 +37,7 @@ public class Box: NSView {
             stackView.addArrangedSubview(titleStack)
         }
 
-        let itemStack = NSStackView(views: views)
+        views.forEach { itemStack.addArrangedSubview($0) }
         itemStack.distribution = .fill
         itemStack.orientation = orientation
         itemStack.alignment = orientation == .vertical ? .leading : .top
@@ -72,5 +73,10 @@ public class Box: NSView {
         
         contentView.layer?.borderColor = NSColor.lightGray.withAlphaComponent(0.15).cgColor
         contentView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.05).cgColor
+    }
+    
+    public var views: [NSView] {
+        get { itemStack.arrangedSubviews }
+        set { itemStack.addArrangedSubviews(newValue) }
     }
 }

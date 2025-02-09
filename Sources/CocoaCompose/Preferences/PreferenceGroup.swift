@@ -64,7 +64,7 @@ public class PreferenceGroup: NSStackView {
         self.wantsLayer = true
         self.layer?.masksToBounds = false
 
-        stackViews.forEach { addArrangedSubview($0) }
+        addArrangedSubviews(stackViews)
         
         alignLeadAnchors()
     }

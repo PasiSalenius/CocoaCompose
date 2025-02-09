@@ -13,7 +13,7 @@ public class FullWidthStackView: NSStackView {
     public init(views: [NSView]) {
         super.init(frame: .zero)
         
-        views.forEach { addArrangedSubview($0) }
+        addArrangedSubviews(views)
 
         if orientation == .vertical {
             views.forEach { constrainToWidth(view: $0) }

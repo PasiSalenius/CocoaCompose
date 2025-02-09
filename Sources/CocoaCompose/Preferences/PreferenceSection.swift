@@ -17,6 +17,8 @@ public class PreferenceSection: FullWidthStackView {
             switch view {
             case is Button, is Checkbox, is DatePicker, is FontPicker, is PopUp, is TextField, is TimePicker:
                 self.alignment = .firstBaseline
+            case is NSButton, is NSTextField:
+                self.alignment = .firstBaseline
             default:
                 break
             }

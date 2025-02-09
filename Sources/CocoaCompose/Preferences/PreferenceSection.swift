@@ -55,6 +55,10 @@ public class PreferenceSection: FullWidthStackView {
             
         } else {
             let view = NSView()
+            
+            let width = view.widthAnchor.constraint(equalToConstant: 0)
+            width.priority = .defaultLow
+            width.isActive = true
 
             addArrangedSubview(view)
             

@@ -1,32 +1,47 @@
 import Cocoa
 
 public class PreferenceGroup: NSStackView {
-    private var titleLabels: [Label]
+    private var leadingViews: [NSView]
     
-    var leadAnchor: NSLayoutDimension? { titleLabels.first?.widthAnchor }
+    var leadAnchor: NSLayoutDimension? { leadingViews.first?.widthAnchor }
 
     public struct Item {
-        public var title: String
+        public var title: String?
         public var views: [NSView]
         
-        public init(title: String, views: [NSView] = []) {
+        public init(title: String? = nil, views: [NSView] = []) {
             self.title = title
             self.views = views
         }
     }
 
     public init(footer: String? = nil, items: [Item]) {
-        var labels: [Label] = []
+        var leadingViews: [NSView] = []
         var stackViews: [NSStackView] = []
         
         for item in items {
-            let label = Label()
-            label.stringValue = item.title
-            label.font = .preferredFont(forTextStyle: .body)
-            label.textColor = .labelColor
-            label.alignment = .right
+            let stackView = NSStackView()
+            stackView.distribution = .fill
+            stackView.orientation = .horizontal
+            stackView.alignment = .top
+            stackView.spacing = 7
             
-            labels.append(label)
+            if let title = item.title {
+                let label = Label()
+                label.stringValue = title
+                label.font = .preferredFont(forTextStyle: .body)
+                label.textColor = .labelColor
+                label.alignment = .right
+                
+                stackView.addArrangedSubview(label)
+                leadingViews.append(label)
+
+            } else {
+                let view = NSView()
+                
+                stackView.addArrangedSubview(view)
+                leadingViews.append(view)
+            }
 
             let rowStack = NSStackView(views: item.views)
             rowStack.distribution = .fill
@@ -34,12 +49,8 @@ public class PreferenceGroup: NSStackView {
             rowStack.alignment = .firstBaseline
             rowStack.spacing = 12
             
-            let stackView = NSStackView(views: [label, rowStack])
-            stackView.distribution = .fill
-            stackView.orientation = .horizontal
-            stackView.alignment = .top
-            stackView.spacing = 7
-            
+            stackView.addArrangedSubview(rowStack)
+
             stackViews.append(stackView)
             
             if let view = item.views.first {
@@ -54,7 +65,7 @@ public class PreferenceGroup: NSStackView {
             }
         }
         
-        self.titleLabels = labels
+        self.leadingViews = leadingViews
         
         super.init(frame: .zero)
 
@@ -89,7 +100,7 @@ public class PreferenceGroup: NSStackView {
     }
     
     private func alignLeadAnchors() {
-        let anchors = titleLabels.map { $0.widthAnchor }
+        let anchors = leadingViews.map { $0.widthAnchor }
         if let first = anchors.first {
             for anchor in anchors where anchor != first {
                 anchor.constraint(equalTo: first).isActive = true

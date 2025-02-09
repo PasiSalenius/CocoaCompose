@@ -1,9 +1,9 @@
 import Cocoa
 
 public class PreferenceSection: FullWidthStackView {
-    private var titleLabel: Label?
+    private var leadingView: NSView?
     
-    var leadAnchor: NSLayoutDimension? { titleLabel?.widthAnchor }
+    var leadAnchor: NSLayoutDimension? { leadingView?.widthAnchor }
 
     public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, distribution: NSStackView.Distribution = .fill, alignment: NSLayoutConstraint.Attribute? = nil, spacing: Double? = nil, views: [NSView]) {
         super.init(frame: .zero)
@@ -50,7 +50,14 @@ public class PreferenceSection: FullWidthStackView {
 
             addArrangedSubview(label)
             
-            self.titleLabel = label
+            self.leadingView = label
+            
+        } else {
+            let view = NSView()
+
+            addArrangedSubview(view)
+            
+            self.leadingView = view
         }
 
         if let footer {

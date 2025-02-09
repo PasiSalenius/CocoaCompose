@@ -32,15 +32,16 @@ public class PreferenceGroup: NSStackView {
                 label.font = .preferredFont(forTextStyle: .body)
                 label.textColor = .labelColor
                 label.alignment = .right
-                
-                stackView.addArrangedSubview(label)
+
                 leadingViews.append(label)
+
+                stackView.addArrangedSubview(label)
 
             } else {
                 let view = NSView()
-                
-                stackView.addArrangedSubview(view)
                 leadingViews.append(view)
+
+                stackView.addArrangedSubview(view)
             }
 
             let rowStack = NSStackView(views: item.views)
@@ -89,7 +90,16 @@ public class PreferenceGroup: NSStackView {
             label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
             label.setContentCompressionResistancePriority(.init(rawValue: 1), for: .horizontal)
             
-            addArrangedSubview(label)
+            let view = NSView()
+            leadingViews.append(view)
+
+            let stackView = NSStackView(views: [view, label])
+            stackView.distribution = .fill
+            stackView.orientation = .horizontal
+            stackView.alignment = .top
+            stackView.spacing = 7
+
+            addArrangedSubview(stackView)
         }
         
         alignLeadAnchors()

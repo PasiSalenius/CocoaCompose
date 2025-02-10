@@ -32,8 +32,7 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         textField.isBezeled = true
         textField.bezelStyle = .squareBezel
         textField.maximumNumberOfLines = 1
-        
-        textField.cell?.truncatesLastVisibleLine = true
+        textField.lineBreakMode = .byTruncatingTail
         
         textField.delegate = self
         

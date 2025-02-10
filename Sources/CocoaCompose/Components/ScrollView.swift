@@ -9,9 +9,6 @@ public class ScrollView: NSScrollView {
         backgroundColor = .clear
         drawsBackground = false
 
-        hasHorizontalScroller = false
-        hasVerticalScroller = true
-        
         let clipView = FlippedClipView()
         clipView.drawsBackground = false
         
@@ -33,11 +30,31 @@ public class ScrollView: NSScrollView {
         documentView = itemStack
         
         itemStack.translatesAutoresizingMaskIntoConstraints = false
-        clipView.addConstraints([
-            itemStack.topAnchor.constraint(equalTo: clipView.topAnchor),
-            itemStack.leadingAnchor.constraint(equalTo: clipView.leadingAnchor),
-            itemStack.trailingAnchor.constraint(equalTo: clipView.trailingAnchor),
-        ])
+        
+        switch orientation {
+        case .horizontal:
+            hasHorizontalScroller = true
+            hasVerticalScroller = false
+            
+            clipView.addConstraints([
+                itemStack.topAnchor.constraint(equalTo: clipView.topAnchor),
+                itemStack.leadingAnchor.constraint(equalTo: clipView.leadingAnchor),
+                itemStack.bottomAnchor.constraint(equalTo: clipView.bottomAnchor),
+            ])
+
+        case .vertical:
+            hasHorizontalScroller = false
+            hasVerticalScroller = true
+            
+            clipView.addConstraints([
+                itemStack.topAnchor.constraint(equalTo: clipView.topAnchor),
+                itemStack.leadingAnchor.constraint(equalTo: clipView.leadingAnchor),
+                itemStack.trailingAnchor.constraint(equalTo: clipView.trailingAnchor),
+            ])
+
+        @unknown default:
+            fatalError()
+        }
     }
     
     required init?(coder: NSCoder) {

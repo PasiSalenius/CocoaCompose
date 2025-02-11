@@ -16,13 +16,13 @@ class ViewController: NSViewController {
         
         title = "Test"
         
-        let list1 = PreferenceList(views: [
+        let list1 = PreferenceList(style: .center, views: [
             PreferenceSection(title: "Enable:", views: [
                 Switch(isOn: true) { isOn in
                     
-                },
+                }
             ]),
-            PreferenceSection(title: "Choose any one:", views: [
+            PreferenceSection(title: "Choose One:", views: [
                 Radio(items: [
                     .init(title: "One"),
                     .init(title: "Two", views: [
@@ -62,8 +62,8 @@ class ViewController: NSViewController {
             ]),
         ])
         
-        let list2 = PreferenceList(views: [
-            PreferenceSection(title: "Start date:", orientation: .horizontal, alignment: .centerY, spacing: 20, views: [
+        let list2 = PreferenceList(style: .center, views: [
+            PreferenceSection(title: "Start Date:", orientation: .horizontal, alignment: .centerY, spacing: 20, views: [
                 CalendarPicker() { date in
                     
                 },
@@ -73,8 +73,8 @@ class ViewController: NSViewController {
             ]),
         ])
 
-        let list3 = PreferenceList(views: [
-            PreferenceSection(title: "Maximum level:", views: [
+        let list3 = PreferenceList(style: .center, views: [
+            PreferenceSection(title: "Maximum Level:", views: [
                 Box(views: [
                     Level(value: 0.3) { value in
                         
@@ -85,20 +85,17 @@ class ViewController: NSViewController {
                 ])
             ]),
             Separator(),
-            PreferenceSection(title: "Body text:", views: [
+            PreferenceSection(title: "Body Text:", views: [
                 FontPicker() { font in
                     
                 },
                 ColorWell(color: .blue, style: .default) { color in
                     
                 },
-                Image(named: "AppIcon Mac", size: CGSize(width: 50, height: 50)) {
-                    
-                },
             ]),
         ])
 
-        let list = PreferenceList(views: [
+        let list = PreferenceList(style: .fullWidth, views: [
             Tabs(selectedIndex: 0, items: [
                 .init(title: "General", views: [
                     list1,

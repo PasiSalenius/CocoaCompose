@@ -8,7 +8,7 @@
 import Cocoa
 
 public class FullWidthStackView: NSStackView {
-    private var sideConstraints: [NSLayoutConstraint] = []
+    private var edgeConstraints: [NSLayoutConstraint] = []
     
     public init(views: [NSView]) {
         super.init(frame: .zero)
@@ -60,6 +60,17 @@ public class FullWidthStackView: NSStackView {
     }
     
     private func constrainToWidth(view: NSView) {
+        let constraints = [
+            view.leadingAnchor.constraint(equalTo: leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
+        
+        sideConstraints.append(contentsOf: constraints)
+    }
+
+    private func constrainToHeight(view: NSView) {
         let constraints = [
             view.leadingAnchor.constraint(equalTo: leadingAnchor),
             view.trailingAnchor.constraint(equalTo: trailingAnchor),

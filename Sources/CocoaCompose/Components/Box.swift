@@ -14,7 +14,7 @@ public class Box: NSView {
         contentView.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.05).cgColor
         contentView.layer?.cornerRadius = 5
 
-        let stackView = FullWidthStackView()
+        let stackView = ConstrainingStackView()
         stackView.orientation = .vertical
         stackView.alignment = .leading
         stackView.spacing = 5
@@ -28,9 +28,12 @@ public class Box: NSView {
             label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
 
             let spacer = NSView()
-            spacer.widthAnchor.constraint(equalToConstant: 5).isActive = true
             
-            let titleStack = NSStackView(views: [spacer, label])
+            let width = spacer.widthAnchor.constraint(equalToConstant: 5)
+            width.priority = .defaultHigh
+            width.isActive = true
+            
+            let titleStack = NSStackView(views: [spacer, label, NSView()])
             titleStack.orientation = .horizontal
             titleStack.spacing = 0
 

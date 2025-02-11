@@ -1,9 +1,9 @@
 import Cocoa
 
-public class PreferenceGroup: NSStackView {
+public class PreferenceGroup: ConstrainingStackView {
     private var leadingViews: [NSView] = []
     
-    var leadAnchor: NSLayoutDimension? { leadingViews.first?.widthAnchor }
+    var leadingWidthAnchor: NSLayoutDimension? { leadingViews.first?.widthAnchor }
 
     public struct Item {
         public var title: String?
@@ -15,12 +15,12 @@ public class PreferenceGroup: NSStackView {
         }
     }
 
-    public init(footer: String? = nil, items: [Item]) {
+    public init(footer: String? = nil, alignment: NSLayoutConstraint.Attribute = .leading, items: [Item]) {
         super.init(frame: .zero)
 
         self.distribution = .fill
         self.orientation = .vertical
-        self.alignment = .leading
+        self.alignment = alignment
         self.spacing = 7
         
         self.wantsLayer = true

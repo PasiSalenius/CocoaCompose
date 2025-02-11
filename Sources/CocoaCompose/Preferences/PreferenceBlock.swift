@@ -1,29 +1,15 @@
 import Cocoa
 
-public class PreferenceBlock: FullWidthStackView {
-    public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, distribution: NSStackView.Distribution = .fill, alignment: NSLayoutConstraint.Attribute? = nil, spacing: Double? = nil, views: [NSView]) {
-        super.init(frame: .zero)
+public class PreferenceBlock: ConstrainingStackView {
+    public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, alignment: NSLayoutConstraint.Attribute = .leading, spacing: Double? = nil, views: [NSView]) {
+        super.init(orientation: .vertical, alignment: alignment, views: [])
 
         self.distribution = .fill
-        self.orientation = .vertical
-        self.alignment = .leading
         self.spacing = 7
         
         self.wantsLayer = true
         self.layer?.masksToBounds = false
 
-        let itemStack = FullWidthStackView(views: views)
-        itemStack.orientation = orientation
-        itemStack.distribution = distribution
-        itemStack.alignment = alignment ?? (orientation == .vertical ? .leading : .top)
-        itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)
-        
-        let stackView = FullWidthStackView(views: [itemStack])
-        stackView.distribution = .fill
-        stackView.orientation = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 7
-        
         if let title {
             let label = Label()
             label.stringValue = title
@@ -36,6 +22,14 @@ public class PreferenceBlock: FullWidthStackView {
             addArrangedSubview(label)
         }
 
+        let itemStack = NSStackView(views: views)
+        itemStack.orientation = orientation
+        itemStack.alignment = orientation == .vertical ? .leading : .top
+        itemStack.distribution = .fill
+        itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)
+        
+        addArrangedSubview(itemStack)
+
         if let footer {
             let label = Label()
             label.stringValue = footer
@@ -46,10 +40,8 @@ public class PreferenceBlock: FullWidthStackView {
             label.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
             label.setContentCompressionResistancePriority(.init(rawValue: 1), for: .horizontal)
             
-            stackView.addArrangedSubview(label)
+            addArrangedSubview(label)
         }
-        
-        addArrangedSubview(stackView)
     }
     
     required init?(coder: NSCoder) {

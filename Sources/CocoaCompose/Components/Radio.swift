@@ -1,6 +1,6 @@
 import Cocoa
 
-public class Radio: FullWidthStackView {
+public class Radio: ConstrainingStackView {
     private let items: [Item]
     private var buttons: [NSButton] = []
     
@@ -29,11 +29,9 @@ public class Radio: FullWidthStackView {
         self.currentIndex = selectedIndex
         self.onChange = onChange
 
-        super.init(frame: .zero)
+        super.init(orientation: .vertical, alignment: .width, views: [])
         
         self.distribution = .fill
-        self.orientation = .vertical
-        self.alignment = .leading
         self.spacing = 7
         
         for index in 0 ..< items.count {
@@ -54,14 +52,36 @@ public class Radio: FullWidthStackView {
 
             buttons.append(button)
             
-            let stackView = NSStackView(views: [button] + item.views)
-            stackView.distribution = .fill
-            stackView.orientation = item.orientation
-            stackView.alignment = item.orientation == .vertical ? .leading : .firstBaseline
-            stackView.spacing = item.orientation == .vertical ? 7 : 10
-            
-            addArrangedSubview(stackView)
-            
+            if item.views.isEmpty {
+                let buttonRow = NSStackView(views: [button, NSView()])
+                buttonRow.orientation = .horizontal
+                buttonRow.spacing = 0
+                
+                addArrangedSubview(buttonRow)
+
+            } else {
+                let stackView = NSStackView()
+                stackView.distribution = .fill
+                stackView.orientation = item.orientation
+                stackView.alignment = item.orientation == .vertical ? .leading : .firstBaseline
+                stackView.spacing = item.orientation == .vertical ? 7 : 10
+
+                if item.orientation == .vertical {
+                    let buttonRow = NSStackView(views: [button, NSView()])
+                    buttonRow.orientation = .horizontal
+                    buttonRow.spacing = 0
+
+                    stackView.addArrangedSubview(buttonRow)
+                    
+                } else {
+                    stackView.addArrangedSubview(button)
+                }
+                
+                stackView.addArrangedSubviews(item.views)
+
+                addArrangedSubview(stackView)
+            }
+
             if let footer = item.footer {
                 let footerLabel = Label()
                 footerLabel.stringValue = footer

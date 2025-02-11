@@ -1,5 +1,5 @@
 //
-//  FullWidthStackView.swift
+//  ConstrainingStackView.swift
 //  CocoaCompose
 //
 //  Created by Pasi Salenius on 3.2.2025.
@@ -7,21 +7,23 @@
 
 import Cocoa
 
-public class FullWidthStackView: NSStackView {
+public class ConstrainingStackView: NSStackView {
     private var edgeConstraints: [NSLayoutConstraint] = []
     
-    public init(views: [NSView]) {
+    public init(orientation: NSUserInterfaceLayoutOrientation = .vertical, alignment: NSLayoutConstraint.Attribute = .leading, views: [NSView]) {
         super.init(frame: .zero)
         
+        self.orientation = orientation
+        self.alignment = alignment
+        
         addArrangedSubviews(views)
-
-        if orientation == .vertical {
-            views.forEach { constrainToWidth(view: $0) }
-        }
+        updateEdgeConstraints()
     }
     
     public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
+        
+        updateEdgeConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -32,52 +34,91 @@ public class FullWidthStackView: NSStackView {
         didSet {
             guard orientation != oldValue else { return }
             
-            switch orientation {
-            case .horizontal:
-                NSLayoutConstraint.deactivate(sideConstraints)
-            case .vertical:
-                views.forEach { constrainToWidth(view: $0) }
-            @unknown default:
-                break
-            }
+            updateEdgeConstraints()
         }
     }
-    
+
+    public override var alignment: NSLayoutConstraint.Attribute {
+        didSet {
+            guard alignment != oldValue else { return }
+            
+            updateEdgeConstraints()
+        }
+    }
+
     public override func addArrangedSubview(_ view: NSView) {
         super.addArrangedSubview(view)
         
-        if orientation == .vertical {
-            constrainToWidth(view: view)
-        }
+        updateEdgeConstraints()
     }
     
     public override func insertArrangedSubview(_ view: NSView, at index: Int) {
         super.insertArrangedSubview(view, at: index)
         
-        if orientation == .vertical {
-            constrainToWidth(view: view)
+        updateEdgeConstraints()
+    }
+    
+    public override func removeArrangedSubview(_ view: NSView) {
+        super.removeArrangedSubview(view)
+        
+        updateEdgeConstraints()
+    }
+
+    private func updateEdgeConstraints() {
+        NSLayoutConstraint.deactivate(edgeConstraints)
+
+        if orientation == .vertical && alignment == .width {
+            constrainToVerticalOrientation()
+        } else if orientation == .horizontal && alignment == .height {
+            constrainToHorizontalOrientation()
         }
     }
     
-    private func constrainToWidth(view: NSView) {
-        let constraints = [
-            view.leadingAnchor.constraint(equalTo: leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: trailingAnchor),
-        ]
+    private func constrainToVerticalOrientation() {
+        if let topView = arrangedSubviews.first {
+            let constraint = topView.topAnchor.constraint(equalTo: topAnchor)
+            NSLayoutConstraint.activate([constraint])
+            edgeConstraints.append(constraint)
+        }
+
+        for view in arrangedSubviews {
+            let constraints = [
+                view.leadingAnchor.constraint(equalTo: leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: trailingAnchor),
+            ]
+            
+            NSLayoutConstraint.activate(constraints)
+            edgeConstraints.append(contentsOf: constraints)
+        }
         
-        NSLayoutConstraint.activate(constraints)
-        
-        sideConstraints.append(contentsOf: constraints)
+        if let bottomView = views.last {
+            let constraint = bottomView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            NSLayoutConstraint.activate([constraint])
+            edgeConstraints.append(constraint)
+        }
     }
 
-    private func constrainToHeight(view: NSView) {
-        let constraints = [
-            view.leadingAnchor.constraint(equalTo: leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: trailingAnchor),
-        ]
+    private func constrainToHorizontalOrientation() {
+        if let leadingView = arrangedSubviews.first {
+            let constraint = leadingView.leadingAnchor.constraint(equalTo: leadingAnchor)
+            NSLayoutConstraint.activate([constraint])
+            edgeConstraints.append(constraint)
+        }
+
+        for view in arrangedSubviews {
+            let constraints = [
+                view.topAnchor.constraint(equalTo: topAnchor),
+                view.bottomAnchor.constraint(equalTo: bottomAnchor),
+            ]
+            
+            NSLayoutConstraint.activate(constraints)
+            edgeConstraints.append(contentsOf: constraints)
+        }
         
-        NSLayoutConstraint.activate(constraints)
-        
-        sideConstraints.append(contentsOf: constraints)
+        if let trailingView = arrangedSubviews.last {
+            let constraint = trailingView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            NSLayoutConstraint.activate([constraint])
+            edgeConstraints.append(constraint)
+        }
     }
 }

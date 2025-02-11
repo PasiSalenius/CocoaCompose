@@ -275,7 +275,7 @@ radio.selectedIndex = 2
 
 `ScrollView` is an `NSScrollView` that sets an `NSClipView` as its `contentView` and a stack of views as its `documentView`. The stack automatically uses the appropriate system spacing.
 
-The views in the section can be placed horizontally with `orientation: .horizontal`.
+It defaults to only scrolling vertically. Setting `orientation: .horizontal` will switch both its item stack orientation and scrolling direction to horizontal.
 
 ```swift
 ScrollView(orientation: .vertical, views: [

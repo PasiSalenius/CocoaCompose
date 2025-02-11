@@ -1,11 +1,11 @@
 import Cocoa
 
-public class PreferenceSection: FullWidthStackView {
+public class PreferenceSection: NSStackView {
     private var leadingView: NSView?
     
-    var leadAnchor: NSLayoutDimension? { leadingView?.widthAnchor }
+    var leadingWidthAnchor: NSLayoutDimension? { leadingView?.widthAnchor }
 
-    public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, distribution: NSStackView.Distribution = .fill, alignment: NSLayoutConstraint.Attribute? = nil, spacing: Double? = nil, views: [NSView]) {
+    public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, alignment: NSLayoutConstraint.Attribute = .leading, spacing: Double? = nil, views: [NSView]) {
         super.init(frame: .zero)
 
         self.distribution = .fill
@@ -27,16 +27,12 @@ public class PreferenceSection: FullWidthStackView {
         self.wantsLayer = true
         self.layer?.masksToBounds = false
 
-        let itemStack = FullWidthStackView(views: views)
-        itemStack.orientation = orientation
+        let itemStack = ConstrainingStackView(orientation: orientation, alignment: orientation == .vertical ? .leading : .top, views: views)
         itemStack.distribution = distribution
-        itemStack.alignment = alignment ?? (orientation == .vertical ? .leading : .top)
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)
         
-        let stackView = FullWidthStackView(views: [itemStack])
+        let stackView = ConstrainingStackView(orientation: .vertical, alignment: alignment, views: [itemStack])
         stackView.distribution = .fill
-        stackView.orientation = .vertical
-        stackView.alignment = .leading
         stackView.spacing = 7
         
         if let title {

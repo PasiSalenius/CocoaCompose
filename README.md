@@ -266,7 +266,7 @@ let radio = Radio(items: [
 Configure its selected item.
 
 ```swift
-radio.selectedIndex = 2
+radio.selectedIndex = 1
 ```
 
 <img width="250" alt="Radio" src="Assets/radio.png"/>

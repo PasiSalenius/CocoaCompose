@@ -41,13 +41,14 @@ CocoaCompose includes these components
 - [Radio](https://github.com/PasiSalenius/CocoaCompose#radio)
 - [Separator](https://github.com/PasiSalenius/CocoaCompose#separator)
 - [Slider](https://github.com/PasiSalenius/CocoaCompose#slider)
+- [ScrollView](https://github.com/PasiSalenius/CocoaCompose#scrollview)
 - [Switch](https://github.com/PasiSalenius/CocoaCompose#switch)
 - [Tabs](https://github.com/PasiSalenius/CocoaCompose#tabs)
 - [TextField](https://github.com/PasiSalenius/CocoaCompose#textfield)
 - [TextView](https://github.com/PasiSalenius/CocoaCompose#textview)
 - [TimePicker](https://github.com/PasiSalenius/CocoaCompose#timepicker)
 
-The following two components help build preference window content
+The following wrappers help lay out content in preference windows
 - [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
 - [PreferenceBlock](https://github.com/PasiSalenius/CocoaCompose#preferenceblock)
@@ -270,6 +271,18 @@ radio.selectedIndex = 2
 
 <img width="250" alt="Radio" src="Assets/radio.png"/>
 
+### ScrollView
+
+`ScrollView` is an `NSScrollView` that sets an `NSClipView` as its `contentView` and a stack of views as its `documentView`. The stack automatically uses the appropriate system spacing.
+
+The views in the section can be placed horizontally with `orientation: .horizontal`.
+
+```swift
+ScrollView(orientation: .vertical, views: [
+    ...
+])
+```
+
 ### Separator
 
 `Separator` is an `NSBox` with its `boxType` set to `.separator`. 
@@ -407,7 +420,7 @@ We use two more components to initialise the content for a Mac preference window
 
 Basically the only special sauce in `PreferenceList` is that it looks for leading titles labels in its views, and constrains them all to same width. This results in the familiar clean look of a Mac app preferences window (before the horror of Settings in Ventura).
 
-It horizontally centers its contents if it's less wide than the containing view, as preference window contents are typically centered. 
+Set it up with a `PreferenceList.Style` to either center contents horizontally (preference window contents are typically centered) or expand contents to full width. 
 
 ```swift
 PreferenceList(views: [
@@ -472,86 +485,86 @@ The following example initialises a preferences window using `PreferenceList` co
 override func loadView() {
     view = NSView()
     view.wantsLayer = true
-
+    
     title = "Test"
     
-        let list = PreferenceList(views: [
-            PreferenceSection(title: "Enable:", views: [
-                Switch(isOn: true) { isOn in
-
-                },
-            ]),
-            PreferenceSection(title: "Choose any one:", views: [
-                Radio(items: [
-                    .init(title: "One"),
-                    .init(title: "Two", views: [
-                        PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, trailingText: "points") { index, title in
-                            
-                        }
-                    ]),
-                    .init(title: "Three", views: [
-                        TextField(value: "15.0", trailingText: "milliseconds", width: 50) { text in
-                    
-                        }
-                    ])], selectedIndex: 0) { index, previousIndex in
-                    
-                    },
-            ]),
-            Separator(),
-            PreferenceGroup(items: [
-                .init(title: "First:", views: [
-                    PopUp(items: ["One", "Two"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
+    let list = PreferenceList(style: .center, views: [
+        PreferenceSection(title: "Enable:", views: [
+            Switch(isOn: true) { isOn in
+                
+            },
+        ]),
+        PreferenceSection(title: "Choose any one:", views: [
+            Radio(items: [
+                .init(title: "One"),
+                .init(title: "Two", views: [
+                    PopUp(items: ["12", "13"].map { .init(title: $0) }, selectedIndex: 0, trailingText: "points") { index, title in
                         
                     }
                 ]),
-                .init(title: "Second:", views: [
-                    PopUp(items: ["Foobar", "Plop"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
+                .init(title: "Three", views: [
+                    TextField(value: "15.0", trailingText: "milliseconds", width: 50) { text in
                         
                     }
-                ]),
-            ]),
-            Separator(),
-            PreferenceSection(title: "Test:", footer: "This here demonstrates some footer text that is shown below a section of items.", views: [
-                Checkbox(title: "Click me", isOn: true) { enabled in
+                ])], selectedIndex: 0) { index, previousIndex in
                     
                 },
-                Checkbox(title: "Me too", isOn: true) { enabled in
+        ]),
+        Separator(),
+        PreferenceGroup(items: [
+            .init(title: "First:", views: [
+                PopUp(items: ["One", "Two"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
+                    
+                }
+            ]),
+            .init(title: "Second:", views: [
+                PopUp(items: ["Foobar", "Plop"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
+                    
+                }
+            ]),
+        ]),
+        Separator(),
+        PreferenceSection(title: "Test:", footer: "This here demonstrates some footer text that is shown below a section of items.", views: [
+            Checkbox(title: "Click me", isOn: true) { enabled in
+                
+            },
+            Checkbox(title: "Me too", isOn: true) { enabled in
+                
+            },
+        ]),
+        Separator(),
+        PreferenceSection(title: "Start date:", orientation: .horizontal, alignment: .centerY, spacing: 20, views: [
+            CalendarPicker() { date in
+                
+            },
+            ClockPicker() { date in
+                
+            },
+        ]),
+        Separator(),
+        PreferenceSection(title: "Maximum level:", views: [
+            Box(views: [
+                Level(value: 0.3) { value in
                     
                 },
-            ]),
-            Separator(),
-            PreferenceSection(title: "Start date:", orientation: .horizontal, alignment: .centerY, spacing: 20, views: [
-                CalendarPicker() { date in
-
+                Slider() { value in
+                    print("value changed to \(value)")
                 },
-                ClockPicker() { date in
-
-                },
-            ]),
-            Separator(),
-            PreferenceSection(title: "Maximum level:", views: [
-                Box(views: [
-                    Level(value: 0.3) { value in
-
-                    },
-                    Slider() { value in
-                        print("value changed to \(value)")
-                    },
-                ])
-            ]),
-            Separator(),
-            PreferenceSection(title: "Body text:", views: [
-                FontPicker() { font in
-                    
-                },
-                ColorWell(color: .blue, style: .default) { color in
-                    
-                },
-                Image(named: "AppIcon Mac", size: CGSize(width: 50, height: 50)) {
-                    
-                },
-            ]),
-        ])
+            ])
+        ]),
+        Separator(),
+        PreferenceSection(title: "Body text:", views: [
+            FontPicker() { font in
+                
+            },
+            ColorWell(color: .blue, style: .default) { color in
+                
+            },
+            Image(named: "AppIcon Mac", size: CGSize(width: 50, height: 50)) {
+                
+            },
+        ]),
+    ])
     
     view.addSubview(list)
     list.translatesAutoresizingMaskIntoConstraints = false
@@ -561,7 +574,7 @@ override func loadView() {
         list.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
         list.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20)
     ])
-
+    
     preferredContentSize = CGSize(width: 500, height: view.fittingSize.height)
 }
 ```

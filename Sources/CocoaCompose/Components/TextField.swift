@@ -38,7 +38,7 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         
         if let width {
             let constraint = textField.widthAnchor.constraint(equalToConstant: width)
-            constraint.priority = .init(245)
+            constraint.priority = .defaultLow
             constraint.isActive = true
         }
        

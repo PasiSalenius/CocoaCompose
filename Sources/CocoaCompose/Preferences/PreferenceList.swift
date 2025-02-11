@@ -15,13 +15,11 @@ public class PreferenceList: NSView {
         }
     }
     
-    public init(style: Style, views: [NSView]) {
+    public init(style: Style, alignment: NSLayoutConstraint.Attribute = .leading, views: [NSView]) {
         super.init(frame: .zero)
         
-        let stackView = FullWidthStackView(views: views)
+        let stackView = ConstrainingStackView(orientation: .vertical, alignment: alignment, views: views)
         stackView.distribution = .fill
-        stackView.orientation = .vertical
-        stackView.alignment = .leading
         stackView.spacing = style.spacing
         
         addSubview(stackView)
@@ -64,9 +62,9 @@ public class PreferenceList: NSView {
     
     private func leadAnchor(view: NSView) -> NSLayoutDimension? {
         if let preferenceSection = view as? PreferenceSection {
-            return preferenceSection.leadAnchor
+            return preferenceSection.leadingWidthAnchor
         } else if let preferenceGroup = view as? PreferenceGroup {
-            return preferenceGroup.leadAnchor
+            return preferenceGroup.leadingWidthAnchor
         }
         
         return nil

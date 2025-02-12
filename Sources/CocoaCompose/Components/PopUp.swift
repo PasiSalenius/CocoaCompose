@@ -54,6 +54,11 @@ public class PopUp: NSStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public var isEnabled: Bool {
+        get { button.isEnabled }
+        set { button.isEnabled = newValue }
+    }
+
     public var selectedIndex: Int {
         get { button.indexOfSelectedItem }
         set { button.selectItem(at: newValue) }

@@ -102,22 +102,24 @@ public class Radio: ConstrainingStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public var isEnabled: Bool = true {
+        didSet {
+            for index in 0 ..< items.count {
+                buttons[index].isEnabled = isEnabled
+                items[index].views.forEach { $0.enableSubviews(isEnabled) }
+            }
+            
+            if isEnabled {
+                update(selectedIndex: currentIndex)
+            }
+        }
+    }
+    
     public var selectedIndex: Int {
         get { currentIndex }
         set { update(selectedIndex: newValue) }
     }
     
-    public func setEnabled(_ enabled: Bool) {
-        for index in 0 ..< items.count {
-            buttons[index].isEnabled = enabled
-            items[index].views.forEach { $0.enableSubviews(enabled) }
-        }
-        
-        if enabled {
-            update(selectedIndex: currentIndex)
-        }
-    }
-
     private func update(selectedIndex: Int) {
         currentIndex = selectedIndex
         

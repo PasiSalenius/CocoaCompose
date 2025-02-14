@@ -106,7 +106,7 @@ public class Radio: ConstrainingStackView {
         didSet {
             for index in 0 ..< items.count {
                 buttons[index].isEnabled = isEnabled
-                items[index].views.forEach { $0.enableSubviews(isEnabled) }
+                items[index].views.forEach { $0.setSubviewControlsEnabled(isEnabled) }
             }
             
             if isEnabled {
@@ -125,23 +125,16 @@ public class Radio: ConstrainingStackView {
         
         for index in 0 ..< items.count {
             buttons[index].state = selectedIndex == index ? .on : .off
-            items[index].views.forEach { $0.enableSubviews(selectedIndex == index) }
+            items[index].views.forEach { $0.setSubviewControlsEnabled(selectedIndex == index) }
         }
     }
     
     // MARK: - Actions
     
     @objc func buttonAction(_ sender: NSButton) {
-        for index in 0 ..< buttons.count where index != sender.tag {
-            buttons[index].state = .off
-            items[index].views.forEach { $0.enableSubviews(false) }
-        }
-
-        items[sender.tag].views.forEach { $0.enableSubviews(true) }
-
         let previousIndex = selectedIndex
-        selectedIndex = sender.tag
-
+        update(selectedIndex: sender.tag)
+        
         onChange?(selectedIndex, previousIndex)
     }
 }

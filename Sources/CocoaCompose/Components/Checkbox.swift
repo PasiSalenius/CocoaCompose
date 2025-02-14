@@ -59,7 +59,7 @@ public class Checkbox: NSStackView {
         }
         set {
             button.isEnabled = newValue
-            associatedViews.forEach { $0.enableSubviews(newValue && isOn) }
+            associatedViews.forEach { $0.setSubviewControlsEnabled(newValue && isOn) }
         }
     }
 
@@ -69,7 +69,7 @@ public class Checkbox: NSStackView {
         }
         set {
             button.state = newValue ? .on : .off
-            associatedViews.forEach { $0.enableSubviews(newValue && isEnabled) }
+            associatedViews.forEach { $0.setSubviewControlsEnabled(newValue && isEnabled) }
         }
     }
     
@@ -91,7 +91,7 @@ public class Checkbox: NSStackView {
     // MARK: - Actions
     
     @objc func buttonAction(_ sender: NSButton) {
-        associatedViews.forEach { $0.enableSubviews(sender.state == .on && isEnabled) }
+        associatedViews.forEach { $0.setSubviewControlsEnabled(sender.state == .on && isEnabled) }
         onChange?(sender.state == .on)
     }
 }

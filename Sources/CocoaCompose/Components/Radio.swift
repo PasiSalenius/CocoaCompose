@@ -24,19 +24,23 @@ public class Radio: ConstrainingStackView {
         }
     }
 
-    public init(items: [Item] = [], selectedIndex: Int = -1, onChange: ((Int, Int) -> Void)? = nil) {
+    public init(items: [Item] = [], selectedIndex: Int = -1, spacing: CGFloat = 7, onChange: ((Int, Int) -> Void)? = nil) {
         self.items = items
         self.currentIndex = selectedIndex
         self.onChange = onChange
 
         super.init(orientation: .vertical, alignment: .width, views: [])
-        
+
         self.distribution = .fill
-        self.spacing = 7
+        self.spacing = spacing
         
         for index in 0 ..< items.count {
             let item = items[index]
             
+            let itemStack = ConstrainingStackView(orientation: .vertical, alignment: .width, views: [])
+            itemStack.distribution = .fill
+            itemStack.spacing = 7
+
             let button = NSButton()
             button.font = .preferredFont(forTextStyle: .body)
             button.setButtonType(.radio)
@@ -57,7 +61,7 @@ public class Radio: ConstrainingStackView {
                 buttonRow.orientation = .horizontal
                 buttonRow.spacing = 0
                 
-                addArrangedSubview(buttonRow)
+                itemStack.addArrangedSubview(buttonRow)
 
             } else {
                 let stackView = NSStackView()
@@ -79,7 +83,7 @@ public class Radio: ConstrainingStackView {
                 
                 stackView.addArrangedSubviews(item.views)
 
-                addArrangedSubview(stackView)
+                itemStack.addArrangedSubview(stackView)
             }
 
             if let footer = item.footer {
@@ -91,8 +95,10 @@ public class Radio: ConstrainingStackView {
 
                 footerLabel.setContentCompressionResistancePriority(.init(rawValue: 1), for: .horizontal)
                 
-                addArrangedSubview(footerLabel)
+                itemStack.addArrangedSubview(footerLabel)
             }
+            
+            addArrangedSubview(itemStack)
         }
         
         update(selectedIndex: selectedIndex)

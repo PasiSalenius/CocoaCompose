@@ -4,15 +4,6 @@ public class PreferenceList: NSView {
     public enum Style {
         case center
         case fullWidth
-        
-        var spacing: CGFloat {
-            switch self {
-            case .center:
-                return 14
-            case .fullWidth:
-                return 20
-            }
-        }
     }
     
     public init(style: Style, alignment: NSLayoutConstraint.Attribute = .leading, views: [NSView]) {
@@ -20,7 +11,7 @@ public class PreferenceList: NSView {
         
         let stackView = ConstrainingStackView(orientation: .vertical, alignment: alignment, views: views)
         stackView.distribution = .fill
-        stackView.spacing = style.spacing
+        stackView.spacing = 14
         
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false

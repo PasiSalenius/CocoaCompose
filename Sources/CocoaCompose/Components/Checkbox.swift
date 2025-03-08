@@ -70,7 +70,6 @@ public class Checkbox: NSStackView {
         set {
             button.state = newValue ? .on : .off
             associatedViews.forEach { $0.setSubviewControlsEnabled(newValue && isEnabled) }
-            onChange?(newValue)
         }
     }
     

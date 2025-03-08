@@ -62,13 +62,8 @@ public class TextField: NSStackView, NSTextFieldDelegate {
     }
     
     public var stringValue: String {
-        get {
-            textField.stringValue
-        }
-        set {
-            textField.stringValue = newValue
-            onEndEditing?(newValue)
-        }
+        get { textField.stringValue }
+        set { textField.stringValue = newValue }
     }
 
     public var attributedValue: NSAttributedString {

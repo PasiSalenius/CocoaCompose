@@ -65,13 +65,8 @@ public class PopUp: NSStackView {
     }
 
     public var selectedIndex: Int {
-        get {
-            button.indexOfSelectedItem
-        }
-        set {
-            button.selectItem(at: newValue)
-            onChange?(newValue, button.titleOfSelectedItem ?? "")
-        }
+        get { button.indexOfSelectedItem }
+        set { button.selectItem(at: newValue) }
     }
 
     public var selectedTitle: String? { button.titleOfSelectedItem }

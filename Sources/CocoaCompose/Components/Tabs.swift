@@ -79,13 +79,10 @@ public class Tabs: NSView {
     }
     
     public var selectedIndex: Int {
-        get {
-            segmentedControl.indexOfSelectedItem
-        }
+        get { segmentedControl.indexOfSelectedItem }
         set {
             segmentedControl.selectedSegment = newValue
             showItem(at: newValue)
-            onChange?(newValue)
         }
     }
     

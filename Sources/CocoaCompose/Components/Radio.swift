@@ -122,14 +122,8 @@ public class Radio: ConstrainingStackView {
     }
     
     public var selectedIndex: Int {
-        get {
-            currentIndex
-        }
-        set {
-            let previousIndex = selectedIndex
-            update(selectedIndex: newValue)
-            onChange?(newValue, previousIndex)
-        }
+        get { currentIndex }
+        set { update(selectedIndex: newValue) }
     }
     
     private func update(selectedIndex: Int) {

@@ -92,8 +92,13 @@ public class TextView: NSView, NSTextViewDelegate {
     }
 
     public var text: String {
-        get { textView.string }
-        set { textView.string = newValue }
+        get {
+            textView.string
+        }
+        set {
+            textView.string = newValue
+            onChange?(newValue)
+        }
     }
     
     public var isEditable = false {

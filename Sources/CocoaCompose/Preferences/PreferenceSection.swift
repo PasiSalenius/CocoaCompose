@@ -28,7 +28,7 @@ public class PreferenceSection: NSStackView {
         self.layer?.masksToBounds = false
 
         let itemStack = ConstrainingStackView(orientation: orientation, alignment: orientation == .vertical ? .leading : .top, views: views)
-        itemStack.distribution = distribution
+        itemStack.distribution = .fill
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)
         
         let stackView = ConstrainingStackView(orientation: .vertical, alignment: alignment, views: [itemStack])

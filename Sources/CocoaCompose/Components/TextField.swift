@@ -18,8 +18,8 @@ public class TextField: NSStackView, NSTextFieldDelegate {
         alignment = .firstBaseline
         spacing = 7
         
-        if let value = attributedValue {
-            textField.attributedStringValue = value
+        if let attributedValue {
+            textField.attributedStringValue = attributedValue
         } else {
             textField.stringValue = value ?? ""
         }

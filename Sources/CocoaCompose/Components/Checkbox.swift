@@ -22,8 +22,8 @@ public class Checkbox: NSStackView {
         button.target = self
         button.action = #selector(buttonAction)
         
-        if let title = attributedTitle {
-            button.attributedTitle = title
+        if let attributedTitle {
+            button.attributedTitle = attributedTitle
         } else {
             button.title = title ?? ""
         }

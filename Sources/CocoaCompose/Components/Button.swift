@@ -8,8 +8,8 @@ public class Button: NSButton {
 
         super.init(frame: .zero)
 
-        if let title = attributedTitle {
-            self.attributedTitle = title
+        if let attributedTitle {
+            self.attributedTitle = attributedTitle
         } else {
             self.title = title ?? ""
         }

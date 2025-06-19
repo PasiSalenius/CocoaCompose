@@ -3,7 +3,7 @@ import Cocoa
 public class PreferenceButtonSection: NSStackView {
     private let buttonMinWidth: CGFloat = 70
     
-    public init(buttons: [Button]) {
+    public init(buttons: [Button], onHelp: (() -> Void)? = nil) {
         super.init(frame: .zero)
 
         self.distribution = .fill
@@ -13,8 +13,19 @@ public class PreferenceButtonSection: NSStackView {
         
         self.wantsLayer = true
         self.layer?.masksToBounds = false
+        
+        let helpButtons: [NSView]
+        if let onHelp {
+            let button = Button()
+            button.bezelStyle = .helpButton
+            button.title = ""
+            button.onClick = onHelp
+            helpButtons = [button]
+        } else {
+            helpButtons = []
+        }
 
-        let stackView = NSStackView(views: [NSView()] + buttons)
+        let stackView = NSStackView(views: helpButtons + [NSView()] + buttons)
         stackView.orientation = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .firstBaseline

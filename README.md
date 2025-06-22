@@ -489,6 +489,23 @@ PreferenceGroup(items: [
 ])
 ``` 
 
+### PreferenceButtonSection
+
+`PreferenceButtonSection` takes a list of buttons that it aligns to the right edge. It also constrains all buttons to same width.
+
+Use it to add cancel and done buttons at the bottom of a preference window.  
+
+```swift
+PreferenceButtonSection(buttons: [
+    Button(title: "Cancel", keyEquivalent: "\u{1b}") { [unowned self] in
+        ...
+    },
+    Button(title: "Continue", keyEquivalent: "\r") { [unowned self] in
+        ...
+    },
+]),
+``` 
+
 ### Example
 
 The following example initialises a preferences window using `PreferenceList` containing multiple `PreferenceSection` that each have their own components.

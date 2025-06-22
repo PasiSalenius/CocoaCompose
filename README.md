@@ -70,13 +70,13 @@ let box = Box(title: "Title", orientation: .vertical, views: [
 
 ### Button
 
-Basic `NSButton` with `bezelStyle` set to `.rounded`. It can be configured with a title and an optional image with a symbol configuration.
+Basic `NSButton` with `bezelStyle` set to `.rounded`. It can be configured with a title and an optional image with a symbol configuration and a `keyEquivalent` for easy usage from keyboard.
 
 ```swift
 let image = NSImage(systemSymbolName: "checkmark.seal.fill", accessibilityDescription: nil)
 let configuration = NSImage.SymbolConfiguration(paletteColors: [.white, .systemGreen])
 
-let button = Button(title: "Click Me", image: image, symbolConfiguration: configuration) {
+let button = Button(title: "Click Me", image: image, symbolConfiguration: configuration, keyEquivalent: "\r") {
     // do something here ...
 }
 ```
@@ -184,6 +184,20 @@ picker.selectedFont = .preferredFont(forTextStyle: .body)
 ```
 
 <img width="250" alt="FontPicker" src="Assets/fontpicker.png"/>
+
+### HelpButton
+
+This is a `NSButton` with `bezelStyle` set to `..helpButton`. It is configured with a `onClick` closure that is called when the button is clicked.
+
+Some other components like `PreferenceButtonSection` also take a `onHelp` parameter that adds a help button to the button row.
+
+```swift
+let helpButton = HelpButton {
+    // do something here ...
+}
+```
+
+<img width="80" alt="Button" src="Assets/helpbutton.png"/>
 
 ### Image
 

@@ -3,7 +3,7 @@ import Cocoa
 public class Button: NSButton {
     public var onClick: (() -> Void)?
     
-    public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, image: NSImage? = nil, symbolConfiguration: NSImage.SymbolConfiguration? = nil, controlSize: NSControl.ControlSize = .regular, onClick: (() -> Void)? = nil) {
+    public init(title: String? = nil, attributedTitle: NSAttributedString? = nil, image: NSImage? = nil, symbolConfiguration: NSImage.SymbolConfiguration? = nil, controlSize: NSControl.ControlSize = .regular, keyEquivalent: String = "", onClick: (() -> Void)? = nil) {
         self.onClick = onClick
 
         super.init(frame: .zero)
@@ -19,6 +19,7 @@ public class Button: NSButton {
         self.image = image
         self.symbolConfiguration = symbolConfiguration
         self.imagePosition = .imageLeading
+        self.keyEquivalent = keyEquivalent
         self.target = self
         self.action = #selector(buttonAction)
     }

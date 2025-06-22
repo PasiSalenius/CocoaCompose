@@ -34,6 +34,7 @@ CocoaCompose includes these components
 - [ColorWell](https://github.com/PasiSalenius/CocoaCompose#colorwell)
 - [DatePicker](https://github.com/PasiSalenius/CocoaCompose#datepicker)
 - [FontPicker](https://github.com/PasiSalenius/CocoaCompose#fontpicker)
+- [HelpButton](https://github.com/PasiSalenius/CocoaCompose#helpbutton)
 - [Image](https://github.com/PasiSalenius/CocoaCompose#image)
 - [Label](https://github.com/PasiSalenius/CocoaCompose#label)
 - [Level](https://github.com/PasiSalenius/CocoaCompose#level)
@@ -53,6 +54,7 @@ The following wrappers help lay out content in preference windows
 - [PreferenceSection](https://github.com/PasiSalenius/CocoaCompose#preferencesection)
 - [PreferenceBlock](https://github.com/PasiSalenius/CocoaCompose#preferenceblock)
 - [PreferenceGroup](https://github.com/PasiSalenius/CocoaCompose#preferencegroup)
+- [PreferenceButtonSection](https://github.com/PasiSalenius/CocoaCompose#preferencebuttonsection)
 
 All of the components are configured to look right in a Mac app out of the box, and come with easy to use initialisers, and take a closure for value changes. All components are set to dynamic type `NSFont.TextStyle.body` by default.
 
@@ -187,7 +189,7 @@ picker.selectedFont = .preferredFont(forTextStyle: .body)
 
 ### HelpButton
 
-This is a `NSButton` with `bezelStyle` set to `..helpButton`. It is configured with a `onClick` closure that is called when the button is clicked.
+This is a `NSButton` with `bezelStyle` set to `.helpButton`. It is configured with a `onClick` closure that is called when the button is clicked.
 
 Some other components like `PreferenceButtonSection` also take a `onHelp` parameter that adds a help button to the button row.
 
@@ -197,7 +199,7 @@ let helpButton = HelpButton {
 }
 ```
 
-<img width="80" alt="Button" src="Assets/helpbutton.png"/>
+<img width="80" alt="HelpButton" src="Assets/helpbutton.png"/>
 
 ### Image
 
@@ -504,7 +506,9 @@ PreferenceButtonSection(buttons: [
         ...
     },
 ]),
-``` 
+```
+
+<img width="600" alt="PreferenceButtonSection" src="Assets/preferencebuttonsection.png"/>
 
 ### Example
 

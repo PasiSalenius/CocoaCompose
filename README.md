@@ -502,7 +502,7 @@ PreferenceButtonSection(buttons: [
     Button(title: "Cancel", keyEquivalent: "\u{1b}") { [unowned self] in
         ...
     },
-    Button(title: "Continue", keyEquivalent: "\r") { [unowned self] in
+    Button(title: "Done", keyEquivalent: "\r") { [unowned self] in
         ...
     }, onHelp: {
         let url = URL(string: "https://example.com/")!

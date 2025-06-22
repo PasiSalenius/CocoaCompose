@@ -493,9 +493,9 @@ PreferenceGroup(items: [
 
 ### PreferenceButtonSection
 
-`PreferenceButtonSection` takes a list of buttons that it aligns to the right edge. It also constrains all buttons to same width.
+`PreferenceButtonSection` takes a list of buttons that it aligns to the right edge. It constrains all buttons to same width. Defining `onHelp` closure as a parameter adds a `HelpButton` at the left edge. 
 
-Use it to add cancel and done buttons at the bottom of a preference window.  
+Use it to add cancel and done buttons at the bottom of a preference window.
 
 ```swift
 PreferenceButtonSection(buttons: [
@@ -504,7 +504,10 @@ PreferenceButtonSection(buttons: [
     },
     Button(title: "Continue", keyEquivalent: "\r") { [unowned self] in
         ...
-    },
+    }, onHelp: {
+        let url = URL(string: "https://example.com/")!
+        NSWorkspace.shared.open(url)
+    }),
 ]),
 ```
 

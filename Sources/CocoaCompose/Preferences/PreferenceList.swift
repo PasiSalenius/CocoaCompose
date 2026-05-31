@@ -41,7 +41,41 @@ public class PreferenceList: NSView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    public override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+
+        guard window != nil else { return }
+        configureKeyViewLoop()
+    }
+
+    // Wire Tab / Shift-Tab navigation between the focusable controls in the order they were laid out,
+    // so forms are keyboard-navigable without each view setting up its own key view loop. Windows that
+    // autorecalculate their own loop (e.g. the main window) ignore this; it makes Tab work in the ones
+    // that don't.
+    private func configureKeyViewLoop() {
+        let views = keyableViews(in: self)
+        guard views.count > 1 else { return }
+
+        for (index, view) in views.enumerated() {
+            view.nextKeyView = views[(index + 1) % views.count]
+        }
+    }
+
+    private func keyableViews(in view: NSView) -> [NSView] {
+        let children = (view as? NSStackView)?.arrangedSubviews ?? view.subviews
+
+        var result: [NSView] = []
+        for child in children {
+            if child.canBecomeKeyView {
+                result.append(child)
+            } else {
+                result.append(contentsOf: keyableViews(in: child))
+            }
+        }
+        return result
+    }
+
     private func alignLeadAnchors(views: [NSView]) {
         let anchors = views.compactMap { leadAnchor(view: $0) }
         if let first = anchors.first {

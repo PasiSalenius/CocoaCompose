@@ -15,12 +15,13 @@ public class PreferenceGroup: ConstrainingStackView {
         }
     }
 
-    public init(footer: String? = nil, alignment: NSLayoutConstraint.Attribute = .leading, items: [Item]) {
+    public init(footer: String? = nil, items: [Item]) {
         super.init(frame: .zero)
 
         self.distribution = .fill
         self.orientation = .vertical
-        self.alignment = alignment
+        // .width pins each row to the group's full width so rows fill the space allotted by the enclosing PreferenceList.
+        self.alignment = .width
         self.spacing = 7
         
         self.wantsLayer = true
@@ -58,6 +59,10 @@ public class PreferenceGroup: ConstrainingStackView {
             rowStack.spacing = 12
             
             stackView.addArrangedSubview(rowStack)
+
+            // Flexible trailing space absorbs any surplus width so the real controls stay at their
+            // natural size on the leading edge instead of being stretched arbitrarily.
+            stackView.addArrangedSubview(.flexibleSpacer())
 
             addArrangedSubview(stackView)
             

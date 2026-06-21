@@ -9,7 +9,11 @@ public class PreferenceList: NSView {
     public init(style: Style, alignment: NSLayoutConstraint.Attribute = .leading, views: [NSView]) {
         super.init(frame: .zero)
         
-        let stackView = ConstrainingStackView(orientation: .vertical, alignment: alignment, views: views)
+        // Under .fullWidth the inner stack stretches each child to the container width (via the
+        // .width path in ConstrainingStackView), so groups/sections fill the available width. Under
+        // .center it hugs its content and is centered, so .leading alignment is kept.
+        let stackAlignment: NSLayoutConstraint.Attribute = style == .fullWidth ? .width : alignment
+        let stackView = ConstrainingStackView(orientation: .vertical, alignment: stackAlignment, views: views)
         stackView.distribution = .fill
         stackView.spacing = 14
         

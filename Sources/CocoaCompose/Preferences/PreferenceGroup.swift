@@ -63,9 +63,7 @@ public class PreferenceGroup: ConstrainingStackView {
             
             if let view = item.views.first {
                 switch view {
-                case is Button, is Checkbox, is DatePicker, is FontPicker, is PopUp, is TextField, is TimePicker:
-                    stackView.alignment = .firstBaseline
-                case is NSButton, is NSTextField:
+                case is Button, is Checkbox, is DatePicker, is FontPicker, is PopUp, is TextField, is TimePicker, is NSButton, is NSTextField:
                     stackView.alignment = .firstBaseline
                 default:
                     break

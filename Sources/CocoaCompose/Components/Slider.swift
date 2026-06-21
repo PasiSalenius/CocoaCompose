@@ -3,7 +3,7 @@ import Cocoa
 public class Slider: NSSlider {
     public var onChange: ((Double) -> Void)?
     
-    public init(type: NSSlider.SliderType = .linear, value: Double = 0.0, minValue: Double = 0.0, maxValue: Double = 1.0, numberOfTickMarks: Int = 5, onChange: ((Double) -> Void)? = nil) {
+    public init(type: NSSlider.SliderType = .linear, value: Double = 0.0, minValue: Double = 0.0, maxValue: Double = 1.0, numberOfTickMarks: Int = 5, snapToTicks: Bool = true, onChange: ((Double) -> Void)? = nil) {
         self.onChange = onChange
 
         super.init(frame: .zero)
@@ -11,7 +11,7 @@ public class Slider: NSSlider {
         self.sliderType = type
         self.controlSize = .small
         
-        self.allowsTickMarkValuesOnly = true
+        self.allowsTickMarkValuesOnly = snapToTicks
         self.numberOfTickMarks = numberOfTickMarks
         self.tickMarkPosition = .below
         

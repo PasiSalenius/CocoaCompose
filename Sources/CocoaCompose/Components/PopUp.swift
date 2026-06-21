@@ -4,8 +4,13 @@ public class PopUp: NSStackView {
     private let button = NSPopUpButton()
     private let label = Label()
     
+    private var isUpdating = false
+
     public var items: [Item] {
-        didSet { update(items: items) }
+        didSet {
+            guard !isUpdating else { return }
+            update(items: items)
+        }
     }
 
     public var onChange: ((Int, String) -> Void)?
@@ -80,20 +85,24 @@ public class PopUp: NSStackView {
         }
     }
 
-    private func update(items: [Item]) {
+    public func update(items: [Item], selectedIndex: Int? = nil) {
+        isUpdating = true
+        self.items = items
+        isUpdating = false
+
         button.removeAllItems()
-        
+
         items.forEach {
             button.addItem(withTitle: "\($0.title)")
             button.lastItem?.image = $0.image
         }
-        
-        self.selectedIndex = -1
+
+        self.selectedIndex = selectedIndex ?? -1
     }
 
     // MARK: - Actions
-    
-    @objc func buttonAction(_ sender: NSMenuItem) {
+
+    @objc func buttonAction(_ sender: NSPopUpButton) {
         onChange?(button.indexOfSelectedItem, button.titleOfSelectedItem ?? "")
     }
 }

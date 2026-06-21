@@ -60,12 +60,14 @@ public class ConstrainingStackView: NSStackView {
     
     public override func removeArrangedSubview(_ view: NSView) {
         super.removeArrangedSubview(view)
-        
+        view.removeFromSuperview()
+
         updateEdgeConstraints()
     }
 
     private func updateEdgeConstraints() {
         NSLayoutConstraint.deactivate(edgeConstraints)
+        edgeConstraints.removeAll()
 
         if orientation == .vertical && alignment == .width {
             constrainToVerticalOrientation()
@@ -91,7 +93,7 @@ public class ConstrainingStackView: NSStackView {
             edgeConstraints.append(contentsOf: constraints)
         }
         
-        if let bottomView = views.last {
+        if let bottomView = arrangedSubviews.last {
             let constraint = bottomView.bottomAnchor.constraint(equalTo: bottomAnchor)
             NSLayoutConstraint.activate([constraint])
             edgeConstraints.append(constraint)

@@ -18,8 +18,9 @@ public class Image: NSImageView {
             heightConstraint.isActive = true
         }
         
-        self.target = self
-        self.action = #selector(buttonAction)
+        // NSImageView doesn't send its action on a plain click, so use a click recognizer.
+        let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(buttonAction))
+        self.addGestureRecognizer(clickRecognizer)
     }
 
     public convenience init(named name: String, size: CGSize? = nil, onClick: (() -> Void)? = nil) {

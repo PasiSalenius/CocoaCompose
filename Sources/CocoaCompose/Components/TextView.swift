@@ -11,7 +11,7 @@ public class TextView: NSView, NSTextViewDelegate {
         scrollView.drawsBackground = true
         scrollView.borderType = .bezelBorder
         scrollView.hasVerticalScroller = true
-        scrollView.hasHorizontalRuler = false
+        scrollView.hasHorizontalScroller = false
         scrollView.autoresizingMask = [.width, .height]
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -96,7 +96,7 @@ public class TextView: NSView, NSTextViewDelegate {
         set { textView.string = newValue }
     }
     
-    public var isEditable = false {
+    public var isEditable = true {
         didSet { textView.isEditable = isEditable }
     }
 
@@ -108,13 +108,12 @@ public class TextView: NSView, NSTextViewDelegate {
         didSet { scrollView.borderType = borderType }
     }
 
-    public var selectedRanges: [NSValue] = [] {
-        didSet {
-            guard selectedRanges.count > 0 else {
-                return
-            }
-            
-            textView.selectedRanges = selectedRanges
+    public var selectedRanges: [NSValue] {
+        get { textView.selectedRanges }
+        set {
+            guard newValue.count > 0 else { return }
+
+            textView.selectedRanges = newValue
         }
     }
     

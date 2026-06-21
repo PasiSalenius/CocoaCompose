@@ -10,7 +10,7 @@ public class FontPicker: NSButton {
 
     public var onClick: ((NSFont) -> Void)?
     
-    var selectedFont: NSFont {
+    public var selectedFont: NSFont {
         didSet { fontManager.setSelectedFont(selectedFont, isMultiple: false) }
     }
     
@@ -27,11 +27,6 @@ public class FontPicker: NSButton {
 
         self.target = self
         self.action = #selector(buttonAction)
-
-        fontManager.setSelectedFont(selectedFont, isMultiple: false)
-
-        fontManager.target = self
-        fontManager.action = #selector(selectFont)
 
         updateButton()
     }
@@ -64,6 +59,12 @@ public class FontPicker: NSButton {
     // MARK: - Actions
 
     @objc func buttonAction() {
+        // The font manager is a shared singleton; take ownership of its callbacks so this
+        // picker (not some other instance) receives the selection from the panel.
+        fontManager.setSelectedFont(selectedFont, isMultiple: false)
+        fontManager.target = self
+        fontManager.action = #selector(selectFont)
+
         fontManager.orderFrontFontPanel(self)
     }
     

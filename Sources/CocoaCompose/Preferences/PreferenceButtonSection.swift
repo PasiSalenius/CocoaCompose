@@ -25,7 +25,7 @@ public class PreferenceButtonSection: NSStackView {
             helpButtons = []
         }
 
-        let stackView = NSStackView(views: helpButtons + [NSView()] + buttons)
+        let stackView = NSStackView(views: helpButtons + [.flexibleSpacer()] + buttons)
         stackView.orientation = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .firstBaseline

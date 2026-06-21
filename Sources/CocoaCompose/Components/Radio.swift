@@ -57,7 +57,7 @@ public class Radio: ConstrainingStackView {
             buttons.append(button)
             
             if item.views.isEmpty {
-                let buttonRow = NSStackView(views: [button, NSView()])
+                let buttonRow = NSStackView(views: [button, .flexibleSpacer()])
                 buttonRow.orientation = .horizontal
                 buttonRow.spacing = 0
                 
@@ -71,7 +71,7 @@ public class Radio: ConstrainingStackView {
                 stackView.spacing = item.orientation == .vertical ? 7 : 10
 
                 if item.orientation == .vertical {
-                    let buttonRow = NSStackView(views: [button, NSView()])
+                    let buttonRow = NSStackView(views: [button, .flexibleSpacer()])
                     buttonRow.orientation = .horizontal
                     buttonRow.spacing = 0
 

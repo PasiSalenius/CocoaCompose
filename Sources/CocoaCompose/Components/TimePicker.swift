@@ -3,7 +3,7 @@ import Cocoa
 public class TimePicker: NSDatePicker {
     public var onChange: ((Date) -> Void)?
     
-    public init(date: Date = .now, showStepper: Bool = true, showSeconds: Bool = true, onChange: ((Date) -> Void)? = nil) {
+    public init(date: Date = .now, showStepper: Bool = true, showSeconds: Bool = true, minDate: Date? = nil, maxDate: Date? = nil, onChange: ((Date) -> Void)? = nil) {
         self.onChange = onChange
 
         super.init(frame: .zero)
@@ -13,7 +13,10 @@ public class TimePicker: NSDatePicker {
         self.datePickerElements = showSeconds ? .hourMinuteSecond : .hourMinute
 
         self.dateValue = date
-        
+
+        self.minDate = minDate
+        self.maxDate = maxDate
+
         self.target = self
         self.action = #selector(buttonAction)
     }

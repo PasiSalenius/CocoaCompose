@@ -33,7 +33,7 @@ public class Box: NSView {
             width.priority = .defaultHigh
             width.isActive = true
             
-            let titleStack = NSStackView(views: [spacer, label, NSView()])
+            let titleStack = NSStackView(views: [spacer, label, .flexibleSpacer()])
             titleStack.orientation = .horizontal
             titleStack.spacing = 0
 

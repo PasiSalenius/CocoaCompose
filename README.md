@@ -35,6 +35,7 @@ CocoaCompose includes these components
 - [ComboBox](https://github.com/PasiSalenius/CocoaCompose#combobox)
 - [DatePicker](https://github.com/PasiSalenius/CocoaCompose#datepicker)
 - [DisclosureGroup](https://github.com/PasiSalenius/CocoaCompose#disclosuregroup)
+- [FlexibleSpacer](https://github.com/PasiSalenius/CocoaCompose#flexiblespacer)
 - [FontPicker](https://github.com/PasiSalenius/CocoaCompose#fontpicker)
 - [HelpButton](https://github.com/PasiSalenius/CocoaCompose#helpbutton)
 - [Image](https://github.com/PasiSalenius/CocoaCompose#image)
@@ -175,6 +176,20 @@ picker.showDays = true
 ```
 
 <img width="150" alt="DatePicker" src="Assets/datepicker.png"/>
+
+### FlexibleSpacer
+
+`FlexibleSpacer` is an empty view with the lowest horizontal hugging priority, used to absorb surplus width in a horizontal row so the real controls keep their natural size instead of being stretched. Create one with `FlexibleSpacer()` or the `.flexibleSpacer()` convenience.
+
+A horizontal `PreferenceSection` adds one automatically, so its controls stay at their natural size on the leading edge. Place your own when you want to arrange the row yourself — `PreferenceSection` then skips the implicit spacer:
+
+```swift
+// Control pinned to the trailing edge.
+PreferenceSection(orientation: .horizontal, views: [.flexibleSpacer(), saveButton])
+
+// Split: leading button, trailing help button.
+PreferenceSection(orientation: .horizontal, views: [resetButton, .flexibleSpacer(), helpButton])
+```
 
 ### FontPicker
 

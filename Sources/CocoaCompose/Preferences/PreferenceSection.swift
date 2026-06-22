@@ -37,17 +37,29 @@ public class PreferenceSection: NSStackView {
         let callerProvidedAlignment = alignment != .leading
 
         let itemAlignment: NSLayoutConstraint.Attribute
+        let itemViews: [NSView]
+
         switch orientation {
         case .vertical:
             itemAlignment = .leading
-        default:
+            itemViews = views
+            
+        case .horizontal:
             itemAlignment = callerProvidedAlignment ? alignment.horizontalStackAlignment : baselineAlignment
+            
+            // A horizontal row absorbs surplus width with a trailing spacer (matching PreferenceGroup) so a
+            // stretched .fullWidth section keeps its controls at natural size on the leading edge instead of
+            // pushing the demand onto ancestors (e.g. an NSSplitView divider). It is added implicitly unless
+            // the caller already placed a FlexibleSpacer, which means they're arranging the horizontal
+            // distribution themselves (e.g. a control pinned to the trailing edge).
+            if !views.contains(where: { $0 is FlexibleSpacer }) {
+                itemViews = views + [.flexibleSpacer()]
+            } else {
+                itemViews = views
+            }
         }
 
-        // Absorb surplus width inside the row (matching PreferenceGroup) so a stretched .fullWidth
-        // section keeps its controls at natural size on the leading edge instead of pushing the demand
-        // onto ancestors (e.g. an NSSplitView divider).
-        let itemViews = orientation == .horizontal ? views + [.flexibleSpacer()] : views
+
         let itemStack = ConstrainingStackView(orientation: orientation, alignment: itemAlignment, views: itemViews)
         itemStack.distribution = .fill
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)

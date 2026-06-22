@@ -1,13 +1,11 @@
 import Cocoa
 
 extension NSView {
-    /// An empty view with the lowest horizontal hugging priority, for use as a flexible trailing
-    /// spacer in a `.fill` horizontal stack. It always absorbs surplus width, so the real controls
-    /// keep their natural size on the leading edge instead of being stretched arbitrarily.
-    static func flexibleSpacer() -> NSView {
-        let view = NSView()
-        view.setContentHuggingPriority(.init(rawValue: 1), for: .horizontal)
-        return view
+    /// A flexible trailing spacer for use in a `.fill` horizontal stack. It absorbs surplus width, so
+    /// the real controls keep their natural size on the leading edge instead of being stretched
+    /// arbitrarily. See `FlexibleSpacer`.
+    public static func flexibleSpacer() -> FlexibleSpacer {
+        FlexibleSpacer()
     }
 
     func setSubviewControlsEnabled(_ enabled: Bool) {

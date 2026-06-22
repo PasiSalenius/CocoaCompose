@@ -68,8 +68,12 @@ public class PreferenceGroup: ConstrainingStackView {
             
             if let view = item.views.first {
                 switch view {
-                case is Button, is Checkbox, is DatePicker, is FontPicker, is PopUp, is TextField, is TimePicker, is NSButton, is NSTextField:
+                case is Button, is Checkbox, is ComboBox, is DatePicker, is FontPicker, is PathControl, is PopUp, is SearchField, is SegmentedControl, is StatusIndicator, is Stepper, is Switch, is TextField, is TimePicker, is TokenField, is NSButton, is NSTextField:
                     stackView.alignment = .firstBaseline
+                case is ColorWell:
+                    // A colour swatch has no text baseline (its first baseline is just its top edge), so
+                    // centre it vertically with the title instead.
+                    stackView.alignment = .centerY
                 default:
                     break
                 }

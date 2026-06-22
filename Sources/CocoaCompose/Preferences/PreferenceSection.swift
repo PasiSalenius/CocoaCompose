@@ -15,10 +15,14 @@ public class PreferenceSection: NSStackView {
         
         if let view = views.first {
             switch view {
-            case is Button, is Checkbox, is DatePicker, is FontPicker, is PopUp, is TextField, is TimePicker:
+            case is Button, is Checkbox, is ComboBox, is DatePicker, is FontPicker, is PathControl, is PopUp, is SearchField, is SegmentedControl, is StatusIndicator, is Stepper, is Switch, is TextField, is TimePicker, is TokenField:
                 self.alignment = .firstBaseline
             case is NSButton, is NSTextField:
                 self.alignment = .firstBaseline
+            case is ColorWell:
+                // A colour swatch has no text baseline (its first baseline is just its top edge), so
+                // centre it vertically with the title instead.
+                self.alignment = .centerY
             default:
                 break
             }

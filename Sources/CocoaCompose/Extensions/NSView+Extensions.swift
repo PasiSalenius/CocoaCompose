@@ -22,23 +22,37 @@ extension NSView {
             component.isEnabled = enabled
         case let component as ColorWell:
             component.isEnabled = enabled
+        case let component as ComboBox:
+            component.isEnabled = enabled
         case let component as DatePicker:
+            component.isEnabled = enabled
+        case let component as DisclosureGroup:
             component.isEnabled = enabled
         case let component as FontPicker:
             component.isEnabled = enabled
         case let component as Level:
             component.isEnabled = enabled
+        case let component as PathControl:
+            component.isEnabled = enabled
         case let component as PopUp:
             component.isEnabled = enabled
         case let component as Radio:
             component.isEnabled = enabled
+        case let component as SearchField:
+            component.isEnabled = enabled
+        case let component as SegmentedControl:
+            component.isEnabled = enabled
         case let component as Slider:
+            component.isEnabled = enabled
+        case let component as Stepper:
             component.isEnabled = enabled
         case let component as Switch:
             component.isEnabled = enabled
         case let component as TextField:
             component.isEnabled = enabled
         case let component as TimePicker:
+            component.isEnabled = enabled
+        case let component as TokenField:
             component.isEnabled = enabled
         default:
             subviews.forEach { $0.setSubviewControlsEnabled(enabled) }

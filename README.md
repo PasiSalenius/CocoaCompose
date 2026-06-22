@@ -344,7 +344,7 @@ let switch = Switch(isOn: true) { isOn in
 
 ### Tabs
 
-`Tabs` combines an `NSSegmentedControl` with a list of `Tabs.Item`. It automatically displays the item at the selected index.
+`Tabs` is an `NSTabView` with an array of `Tabs.Item`.
 
 ```swift
 let tabs = Tabs(selectedIndex: 0, items: [

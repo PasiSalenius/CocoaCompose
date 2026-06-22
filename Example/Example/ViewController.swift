@@ -42,6 +42,7 @@ class ViewController: NSViewController {
                 Checkbox(title: "Automatically check for updates", footer: "Scribe checks for new versions in the background and notifies you when an update is ready to install.", isOn: true) { _ in
                 },
             ]),
+            verticalSpacer(),
         ])
 
         // MARK: Editor
@@ -92,6 +93,7 @@ class ViewController: NSViewController {
             PreferenceSection(title: "Signature:", footer: "Appended to the end of documents you export or share.", views: [
                 signature,
             ]),
+            verticalSpacer(),
         ])
 
         // MARK: Appearance
@@ -112,6 +114,7 @@ class ViewController: NSViewController {
                 Image(systemSymbolName: "book.closed.fill", size: CGSize(width: 28, height: 28)) {
                 },
             ]),
+            verticalSpacer(),
         ])
 
         // MARK: Reminders
@@ -138,6 +141,7 @@ class ViewController: NSViewController {
                 ClockPicker(showSeconds: false) { date in
                 },
             ]),
+            verticalSpacer(),
         ])
 
         // MARK: Account
@@ -149,17 +153,14 @@ class ViewController: NSViewController {
         }
         storage.widthAnchor.constraint(equalToConstant: 220).isActive = true
 
-        let devices = ScrollView(views: [
+        let devices = Box(title: "Synced devices:", views: [
             "MacBook Pro — this device",
             "iPhone 15 Pro",
             "iPad Air",
             "Mac Studio",
             "iPhone SE",
         ].map { Label(string: $0) })
-        NSLayoutConstraint.activate([
-            devices.widthAnchor.constraint(equalToConstant: 240),
-            devices.heightAnchor.constraint(equalToConstant: 90),
-        ])
+        devices.widthAnchor.constraint(equalToConstant: 240).isActive = true
 
         let account = PreferenceList(style: .center, views: [
             PreferenceSection(orientation: .horizontal, alignment: .centerY, spacing: 12, views: [
@@ -181,7 +182,7 @@ class ViewController: NSViewController {
                 storage,
             ]),
             Separator(),
-            PreferenceBlock(title: "Synced devices:", footer: "These devices are currently signed in to your account.", views: [
+            PreferenceBlock(footer: "These devices are currently signed in to your account.", views: [
                 devices,
             ]),
             PreferenceButtonSection(buttons: [
@@ -189,6 +190,7 @@ class ViewController: NSViewController {
                 },
             ], onHelp: {
             }),
+            verticalSpacer(),
         ])
 
         // MARK: Tabs
@@ -210,10 +212,17 @@ class ViewController: NSViewController {
             list.topAnchor.constraint(equalTo: view.topAnchor, constant: 14),
             list.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             list.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            list.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20)
+            list.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
+    }
 
-        preferredContentSize = CGSize(width: 500, height: view.fittingSize.height)
+    // An empty view with the lowest vertical hugging priority. As the last item in a vertical
+    // PreferenceList it soaks up surplus height when the window grows, keeping the content
+    // top-aligned instead of stretching the controls.
+    private func verticalSpacer() -> NSView {
+        let view = NSView()
+        view.setContentHuggingPriority(.init(rawValue: 1), for: .vertical)
+        return view
     }
 
 }

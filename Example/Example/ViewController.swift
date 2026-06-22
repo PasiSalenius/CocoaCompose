@@ -28,9 +28,9 @@ class ViewController: NSViewController {
             Separator(),
             PreferenceSection(title: "When opening Scribe show:", views: [
                 Radio(items: [
-                    .init(title: "The note I edited last"),
+                    .init(title: "The note I edited last", footer: "Reopens the note you were editing when you last quit Scribe."),
                     .init(title: "A new blank note"),
-                    .init(title: "A specific note:", views: [
+                    .init(title: "A specific note:", footer: "Always opens the same note, regardless of recent activity.", views: [
                         PopUp(items: ["Daily Journal", "Inbox", "Reading List"].map { .init(title: $0) }, selectedIndex: 0) { index, title in
                         }
                     ]),
@@ -38,8 +38,8 @@ class ViewController: NSViewController {
                 },
             ]),
             Separator(),
-            PreferenceSection(title: "Software updates:", footer: "Scribe checks for new versions in the background and notifies you when an update is ready to install.", views: [
-                Checkbox(title: "Automatically check for updates", isOn: true) { _ in
+            PreferenceSection(title: "Software updates:", views: [
+                Checkbox(title: "Automatically check for updates", footer: "Scribe checks for new versions in the background and notifies you when an update is ready to install.", isOn: true) { _ in
                 },
             ]),
         ])

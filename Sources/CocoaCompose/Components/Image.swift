@@ -29,6 +29,8 @@ public class Image: NSImageView {
 
     public convenience init(systemSymbolName: String, size: CGSize? = nil, onClick: (() -> Void)? = nil) {
         self.init(image: NSImage(systemSymbolName: systemSymbolName, accessibilityDescription: nil), size: size, onClick: onClick)
+
+        imageScaling = .scaleProportionallyUpOrDown
     }
 
     required init?(coder: NSCoder) {

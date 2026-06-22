@@ -32,22 +32,31 @@ CocoaCompose includes these components
 - [Checkbox](https://github.com/PasiSalenius/CocoaCompose#checkbox)
 - [ClockPicker](https://github.com/PasiSalenius/CocoaCompose#clockpicker)
 - [ColorWell](https://github.com/PasiSalenius/CocoaCompose#colorwell)
+- [ComboBox](https://github.com/PasiSalenius/CocoaCompose#combobox)
 - [DatePicker](https://github.com/PasiSalenius/CocoaCompose#datepicker)
+- [DisclosureGroup](https://github.com/PasiSalenius/CocoaCompose#disclosuregroup)
 - [FontPicker](https://github.com/PasiSalenius/CocoaCompose#fontpicker)
 - [HelpButton](https://github.com/PasiSalenius/CocoaCompose#helpbutton)
 - [Image](https://github.com/PasiSalenius/CocoaCompose#image)
 - [Label](https://github.com/PasiSalenius/CocoaCompose#label)
 - [Level](https://github.com/PasiSalenius/CocoaCompose#level)
+- [PathControl](https://github.com/PasiSalenius/CocoaCompose#pathcontrol)
 - [PopUp](https://github.com/PasiSalenius/CocoaCompose#popup)
+- [ProgressIndicator](https://github.com/PasiSalenius/CocoaCompose#progressindicator)
 - [Radio](https://github.com/PasiSalenius/CocoaCompose#radio)
+- [SearchField](https://github.com/PasiSalenius/CocoaCompose#searchfield)
+- [SegmentedControl](https://github.com/PasiSalenius/CocoaCompose#segmentedcontrol)
 - [Separator](https://github.com/PasiSalenius/CocoaCompose#separator)
 - [Slider](https://github.com/PasiSalenius/CocoaCompose#slider)
 - [ScrollView](https://github.com/PasiSalenius/CocoaCompose#scrollview)
+- [StatusIndicator](https://github.com/PasiSalenius/CocoaCompose#statusindicator)
+- [Stepper](https://github.com/PasiSalenius/CocoaCompose#stepper)
 - [Switch](https://github.com/PasiSalenius/CocoaCompose#switch)
 - [Tabs](https://github.com/PasiSalenius/CocoaCompose#tabs)
 - [TextField](https://github.com/PasiSalenius/CocoaCompose#textfield)
 - [TextView](https://github.com/PasiSalenius/CocoaCompose#textview)
 - [TimePicker](https://github.com/PasiSalenius/CocoaCompose#timepicker)
+- [TokenField](https://github.com/PasiSalenius/CocoaCompose#tokenfield)
 
 The following wrappers help lay out content in preference windows
 - [PreferenceList](https://github.com/PasiSalenius/CocoaCompose#preferencelist)
@@ -423,6 +432,117 @@ picker.showSeconds = true
 ```
 
 <img width="150" alt="TimePicker" src="Assets/timepicker.png"/>
+
+### ComboBox
+
+`ComboBox` is an `NSComboBox`, an editable text field with a drop-down list of suggestions. Initialise it with a list of `items`, an optional starting `value` and `placeholder`. The closure reports the current string value as the user types or picks an item.
+
+```swift
+let comboBox = ComboBox(items: ["Journal", "Drafts", "Archive"], value: "Journal") { value in
+    // do something here ...
+}
+```
+
+Replace the list of suggestions at runtime.
+
+```swift
+comboBox.update(items: ["Inbox", "Reading List"], value: "Inbox")
+```
+
+### DisclosureGroup
+
+`DisclosureGroup` shows a disclosure triangle with a title that expands and collapses a stack of `views` below it. Use it to tuck away advanced or secondary options. Clicking either the triangle or the title toggles the group, and the closure reports the expanded state.
+
+```swift
+let group = DisclosureGroup(title: "Advanced", isExpanded: false, views: [
+    Checkbox(title: "Include attachments", isOn: true) { _ in },
+    Checkbox(title: "Verify backups after writing", isOn: false) { _ in },
+]) { isExpanded in
+    // do something here ...
+}
+```
+
+### PathControl
+
+`PathControl` is an `NSPathControl` that displays a file system path as a breadcrumb. Initialise it with a `url` and an optional `pathStyle`. The closure reports the clicked path item's URL.
+
+```swift
+let pathControl = PathControl(url: URL(fileURLWithPath: "/Users/jane/Notes/Backups")) { url in
+    // do something here ...
+}
+```
+
+### ProgressIndicator
+
+`ProgressIndicator` is an `NSProgressIndicator` with its `style` set to either `.bar` or `.spinner`. Use a determinate bar to show progress with a `value`, or an indeterminate bar or spinner for ongoing activity. It is output only and takes no closure.
+
+```swift
+let bar = ProgressIndicator(style: .bar, value: 0.65)
+let spinner = ProgressIndicator(style: .spinner, isIndeterminate: true)
+```
+
+Update the value, or start and stop an indeterminate indicator's animation.
+
+```swift
+bar.value = 0.8
+
+spinner.startAnimation()
+spinner.stopAnimation()
+```
+
+### SearchField
+
+`SearchField` is an `NSSearchField` for filtering and searching. Initialise it with an optional starting `value` and `placeholder`. By default it reports each change immediately through the closure.
+
+```swift
+let searchField = SearchField(placeholder: "Filter devices") { text in
+    // do something here ...
+}
+```
+
+### SegmentedControl
+
+`SegmentedControl` is an `NSSegmentedControl`, a row of segments where each is set up from an `Item` with a title and an optional `NSImage`. Initialise it with a `selectedIndex`. The closure reports the selected segment index.
+
+```swift
+let segmented = SegmentedControl(items: ["List", "Grid", "Gallery"].map { .init(title: $0) }, selectedIndex: 0) { index in
+    // do something here ...
+}
+```
+
+### StatusIndicator
+
+`StatusIndicator` pairs a small coloured dot with a label to convey status at a glance. Use one of the built-in `State` presets (`.active`, `.idle`, `.warning`, `.error`) or pass a custom `color`. The dot scales with `controlSize`.
+
+```swift
+let status = StatusIndicator(state: .active, title: "Up to date", controlSize: .regular)
+```
+
+Update the dot and label later.
+
+```swift
+status.setState(.error, title: "Offline")
+```
+
+### Stepper
+
+`Stepper` is an `NSStepper` for incrementing and decrementing a numeric value. Initialise it with a `value`, `minValue`, `maxValue` and `increment`, and an optional `controlSize` (defaults to `.small`). It is usually paired with a `Label` showing the current value.
+
+```swift
+let stepper = Stepper(value: 5, minValue: 1, maxValue: 20) { value in
+    // do something here ...
+}
+```
+
+### TokenField
+
+`TokenField` is an `NSTokenField` that turns text into rounded tokens, useful for editing lists such as tags or hostnames. Initialise it with an array of `tokens`. The closure reports the committed tokens.
+
+```swift
+let tokenField = TokenField(tokens: ["work", "ideas", "personal"]) { tokens in
+    // do something here ...
+}
+```
 
 ## Composing components together
 

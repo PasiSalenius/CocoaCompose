@@ -2,7 +2,7 @@ import Cocoa
 
 public class PreferenceBlock: ConstrainingStackView {
     public init(title: String? = nil, footer: String? = nil, orientation: NSUserInterfaceLayoutOrientation = .vertical, alignment: NSLayoutConstraint.Attribute = .leading, spacing: Double? = nil, views: [NSView]) {
-        super.init(orientation: .vertical, alignment: alignment, views: [])
+        super.init(orientation: .vertical, alignment: alignment.verticalStackAlignment, views: [])
 
         self.distribution = .fill
         self.spacing = 7

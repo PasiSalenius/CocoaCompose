@@ -27,11 +27,29 @@ public class PreferenceSection: NSStackView {
         self.wantsLayer = true
         self.layer?.masksToBounds = false
 
-        let itemStack = ConstrainingStackView(orientation: orientation, alignment: orientation == .vertical ? .leading : self.alignment, views: views)
+        // A horizontal row aligns on its cross (vertical) axis: honor the caller's alignment, or fall
+        // back to the baseline default chosen above when none was given. A vertical column uses .leading.
+        let baselineAlignment = self.alignment
+        let callerProvidedAlignment = alignment != .leading
+
+        let itemAlignment: NSLayoutConstraint.Attribute
+        switch orientation {
+        case .vertical:
+            itemAlignment = .leading
+        default:
+            itemAlignment = callerProvidedAlignment ? alignment.horizontalStackAlignment : baselineAlignment
+        }
+
+        let itemStack = ConstrainingStackView(orientation: orientation, alignment: itemAlignment, views: views)
         itemStack.distribution = .fill
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)
-        
-        let stackView = ConstrainingStackView(orientation: .vertical, alignment: alignment, views: [itemStack])
+
+        // The wrapper stacks the item row above the footer. Being vertical, it only honors the caller's
+        // alignment for a vertical section; a horizontal section keeps the footer left-aligned below.
+        let columnAlignment = orientation == .vertical ? alignment : .leading
+        let wrapperAlignment = columnAlignment.verticalStackAlignment
+
+        let stackView = ConstrainingStackView(orientation: .vertical, alignment: wrapperAlignment, views: [itemStack])
         stackView.distribution = .fill
         stackView.spacing = 7
         

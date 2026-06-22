@@ -14,19 +14,19 @@ class ViewController: NSViewController {
         view = NSView()
         view.wantsLayer = true
 
-        title = "Scribe Settings"
+        title = "Settings"
 
         // MARK: General
 
         let general = PreferenceList(style: .center, views: [
             PreferenceSection(title: "At launch:", views: [
-                Checkbox(title: "Open Scribe automatically at login", isOn: true) { _ in
+                Checkbox(title: "Open automatically at login", isOn: true) { _ in
                 },
-                Checkbox(title: "Show Scribe in the menu bar", isOn: false) { _ in
+                Checkbox(title: "Show in the menu bar", isOn: false) { _ in
                 },
             ]),
             Separator(),
-            PreferenceSection(title: "When opening Scribe show:", views: [
+            PreferenceSection(title: "When opening show:", views: [
                 Radio(items: [
                     .init(title: "The note I edited last", footer: "Reopens the note you were editing when you last quit Scribe."),
                     .init(title: "A new blank note"),
@@ -42,7 +42,6 @@ class ViewController: NSViewController {
                 Checkbox(title: "Automatically check for updates", footer: "Scribe checks for new versions in the background and notifies you when an update is ready to install.", isOn: true) { _ in
                 },
             ]),
-            verticalSpacer(),
         ])
 
         // MARK: Editor
@@ -93,7 +92,6 @@ class ViewController: NSViewController {
             PreferenceSection(title: "Signature:", footer: "Appended to the end of documents you export or share.", views: [
                 signature,
             ]),
-            verticalSpacer(),
         ])
 
         // MARK: Appearance
@@ -114,7 +112,6 @@ class ViewController: NSViewController {
                 Image(systemSymbolName: "book.closed.fill", size: CGSize(width: 28, height: 28)) {
                 },
             ]),
-            verticalSpacer(),
         ])
 
         // MARK: Reminders
@@ -141,7 +138,6 @@ class ViewController: NSViewController {
                 ClockPicker(showSeconds: false) { date in
                 },
             ]),
-            verticalSpacer(),
         ])
 
         // MARK: Account
@@ -190,7 +186,6 @@ class ViewController: NSViewController {
                 },
             ], onHelp: {
             }),
-            verticalSpacer(),
         ])
 
         // MARK: Tabs
@@ -216,15 +211,6 @@ class ViewController: NSViewController {
         ])
         
         preferredContentSize = CGSize(width: 500, height: view.fittingSize.height)
-    }
-
-    // An empty view with the lowest vertical hugging priority. As the last item in a vertical
-    // PreferenceList it soaks up surplus height when the window grows, keeping the content
-    // top-aligned instead of stretching the controls.
-    private func verticalSpacer() -> NSView {
-        let view = NSView()
-        view.setContentHuggingPriority(.init(rawValue: 1), for: .vertical)
-        return view
     }
 
 }

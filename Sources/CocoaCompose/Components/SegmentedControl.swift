@@ -22,6 +22,10 @@ public class SegmentedControl: NSSegmentedControl {
         self.trackingMode = trackingMode
         self.controlSize = controlSize
         self.segmentCount = items.count
+        
+        if #available(macOS 26.0, *) {
+            self.borderShape = .capsule
+        }
 
         for (index, item) in items.enumerated() {
             setLabel(item.title ?? "", forSegment: index)

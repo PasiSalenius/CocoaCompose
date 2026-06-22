@@ -44,7 +44,11 @@ public class PreferenceSection: NSStackView {
             itemAlignment = callerProvidedAlignment ? alignment.horizontalStackAlignment : baselineAlignment
         }
 
-        let itemStack = ConstrainingStackView(orientation: orientation, alignment: itemAlignment, views: views)
+        // Absorb surplus width inside the row (matching PreferenceGroup) so a stretched .fullWidth
+        // section keeps its controls at natural size on the leading edge instead of pushing the demand
+        // onto ancestors (e.g. an NSSplitView divider).
+        let itemViews = orientation == .horizontal ? views + [.flexibleSpacer()] : views
+        let itemStack = ConstrainingStackView(orientation: orientation, alignment: itemAlignment, views: itemViews)
         itemStack.distribution = .fill
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)
 

@@ -6,6 +6,10 @@ public class Radio: ConstrainingStackView {
     
     private var currentIndex: Int = -1
 
+    private let radioWidth: CGFloat = 22
+
+    private let footerSpacing: CGFloat = 4
+
     public var onChange: ((Int, Int) -> Void)?
 
     public struct Item {
@@ -94,8 +98,28 @@ public class Radio: ConstrainingStackView {
                 footerLabel.usesSingleLineMode = false
 
                 footerLabel.setContentCompressionResistancePriority(.init(rawValue: 1), for: .horizontal)
-                
-                itemStack.addArrangedSubview(footerLabel)
+
+                if let contentView = itemStack.arrangedSubviews.last {
+                    itemStack.setCustomSpacing(footerSpacing, after: contentView)
+                }
+
+                if item.views.isEmpty || item.orientation == .horizontal {
+                    // Indent the footer so it lines up with the title text after the radio circle.
+                    // Horizontal views share the button's row, so the footer still sits directly below
+                    // the title; vertical views stack between the title and footer, so it is not indented.
+                    let spacer = NSView()
+                    spacer.addConstraint(spacer.widthAnchor.constraint(equalToConstant: radioWidth))
+
+                    let footerRow = NSStackView(views: [spacer, footerLabel])
+                    footerRow.orientation = .horizontal
+                    footerRow.distribution = .fill
+                    footerRow.spacing = 0
+
+                    itemStack.addArrangedSubview(footerRow)
+
+                } else {
+                    itemStack.addArrangedSubview(footerLabel)
+                }
             }
             
             addArrangedSubview(itemStack)

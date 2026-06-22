@@ -59,7 +59,6 @@ public class PreferenceSection: NSStackView {
             }
         }
 
-
         let itemStack = ConstrainingStackView(orientation: orientation, alignment: itemAlignment, views: itemViews)
         itemStack.distribution = .fill
         itemStack.spacing = spacing ?? (orientation == .vertical ? 7 : 12)

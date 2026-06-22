@@ -89,6 +89,11 @@ class ViewController: NSViewController {
                 },
             ]),
             Separator(),
+            PreferenceSection(title: "Ignored words:", footer: "Scribe won't flag these words while checking spelling.", views: [
+                TokenField(tokens: ["Scribe", "Markdown", "Appleseed"]) { tokens in
+                },
+            ]),
+            Separator(),
             PreferenceSection(title: "Signature:", footer: "Appended to the end of documents you export or share.", views: [
                 signature,
             ]),
@@ -106,6 +111,11 @@ class ViewController: NSViewController {
                     ColorWell(color: .systemIndigo, style: .default) { color in
                     }
                 ]),
+            ]),
+            Separator(),
+            PreferenceSection(title: "Show notes as:", views: [
+                SegmentedControl(items: ["List", "Grid", "Gallery"].map { .init(title: $0) }, selectedIndex: 0) { index in
+                },
             ]),
             Separator(),
             PreferenceSection(title: "App icon:", footer: "Pick the icon Scribe uses in the Dock and Launchpad.", views: [
@@ -158,6 +168,10 @@ class ViewController: NSViewController {
         ].map { Label(string: $0) })
         devices.widthAnchor.constraint(equalToConstant: 240).isActive = true
 
+        let deviceFilter = SearchField(placeholder: "Filter devices") { text in
+        }
+        deviceFilter.widthAnchor.constraint(equalToConstant: 240).isActive = true
+
         let account = PreferenceList(style: .center, views: [
             PreferenceSection(orientation: .horizontal, alignment: .centerY, spacing: 12, views: [
                 avatar,
@@ -174,11 +188,15 @@ class ViewController: NSViewController {
                 ]),
             ]),
             Separator(),
+            PreferenceSection(title: "iCloud sync:", orientation: .horizontal, spacing: 8, views: [
+                StatusIndicator(state: .active, title: "Up to date"),
+            ]),
             PreferenceSection(title: "iCloud storage:", footer: "6.2 GB of 10 GB used.", views: [
                 storage,
             ]),
             Separator(),
             PreferenceBlock(footer: "These devices are currently signed in to your account.", views: [
+                deviceFilter,
                 devices,
             ]),
             PreferenceButtonSection(buttons: [
@@ -186,6 +204,58 @@ class ViewController: NSViewController {
                 },
             ], onHelp: {
             }),
+        ])
+
+        // MARK: Backups
+
+        let backupProgress = ProgressIndicator(style: .bar, value: 0.65)
+        backupProgress.widthAnchor.constraint(equalToConstant: 180).isActive = true
+
+        let backupFormat = ComboBox(items: ["Zip archive", "Folder", "Encrypted archive"], value: "Zip archive") { format in
+        }
+        backupFormat.widthAnchor.constraint(equalToConstant: 160).isActive = true
+
+        let keepValue = Label(string: "5")
+        let keep = Stepper(value: 5, minValue: 1, maxValue: 20) { value in
+            keepValue.stringValue = "\(Int(value))"
+        }
+
+        let backups = PreferenceList(style: .center, views: [
+            PreferenceSection(title: "Automatic backups:", footer: "Scribe backs up your notes on the schedule below.", views: [
+                Switch(isOn: true) { isOn in
+                },
+            ]),
+            PreferenceGroup(items: [
+                .init(title: "Frequency:", views: [
+                    PopUp(items: ["Hourly", "Daily", "Weekly"].map { .init(title: $0) }, selectedIndex: 1) { index, title in
+                    }
+                ]),
+                .init(title: "Keep last:", views: [
+                    keep,
+                    keepValue,
+                    Label(string: "backups"),
+                ]),
+                .init(title: "Format:", views: [
+                    backupFormat,
+                ]),
+            ]),
+            Separator(),
+            PreferenceSection(title: "Location:", footer: "Where backup archives are written.", views: [
+                PathControl(url: URL(fileURLWithPath: "/Users/Backups")) { url in
+                },
+            ]),
+            Separator(),
+            PreferenceSection(title: "Last backup:", orientation: .horizontal, alignment: .centerY, spacing: 16, views: [
+                StatusIndicator(state: .active, title: "2 hours ago"),
+                backupProgress,
+            ]),
+            Separator(),
+            DisclosureGroup(title: "Advanced", views: [
+                Checkbox(title: "Include attachments", isOn: true) { _ in
+                },
+                Checkbox(title: "Verify backups after writing", isOn: false) { _ in
+                },
+            ]),
         ])
 
         // MARK: Tabs
@@ -197,6 +267,7 @@ class ViewController: NSViewController {
                 .init(title: "Appearance", views: [ appearance ]),
                 .init(title: "Reminders", views: [ reminders ]),
                 .init(title: "Account", views: [ account ]),
+                .init(title: "Backups", views: [ backups ]),
             ]) { index in
             },
         ])
@@ -210,7 +281,7 @@ class ViewController: NSViewController {
             list.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
         
-        preferredContentSize = CGSize(width: 500, height: view.fittingSize.height)
+        preferredContentSize = CGSize(width: 600, height: view.fittingSize.height)
     }
 
 }

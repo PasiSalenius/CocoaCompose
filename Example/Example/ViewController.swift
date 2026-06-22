@@ -214,6 +214,8 @@ class ViewController: NSViewController {
             list.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             list.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
+        
+        preferredContentSize = CGSize(width: 500, height: view.fittingSize.height)
     }
 
     // An empty view with the lowest vertical hugging priority. As the last item in a vertical

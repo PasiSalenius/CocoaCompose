@@ -33,7 +33,7 @@ public class Radio: ConstrainingStackView {
         self.currentIndex = selectedIndex
         self.onChange = onChange
 
-        super.init(orientation: .vertical, alignment: .width, views: [])
+        super.init(orientation: .vertical, alignment: .leading, views: [])
 
         self.distribution = .fill
         self.spacing = spacing
@@ -41,7 +41,7 @@ public class Radio: ConstrainingStackView {
         for index in 0 ..< items.count {
             let item = items[index]
             
-            let itemStack = ConstrainingStackView(orientation: .vertical, alignment: .width, views: [])
+            let itemStack = ConstrainingStackView(orientation: .vertical, alignment: .leading, views: [])
             itemStack.distribution = .fill
             itemStack.spacing = 7
 
@@ -67,24 +67,35 @@ public class Radio: ConstrainingStackView {
                 
                 itemStack.addArrangedSubview(buttonRow)
 
+            } else if item.orientation == .vertical {
+                let buttonRow = NSStackView(views: [button, .flexibleSpacer()])
+                buttonRow.orientation = .horizontal
+                buttonRow.spacing = 0
+
+                let contentStack = NSStackView()
+                contentStack.distribution = .fill
+                contentStack.orientation = .vertical
+                contentStack.alignment = .leading
+                contentStack.spacing = 7
+                contentStack.addArrangedSubviews(item.views)
+                contentStack.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
+                let stackView = NSStackView(views: [buttonRow, indentedRow(with: contentStack)])
+                stackView.distribution = .fill
+                stackView.orientation = .vertical
+                stackView.alignment = .width
+                stackView.spacing = 7
+
+                itemStack.addArrangedSubview(stackView)
+
             } else {
                 let stackView = NSStackView()
                 stackView.distribution = .fill
-                stackView.orientation = item.orientation
-                stackView.alignment = item.orientation == .vertical ? .leading : .firstBaseline
-                stackView.spacing = item.orientation == .vertical ? 7 : 10
+                stackView.orientation = .horizontal
+                stackView.alignment = .firstBaseline
+                stackView.spacing = 10
 
-                if item.orientation == .vertical {
-                    let buttonRow = NSStackView(views: [button, .flexibleSpacer()])
-                    buttonRow.orientation = .horizontal
-                    buttonRow.spacing = 0
-
-                    stackView.addArrangedSubview(buttonRow)
-                    
-                } else {
-                    stackView.addArrangedSubview(button)
-                }
-                
+                stackView.addArrangedSubview(button)
                 stackView.addArrangedSubviews(item.views)
 
                 itemStack.addArrangedSubview(stackView)
@@ -103,23 +114,7 @@ public class Radio: ConstrainingStackView {
                     itemStack.setCustomSpacing(footerSpacing, after: contentView)
                 }
 
-                if item.views.isEmpty || item.orientation == .horizontal {
-                    // Indent the footer so it lines up with the title text after the radio circle.
-                    // Horizontal views share the button's row, so the footer still sits directly below
-                    // the title; vertical views stack between the title and footer, so it is not indented.
-                    let spacer = NSView()
-                    spacer.addConstraint(spacer.widthAnchor.constraint(equalToConstant: radioWidth))
-
-                    let footerRow = NSStackView(views: [spacer, footerLabel])
-                    footerRow.orientation = .horizontal
-                    footerRow.distribution = .fill
-                    footerRow.spacing = 0
-
-                    itemStack.addArrangedSubview(footerRow)
-
-                } else {
-                    itemStack.addArrangedSubview(footerLabel)
-                }
+                itemStack.addArrangedSubview(indentedRow(with: footerLabel))
             }
             
             addArrangedSubview(itemStack)
@@ -131,7 +126,21 @@ public class Radio: ConstrainingStackView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    // Indents content so it lines up with the title text after the radio circle.
+    private func indentedRow(with view: NSView) -> NSStackView {
+        let spacer = NSView()
+        spacer.addConstraint(spacer.widthAnchor.constraint(equalToConstant: radioWidth))
+
+        let row = NSStackView(views: [spacer, view])
+        row.orientation = .horizontal
+        row.distribution = .fill
+        row.spacing = 0
+
+        return row
+    }
+
+
     public var isEnabled: Bool = true {
         didSet {
             for index in 0 ..< items.count {

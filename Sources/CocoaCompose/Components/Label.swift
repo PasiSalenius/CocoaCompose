@@ -4,8 +4,8 @@ public class Label: NSTextField {
     public init(string: String? = nil, attributedString: NSAttributedString? = nil) {
         super.init(frame: .zero)
         
-        if let string = attributedString {
-            attributedStringValue = string
+        if let attributedString {
+            attributedStringValue = attributedString
         } else {
             stringValue = string ?? ""
         }
@@ -22,5 +22,23 @@ public class Label: NSTextField {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func setAttributes(_ attributes: [NSAttributedString.Key: Any], forSubstring substring: String) {
+        let range = NSString(string: stringValue).range(of: substring)
+        
+        guard range.location != NSNotFound else { return }
+        
+        setAttributes(attributes, range: range)
+    }
+    
+    public func setAttributes(_ attributes: [NSAttributedString.Key: Any], range: NSRange) {
+        let string = NSMutableAttributedString(attributedString: attributedStringValue)
+        
+        guard range.location != NSNotFound, NSMaxRange(range) <= string.length else { return }
+        
+        string.addAttributes(attributes, range: range)
+        
+        attributedStringValue = string
     }
 }

@@ -57,6 +57,10 @@ public class PreferenceSection: NSStackView {
             } else {
                 itemViews = views
             }
+
+        @unknown default:
+            itemAlignment = .leading
+            itemViews = views
         }
 
         let itemStack = ConstrainingStackView(orientation: orientation, alignment: itemAlignment, views: itemViews)
